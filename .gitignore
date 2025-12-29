@@ -118,3 +118,19 @@ docs/.doctrees/
 # Build artifacts
 *.tar.gz
 *.whl
+
+# Data files (exclude large data, allow small reference files)
+**/data/*.csv
+**/data/*.xlsx
+**/data/*.xls
+**/data/*.db
+**/data/*.sqlite
+**/data/*.h5
+**/data/*.hdf5
+**/data/*.parquet
+**/data/*.feather
+**/data/*.pickle
+**/data/*.pkl
+# Allow small reference data files (uncomment specific patterns as needed)
+# !**/data/*_reference.json
+# !**/data/*_constants.json
