@@ -1,0 +1,105 @@
+name: Feature Request
+description: Suggest a new calculation or feature
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Please describe what you'd like to see.
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      description: Which module should this feature be added to?
+      options:
+        - Thermodynamics
+        - Fluid Mechanics
+        - Heat Transfer
+        - Reactions
+        - Separations
+        - Equipment Sizing
+        - New Module
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Feature Type
+      description: What kind of feature is this?
+      options:
+        - New Calculation/Correlation
+        - New Chemical Compound
+        - API Enhancement
+        - Web UI Improvement
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Clear description of the proposed feature
+      placeholder: "Add the Soave-Redlich-Kwong equation of state to the thermodynamics module"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Why is this feature needed? What problem does it solve?
+      placeholder: "SRK is widely used in petroleum industry and has better accuracy for polar compounds compared to Peng-Robinson"
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Literature References
+      description: |
+        Please provide references for the calculation method or data.
+        IMPORTANT: Only public domain or openly licensed sources (NIST, published papers, textbooks)
+      placeholder: |
+        - Soave, G. (1972). Chemical Engineering Science, 27(6), 1197-1203
+        - Smith, Van Ness, Abbott. Introduction to Chemical Engineering Thermodynamics, 7th ed.
+    validations:
+      required: false
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation Data
+      description: Can you provide example values for validation testing?
+      placeholder: |
+        Example from literature:
+        - Compound: Propane
+        - T = 300 K, P = 10 bar
+        - Expected Z = 0.892 (Source: NIST WebBook)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Are you willing to contribute?
+      description: Would you like to implement this feature yourself?
+      options:
+        - "Yes, I can submit a PR"
+        - "Maybe, with guidance"
+        - "No, just suggesting"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information about the feature
+    validations:
+      required: false

@@ -1,0 +1,56 @@
+name: Question
+description: Ask a question about using ChemEng Toolbox
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question? Please check the [documentation](https://github.com/ChE-Toolbox/che-toolbox/tree/main/docs) first.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What is your question about?
+      options:
+        - Installation
+        - Usage (Python Library)
+        - Usage (Web Interface)
+        - Usage (API)
+        - Calculation Results
+        - Data Sources
+        - Contributing
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: "How do I convert units when using the Peng-Robinson calculator?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: What have you tried?
+      description: What steps have you already taken to solve this?
+      placeholder: |
+        - Checked the documentation
+        - Searched existing issues
+        - Tried this code: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Example (if applicable)
+      description: Share any relevant code
+      render: python
+    validations:
+      required: false

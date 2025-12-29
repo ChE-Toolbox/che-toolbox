@@ -1,0 +1,101 @@
+name: Bug Report
+description: Report a bug or calculation error
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please provide as much detail as possible.
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module
+      description: Which module is affected?
+      options:
+        - Thermodynamics
+        - Fluid Mechanics
+        - Heat Transfer
+        - Reactions
+        - Separations
+        - Equipment Sizing
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear description of the bug
+      placeholder: "Example: The Peng-Robinson EOS returns incorrect Z factor for methane at critical conditions"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        ```python
+        from chemeng.thermo import PengRobinson
+        pr = PengRobinson("methane")
+        result = pr.calculate(T=190.564, P=4.5992e6)
+        print(result.Z)  # Expected: 0.286, Got: 0.300
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: "Z factor should be 0.286 according to Smith, Van Ness, Abbott Table B.1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: "Z factor returned is 0.300"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of chemeng-toolbox are you using?
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        examples:
+          - **OS**: Ubuntu 22.04
+          - **Python**: 3.11.5
+          - **NumPy**: 1.24.4
+      value: |
+        - OS:
+        - Python:
+        - NumPy:
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any additional information that might help diagnose the issue
+    validations:
+      required: false
