@@ -1,0 +1,55 @@
+name: type-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: |
+          uv pip install --system ty
+
+      - name: Install packages
+        run: |
+          cd packages/core && uv pip install --system -e . && cd ../..
+          cd packages/thermo && uv pip install --system -e . && cd ../..
+          cd packages/fluids && uv pip install --system -e . && cd ../..
+          cd packages/heat && uv pip install --system -e . && cd ../..
+
+      - name: Type check with ty (core)
+        run: |
+          cd packages/core
+          ty src/
+
+      - name: Type check with ty (thermo)
+        run: |
+          cd packages/thermo
+          ty src/
+
+      - name: Type check with ty (fluids)
+        run: |
+          cd packages/fluids
+          ty src/
+
+      - name: Type check with ty (heat)
+        run: |
+          cd packages/heat
+          ty src/
