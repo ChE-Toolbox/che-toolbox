@@ -21,7 +21,7 @@
 
 ## Document Structure
 
-### 1. [che_toolbox_plan.md](che_toolbox_plan.md)
+### 1. [che_toolbox_plan.md](docs/planning/che_toolbox_plan.md)
 **Main planning document**
 - Project principles and scope
 - Feature matrix (8 modules, ~200 calculations)
@@ -35,7 +35,7 @@
 
 ---
 
-### 2. [che_toolbox_architecture.md](che_toolbox_architecture.md)
+### 2. [che_toolbox_architecture.md](docs/planning/che_toolbox_architecture.md)
 **System architecture (cost-optimized)**
 - Three-tier deployment: Python library → Static web → Optional API
 - Free tier architecture (GitHub Pages + AWS Lambda)
@@ -48,7 +48,7 @@
 
 ---
 
-### 3. [che_toolbox_deployment.md](che_toolbox_deployment.md)
+### 3. [che_toolbox_deployment.md](docs/planning/che_toolbox_deployment.md)
 **Deployment guide**
 - Option 1: Static site only (FREE, GitHub Pages)
 - Option 2: With backend API (AWS free tier, $0-5/month)
@@ -62,7 +62,7 @@
 
 ---
 
-### 4. [che_toolbox_additional.md](che_toolbox_additional.md)
+### 4. [che_toolbox_additional.md](docs/planning/che_toolbox_additional.md)
 **Additional considerations**
 - Testing strategy (80% unit, 15% validation, 5% integration)
 - Validation testing examples (compare to literature)
@@ -260,7 +260,7 @@ curl -X POST https://api.example.com/v1/thermo/eos/calculate \
 
 ## Contributing
 
-See [che_toolbox_additional.md](che_toolbox_additional.md#community-contributions) for detailed contribution guidelines.
+See [che_toolbox_additional.md](docs/planning/che_toolbox_additional.md#community-contributions) for detailed contribution guidelines.
 
 **Quick Contribution:**
 1. Fork repo
@@ -294,7 +294,7 @@ MIT License - see LICENSE file
 
 ## Roadmap
 
-See [che_toolbox_plan.md](che_toolbox_plan.md#part-11-future-roadmap) for detailed roadmap.
+See [che_toolbox_plan.md](docs/planning/che_toolbox_plan.md#part-11-future-roadmap) for detailed roadmap.
 
 **Next Steps:**
 1. ✅ Planning documents complete
