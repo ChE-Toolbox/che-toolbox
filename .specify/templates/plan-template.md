@@ -31,7 +31,17 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Verify compliance with [ChemEng Toolbox Constitution](../../.specify/memory/constitution.md):
+
+- [ ] **I. Library-First**: Feature starts as standalone library in `packages/core/src/`
+- [ ] **II. Multi-Interface**: Plan includes Python API, CLI, and web interface
+- [ ] **III. Validation-First**: Literature sources identified for validation tests
+- [ ] **IV. Public Domain Data**: All data sources are openly licensed (NIST, CoolProp, etc.)
+- [ ] **V. Cost-Free**: No paid services introduced (stays within free tiers)
+- [ ] **VI. Developer Productivity**: Clear structure, type hints, documentation, best-effort support
+- [ ] **VII. Simplicity**: No over-engineering, YAGNI principle applied
+
+**Violations**: Document any principle violations in Complexity Tracking section below with justification.
 
 ## Project Structure
 
