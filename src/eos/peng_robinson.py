@@ -2,10 +2,15 @@
 
 import logging
 import math
+import warnings
 from typing import Optional
+
+from scipy.optimize import brentq
 
 from ..compounds.models import Compound
 from .cubic_solver import solve_cubic
+from .exceptions import ConvergenceWarning
+from .mixing_rules import calculate_a_mix, calculate_b_mix
 from .models import Mixture, PhaseType, ThermodynamicState
 
 logger = logging.getLogger(__name__)
@@ -281,6 +286,130 @@ class PengRobinsonEOS:
         # Two real roots - use largest Z for vapor, smallest for liquid
         logger.debug(f"Two real Z factors: {z_factors}")
         return PhaseType.TWO_PHASE
+
+    def _fugacity_residual(
+        self,
+        pressure: float,
+        temperature: float,
+        compound: Compound,
+    ) -> float:
+        """Calculate residual for fugacity equality (vapor - liquid).
+
+        Used for vapor pressure iteration.
+
+        Parameters
+        ----------
+        pressure : float
+            Pressure in Pa
+        temperature : float
+            Temperature in K
+        compound : Compound
+            Compound object
+
+        Returns
+        -------
+        float
+            Residual (f_vapor - f_liquid)
+        """
+        try:
+            phi_v = self.calculate_fugacity_coefficient(temperature, pressure, compound, phase=PhaseType.VAPOR)
+            phi_l = self.calculate_fugacity_coefficient(temperature, pressure, compound, phase=PhaseType.LIQUID)
+
+            # Fugacity residual: f_v - f_l = pressure * (phi_v - phi_l)
+            residual = phi_v - phi_l
+
+            return residual
+        except Exception as e:
+            logger.debug(f"Error calculating fugacity residual at P={pressure}: {e}")
+            return float("nan")
+
+    def calculate_vapor_pressure(
+        self, temperature: float, compound: Compound, max_iterations: int = 100
+    ) -> float:
+        """Calculate saturation pressure at given temperature.
+
+        Uses SciPy Brent's method to find pressure where f_vapor = f_liquid.
+
+        Parameters
+        ----------
+        temperature : float
+            Temperature in K
+        compound : Compound
+            Compound object
+        max_iterations : int
+            Maximum iterations for Brent's method (default 100)
+
+        Returns
+        -------
+        float
+            Saturation pressure in Pa
+
+        Raises
+        ------
+        ValueError
+            If temperature is at or above critical temperature
+        ConvergenceWarning
+            If convergence fails after max_iterations
+        """
+        logger.debug(f"Calculating vapor pressure for {compound.name} at T={temperature}K")
+
+        # Check for supercritical conditions
+        if temperature >= compound.tc:
+            raise ValueError(
+                f"Temperature {temperature}K >= critical temperature {compound.tc}K. "
+                f"No vapor pressure exists above critical point."
+            )
+
+        # Bracket for Brent's method: [1e-6*Pc, 0.999*Pc]
+        p_lower = max(1e-6 * compound.pc, 1.0)  # At least 1 Pa
+        p_upper = 0.999 * compound.pc
+
+        logger.debug(f"Vapor pressure bracket: {p_lower:.2e} Pa to {p_upper:.2e} Pa")
+
+        try:
+            # Use Brent's method to find root of residual function
+            p_sat = brentq(
+                self._fugacity_residual,
+                p_lower,
+                p_upper,
+                args=(temperature, compound),
+                maxiter=max_iterations,
+                xtol=1.0,  # 1 Pa tolerance
+            )
+
+            logger.info(
+                f"Vapor pressure for {compound.name} at T={temperature}K: "
+                f"P_sat={p_sat:.2e} Pa ({p_sat/1e5:.4f} bar)"
+            )
+
+            return p_sat
+
+        except ValueError as e:
+            # Convergence failed
+            logger.warning(f"Vapor pressure convergence failed: {e}")
+
+            # Try to get best estimate from residuals at bracket endpoints
+            try:
+                residual_lower = abs(self._fugacity_residual(p_lower, temperature, compound))
+                residual_upper = abs(self._fugacity_residual(p_upper, temperature, compound))
+
+                best_estimate = p_lower if residual_lower < residual_upper else p_upper
+                best_residual = min(residual_lower, residual_upper)
+
+                warning = ConvergenceWarning(
+                    f"Vapor pressure iteration failed to converge for {compound.name} at {temperature}K. "
+                    f"Best estimate: {best_estimate:.2e} Pa with residual {best_residual:.4e}",
+                    best_estimate=best_estimate,
+                    residual=best_residual,
+                )
+                warnings.warn(warning)
+
+                return best_estimate
+            except Exception as fallback_error:
+                logger.error(f"Could not find best estimate: {fallback_error}")
+                raise ValueError(
+                    f"Could not calculate vapor pressure for {compound.name} at {temperature}K"
+                ) from e
 
     def calculate_state(
         self, temperature: float, pressure: float, compound: Compound

@@ -1,9 +1,12 @@
 """Core data models for thermodynamic calculations."""
 
 from enum import Enum
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from pydantic import BaseModel, Field, field_validator, model_validator
+
+if TYPE_CHECKING:
+    from .peng_robinson import PengRobinsonEOS  # noqa: F401
 
 
 class PhaseType(str, Enum):

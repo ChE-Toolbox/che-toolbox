@@ -83,11 +83,11 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 ### Implementation for User Story 2
 
-- [ ] T026 [US2] Implement fugacity equality residual function in src/eos/peng_robinson.py: calculate residual for vapor pressure iteration (f_vapor - f_liquid)
-- [ ] T027 [US2] Implement vapor pressure calculation using SciPy brentq in src/eos/peng_robinson.py: method PengRobinsonEOS.calculate_vapor_pressure(T, compound) with bracket [1e-6*Pc, 0.999*Pc], max_iterations=100
-- [ ] T028 [US2] Add convergence failure handling in calculate_vapor_pressure(): raise ConvergenceWarning with best estimate after max_iterations
-- [ ] T029 [US2] Add validation for supercritical conditions: raise ValueError if T ≥ Tc (no vapor pressure exists)
-- [ ] T030 [US2] Extend calculate_state() to include vapor pressure calculation for subcritical pure components
+- [X] T026 [US2] Implement fugacity equality residual function in src/eos/peng_robinson.py: calculate residual for vapor pressure iteration (f_vapor - f_liquid)
+- [X] T027 [US2] Implement vapor pressure calculation using SciPy brentq in src/eos/peng_robinson.py: method PengRobinsonEOS.calculate_vapor_pressure(T, compound) with bracket [1e-6*Pc, 0.999*Pc], max_iterations=100
+- [X] T028 [US2] Add convergence failure handling in calculate_vapor_pressure(): raise ConvergenceWarning with best estimate after max_iterations
+- [X] T029 [US2] Add validation for supercritical conditions: raise ValueError if T ≥ Tc (no vapor pressure exists)
+- [X] T030 [US2] Extend calculate_state() to include vapor pressure calculation for subcritical pure components
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - can calculate properties and vapor pressure
 
@@ -101,14 +101,14 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 ### Implementation for User Story 3
 
-- [ ] T031 [P] [US3] Implement van der Waals mixing rule for parameter 'a' in src/eos/mixing_rules.py: calculate_a_mix(compounds, mole_fractions, T, kij_matrix) with geometric mean a_ij = (1-kij)*sqrt(ai*aj)
-- [ ] T032 [P] [US3] Implement van der Waals mixing rule for parameter 'b' in src/eos/mixing_rules.py: calculate_b_mix(compounds, mole_fractions) = Σ xi*bi
-- [ ] T033 [US3] Implement Mixture.from_names() class method in src/eos/models.py to construct mixture from compound names using CompoundDatabase
-- [ ] T034 [US3] Extend PengRobinsonEOS.calculate_z_factor() to handle Mixture composition using mixing rules
-- [ ] T035 [US3] Extend PengRobinsonEOS.calculate_fugacity_coefficient() to handle Mixture composition and return component fugacity coefficients
-- [ ] T036 [US3] Add composition validation in Mixture model: verify mole fractions sum to 1.0±1e-6, no negative values, no NaN
-- [ ] T037 [US3] Add binary interaction parameter validation: verify -0.5 < kij < 0.5, ensure symmetry (kij = kji)
-- [ ] T038 [US3] Create data/binary_interaction_params.json with literature kij values for common pairs (methane-ethane, methane-propane, ethane-propane)
+- [X] T031 [P] [US3] Implement van der Waals mixing rule for parameter 'a' in src/eos/mixing_rules.py: calculate_a_mix(compounds, mole_fractions, T, kij_matrix) with geometric mean a_ij = (1-kij)*sqrt(ai*aj)
+- [X] T032 [P] [US3] Implement van der Waals mixing rule for parameter 'b' in src/eos/mixing_rules.py: calculate_b_mix(compounds, mole_fractions) = Σ xi*bi
+- [X] T033 [US3] Implement Mixture.from_names() class method in src/eos/models.py to construct mixture from compound names using CompoundDatabase
+- [X] T034 [US3] Extend PengRobinsonEOS.calculate_z_factor() to handle Mixture composition using mixing rules
+- [X] T035 [US3] Extend PengRobinsonEOS.calculate_fugacity_coefficient() to handle Mixture composition and return component fugacity coefficients
+- [X] T036 [US3] Add composition validation in Mixture model: verify mole fractions sum to 1.0±1e-6, no negative values, no NaN
+- [X] T037 [US3] Add binary interaction parameter validation: verify -0.5 < kij < 0.5, ensure symmetry (kij = kji)
+- [X] T038 [US3] Create data/binary_interaction_params.json with literature kij values for common pairs (methane-ethane, methane-propane, ethane-propane)
 
 **Checkpoint**: All calculation user stories (1-3) should now be independently functional
 

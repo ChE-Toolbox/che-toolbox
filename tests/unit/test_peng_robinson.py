@@ -122,3 +122,25 @@ class TestPengRobinsonEOS:
         """Test that invalid critical temperature raises error."""
         with pytest.raises(ValueError, match="Critical temperature"):
             eos.calculate_b(-190.564, 4599200.0)
+
+    def test_calculate_vapor_pressure(self, eos: PengRobinsonEOS, methane: Compound) -> None:
+        """Test vapor pressure calculation."""
+        # Calculate at 200 K (well below critical temp 190.564 K... wait that's wrong)
+        # Use 150 K which is below critical
+        psat = eos.calculate_vapor_pressure(150.0, methane)
+        assert psat > 0
+        assert psat < methane.pc
+
+    def test_calculate_vapor_pressure_supercritical(
+        self, eos: PengRobinsonEOS, methane: Compound
+    ) -> None:
+        """Test that supercritical temperature raises error."""
+        with pytest.raises(ValueError, match="critical"):
+            eos.calculate_vapor_pressure(methane.tc + 10, methane)
+
+    def test_calculate_vapor_pressure_at_critical_temp(
+        self, eos: PengRobinsonEOS, methane: Compound
+    ) -> None:
+        """Test that at critical temperature raises error."""
+        with pytest.raises(ValueError, match="critical"):
+            eos.calculate_vapor_pressure(methane.tc, methane)
