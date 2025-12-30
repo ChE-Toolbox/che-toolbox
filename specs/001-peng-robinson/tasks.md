@@ -155,10 +155,10 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 ### Python API Finalization
 
-- [ ] T055 Setup public API exports in src/eos/__init__.py: export PengRobinsonEOS, PhaseType
-- [ ] T056 [P] Setup public API exports in src/compounds/__init__.py: export CompoundDatabase, Compound
-- [ ] T057 [P] Setup public API exports in src/eos/models.py: export Mixture, ThermodynamicState
-- [ ] T058 [P] Setup public API exports in src/validation/__init__.py: export NISTValidation (for advanced users)
+- [X] T055 Setup public API exports in src/eos/__init__.py: export PengRobinsonEOS, PhaseType
+- [X] T056 [P] Setup public API exports in src/compounds/__init__.py: export CompoundDatabase, Compound
+- [X] T057 [P] Setup public API exports in src/eos/models.py: export Mixture, ThermodynamicState
+- [X] T058 [P] Setup public API exports in src/validation/__init__.py: export NISTValidation (for advanced users)
 
 ### CLI Implementation (Contracts from contracts/cli_interface.md)
 
