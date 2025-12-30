@@ -108,55 +108,55 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 ### Models (Pydantic Entities)
 
-- [ ] T030 [US1] Create `src/heat_calc/models/lmtd_input.py` with: `FluidState`, `HeatExchangerConfiguration`, `LMTDInput` classes per data-model.md
-- [ ] T031 [US1] Create `src/heat_calc/models/lmtd_results.py` with: `LMTDResult` class with heat_transfer_rate, LMTD_arithmetic, LMTD_effective, energy_balance validation fields
-- [ ] T032 [US1] [P] Add Pydantic validators to `LMTDResult`: ensure LMTD_effective ≤ LMTD_arithmetic, energy_balance_error_percent < 1%, handle NaN/Inf guards
+- [x] T030 [US1] Create `src/heat_calc/models/lmtd_input.py` with: `FluidState`, `HeatExchangerConfiguration`, `LMTDInput` classes per data-model.md
+- [x] T031 [US1] Create `src/heat_calc/models/lmtd_results.py` with: `LMTDResult` class with heat_transfer_rate, LMTD_arithmetic, LMTD_effective, energy_balance validation fields
+- [x] T032 [US1] [P] Add Pydantic validators to `LMTDResult`: ensure LMTD_effective ≤ LMTD_arithmetic, energy_balance_error_percent < 1%, handle NaN/Inf guards
 
 ### Core Calculation Function
 
-- [ ] T033 [US1] Create `src/heat_calc/lmtd.py` with function stub: `calculate_lmtd(input_data: LMTDInput) -> LMTDResult`
-- [ ] T034 [US1] Implement LMTD logarithmic mean calculation: `LMTD = (ΔT1 - ΔT2) / ln(ΔT1 / ΔT2)` with epsilon guard for small differences
-- [ ] T035 [US1] [P] Implement counterflow configuration: LMTD formula for counterflow, F_correction factor application (F=1.0 for ideal counterflow)
-- [ ] T036 [US1] [P] Implement parallel flow configuration: LMTD formula for parallel, F_correction from input (typical F=0.75-0.85)
-- [ ] T037 [US1] Implement crossflow configuration: LMTD formula for unmixed/unmixed, unmixed/mixed, mixed/mixed options
-- [ ] T038 [US1] [P] Implement heat transfer rate calculation: `Q = UA × F × LMTD` where U from properties module, A from input
-- [ ] T039 [US1] [P] Implement energy balance validation: calculate `Q_hot = mdot_h × cp_h × ΔT_h` and `Q_cold = mdot_c × cp_c × ΔT_c`, verify < 1% error
-- [ ] T040 [US1] Implement edge case handling: guard against LMTD → 0 (parallel flow with equal temps), retrograde flow (T_outlet > T_inlet for hot), return error with guidance
+- [x] T033 [US1] Create `src/heat_calc/lmtd.py` with function stub: `calculate_lmtd(input_data: LMTDInput) -> LMTDResult`
+- [x] T034 [US1] Implement LMTD logarithmic mean calculation: `LMTD = (ΔT1 - ΔT2) / ln(ΔT1 / ΔT2)` with epsilon guard for small differences
+- [x] T035 [US1] [P] Implement counterflow configuration: LMTD formula for counterflow, F_correction factor application (F=1.0 for ideal counterflow)
+- [x] T036 [US1] [P] Implement parallel flow configuration: LMTD formula for parallel, F_correction from input (typical F=0.75-0.85)
+- [x] T037 [US1] Implement crossflow configuration: LMTD formula for unmixed/unmixed, unmixed/mixed, mixed/mixed options
+- [x] T038 [US1] [P] Implement heat transfer rate calculation: `Q = UA × F × LMTD` where U from properties module, A from input
+- [x] T039 [US1] [P] Implement energy balance validation: calculate `Q_hot = mdot_h × cp_h × ΔT_h` and `Q_cold = mdot_c × cp_c × ΔT_c`, verify < 1% error
+- [x] T040 [US1] Implement edge case handling: guard against LMTD → 0 (parallel flow with equal temps), retrograde flow (T_outlet > T_inlet for hot), return error with guidance
 
 ### Unit Tests
 
-- [ ] T041 [US1] Create `tests/unit/test_lmtd.py` with test structure and helper functions
-- [ ] T042 [US1] [P] Test counterflow LMTD calculation: basic case, symmetrical temps, asymmetrical temps
-- [ ] T043 [US1] [P] Test parallel flow LMTD calculation: all three configurations (unmixed/unmixed, etc.)
-- [ ] T044 [US1] [P] Test crossflow configurations: unmixed/unmixed, mixed/unmixed options
-- [ ] T045 [US1] Test correction factor application: F in [0, 1], LMTD_effective validation
-- [ ] T046 [US1] [P] Test energy balance: hot and cold side Q values match within tolerance, error_percent < 1%
-- [ ] T047 [US1] Test edge cases: near-zero ΔT, inverted temps (hot < cold), retrograde flow detection
+- [x] T041 [US1] Create `tests/unit/test_lmtd.py` with test structure and helper functions
+- [x] T042 [US1] [P] Test counterflow LMTD calculation: basic case, symmetrical temps, asymmetrical temps
+- [x] T043 [US1] [P] Test parallel flow LMTD calculation: all three configurations (unmixed/unmixed, etc.)
+- [x] T044 [US1] [P] Test crossflow configurations: unmixed/unmixed, mixed/unmixed options
+- [x] T045 [US1] Test correction factor application: F in [0, 1], LMTD_effective validation
+- [x] T046 [US1] [P] Test energy balance: hot and cold side Q values match within tolerance, error_percent < 1%
+- [x] T047 [US1] Test edge cases: near-zero ΔT, inverted temps (hot < cold), retrograde flow detection
 
 ### Validation Tests (Literature)
 
-- [ ] T048 [US1] Create `tests/validation/test_lmtd_incropera.py` with Incropera test case loading
-- [ ] T049 [US1] [P] Implement validation test loop: load reference cases from JSON, calculate, compare within tolerance
-- [ ] T050 [US1] [P] Test validation: Incropera Example 10.1-10.5 (or available page numbers), 100% pass rate required
-- [ ] T051 [US1] Test validation: at least 5 different configurations (counterflow, parallel, crossflow variants), all within 1% tolerance
+- [x] T048 [US1] Create `tests/validation/test_lmtd_incropera.py` with Incropera test case loading
+- [x] T049 [US1] [P] Implement validation test loop: load reference cases from JSON, calculate, compare within tolerance
+- [x] T050 [US1] [P] Test validation: Incropera Example 10.1-10.5 (or available page numbers), 100% pass rate required
+- [x] T051 [US1] Test validation: at least 5 different configurations (counterflow, parallel, crossflow variants), all within 1% tolerance
 
 ### CLI Implementation
 
-- [ ] T052 [US1] Implement `calculate-lmtd` CLI command in `src/heat_calc/cli/main.py`: argument parser for input file
-- [ ] T053 [US1] [P] Implement `calculate-lmtd` input validation: detect JSON vs YAML, parse Quantity strings (e.g., "100 degC")
-- [ ] T054 [US1] [P] Implement `calculate-lmtd` output formatting: --format json (default), --format yaml, --format table (human-readable)
-- [ ] T055 [US1] [P] Implement `calculate-lmtd` error handling: exit code 1 for input errors, 2 for calculation errors, 0 for success
-- [ ] T056 [US1] Test CLI: provide test input files (test_lmtd_counterflow.json, test_lmtd_parallel.json, test_lmtd_crossflow.json)
+- [x] T052 [US1] Implement `calculate-lmtd` CLI command in `src/heat_calc/cli/main.py`: argument parser for input file
+- [x] T053 [US1] [P] Implement `calculate-lmtd` input validation: detect JSON vs YAML, parse Quantity strings (e.g., "100 degC")
+- [x] T054 [US1] [P] Implement `calculate-lmtd` output formatting: --format json (default), --format yaml, --format table (human-readable)
+- [x] T055 [US1] [P] Implement `calculate-lmtd` error handling: exit code 1 for input errors, 2 for calculation errors, 0 for success
+- [x] T056 [US1] Test CLI: provide test input files (test_lmtd_counterflow.json, test_lmtd_parallel.json, test_lmtd_crossflow.json)
 
 ### Final Integration
 
-- [ ] T057 [US1] Update `src/heat_calc/__init__.py` to export: `calculate_lmtd`, `LMTDInput`, `LMTDResult`
-- [ ] T058 [US1] [P] Run full mypy check: zero errors on lmtd module and tests
-- [ ] T059 [US1] Run test suite: pytest tests/unit/test_lmtd.py tests/validation/test_lmtd_incropera.py --cov=src/heat_calc/lmtd (expect >90% coverage)
-- [ ] T060 [US1] [P] Manual CLI testing: run calculate-lmtd with test cases, verify output accuracy and format options
-- [ ] T061 [US1] Document `calculate_lmtd()` function with NumPy-style docstring (see quickstart.md template)
+- [x] T057 [US1] Update `src/heat_calc/__init__.py` to export: `calculate_lmtd`, `LMTDInput`, `LMTDResult`
+- [x] T058 [US1] [P] Run full mypy check: zero errors on lmtd module and tests
+- [x] T059 [US1] Run test suite: pytest tests/unit/test_lmtd.py tests/validation/test_lmtd_incropera.py --cov=src/heat_calc/lmtd (expect >90% coverage)
+- [x] T060 [US1] [P] Manual CLI testing: run calculate-lmtd with test cases, verify output accuracy and format options
+- [x] T061 [US1] Document `calculate_lmtd()` function with NumPy-style docstring (see quickstart.md template)
 
-**US1 Subtotal**: 32 tasks | **Status**: Ready for implementation
+**US1 Subtotal**: 32 tasks | **Status**: ✅ COMPLETE (MVP DELIVERABLE)
 
 ---
 
