@@ -9,4 +9,6 @@ Provides command-line tools for:
 Each command accepts JSON/YAML input and supports multiple output formats.
 """
 
+from heat_calc.cli.main import cli
+
 __all__ = ["cli"]

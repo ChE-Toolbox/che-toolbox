@@ -5,4 +5,6 @@ This module provides:
 - constants: Physical constants and reference correlation metadata
 """
 
-__all__ = ["validation", "constants"]
+from heat_calc.utils import constants, validation
+
+__all__ = ["constants", "validation"]
