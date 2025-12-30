@@ -63,22 +63,22 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 ### Shared Models & Utilities
 
-- [ ] T017 Create base Pydantic models in `src/heat_calc/models/base.py`: `BaseCalculationInput`, `BaseCalculationResult`
-- [ ] T018 Create `src/heat_calc/models/__init__.py` with exports for all model classes (defer specific models to story phases)
-- [ ] T019 [P] Create `src/heat_calc/utils/validation.py` with input validation helpers (unit checking, range validation, NaN/Inf guards)
-- [ ] T020 [P] Create `src/heat_calc/utils/constants.py` with physical constants (Boltzmann, gas constant, etc.) and reference correlations metadata
+- [x] T017 Create base Pydantic models in `src/heat_calc/models/base.py`: `BaseCalculationInput`, `BaseCalculationResult`
+- [x] T018 Create `src/heat_calc/models/__init__.py` with exports for all model classes (defer specific models to story phases)
+- [x] T019 [P] Create `src/heat_calc/utils/validation.py` with input validation helpers (unit checking, range validation, NaN/Inf guards)
+- [x] T020 [P] Create `src/heat_calc/utils/constants.py` with physical constants (Boltzmann, gas constant, etc.) and reference correlations metadata
 
 ### Validation Test Data
 
-- [ ] T021 Create `data/reference_test_cases.json` with structure: `{"lmtd": [...], "ntu": [...], "convection": [...], "insulation": [...]}`
-- [ ] T022 Populate `data/reference_test_cases.json` with 10+ reference cases from Incropera textbook (with page numbers, expected outputs, tolerance bounds)
-- [ ] T023 [P] Add NIST reference data entries to validation JSON (4-5 cases per category)
+- [x] T021 Create `data/reference_test_cases.json` with structure: `{"lmtd": [...], "ntu": [...], "convection": [...], "insulation": [...]}`
+- [x] T022 Populate `data/reference_test_cases.json` with 10+ reference cases from Incropera textbook (with page numbers, expected outputs, tolerance bounds)
+- [x] T023 [P] Add NIST reference data entries to validation JSON (4-5 cases per category)
 
 ### CLI Infrastructure
 
-- [ ] T024 Create `src/heat_calc/cli/main.py` with Click group `@click.group()` and stub commands for: `calculate-lmtd`, `calculate-ntu`, `calculate-convection`, `calculate-insulation`
-- [ ] T025 Implement CLI argument parsing base: input file handling (JSON/YAML detection), --format option, --output option, --verbose flag
-- [ ] T026 [P] Implement CLI I/O utilities: JSON deserializer with Pint quantity parsing, YAML deserializer, result formatters (JSON, YAML, table)
+- [x] T024 Create `src/heat_calc/cli/main.py` with Click group `@click.group()` and stub commands for: `calculate-lmtd`, `calculate-ntu`, `calculate-convection`, `calculate-insulation`
+- [x] T025 Implement CLI argument parsing base: input file handling (JSON/YAML detection), --format option, --output option, --verbose flag
+- [x] T026 [P] Implement CLI I/O utilities: JSON deserializer with Pint quantity parsing, YAML deserializer, result formatters (JSON, YAML, table)
 
 ### Type Checking & Linting Setup
 
