@@ -34,28 +34,28 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 ### Foundation & Dependencies
 
-- [ ] T001 Create project directory structure: `src/heat_calc/`, `tests/`, `data/`, `docs/`
-- [ ] T002 [P] Create `pyproject.toml` with dependencies (NumPy, SciPy, Pint, Pydantic, pytest, click, mypy)
+- [x] T001 Create project directory structure: `src/heat_calc/`, `tests/`, `data/`, `docs/`
+- [x] T002 [P] Create `pyproject.toml` with dependencies (NumPy, SciPy, Pint, Pydantic, pytest, click, mypy)
 - [ ] T003 [P] Create `setup.py` for development install support
 - [ ] T004 [P] Create `tox.ini` for test environment management
-- [ ] T005 [P] Create `.gitignore` with Python patterns (__pycache__, *.pyc, .venv, dist, build, *.egg-info, .pytest_cache)
+- [x] T005 [P] Create `.gitignore` with Python patterns (__pycache__, *.pyc, .venv, dist, build, *.egg-info, .pytest_cache)
 - [ ] T006 [P] Create `MANIFEST.in` to include data files in distribution
 
 ### Package Initialization
 
-- [ ] T007 Create `src/heat_calc/__init__.py` with public API exports (placeholder for final exports)
-- [ ] T008 [P] Create `src/heat_calc/models/__init__.py` (empty, for submodule)
-- [ ] T009 [P] Create `src/heat_calc/cli/__init__.py` (empty, for CLI submodule)
-- [ ] T010 [P] Create `src/heat_calc/utils/__init__.py` (empty, for utilities submodule)
-- [ ] T011 Create `tests/__init__.py` (empty, for test discovery)
+- [x] T007 Create `src/heat_calc/__init__.py` with public API exports (placeholder for final exports)
+- [x] T008 [P] Create `src/heat_calc/models/__init__.py` (empty, for submodule)
+- [x] T009 [P] Create `src/heat_calc/cli/__init__.py` (empty, for CLI submodule)
+- [x] T010 [P] Create `src/heat_calc/utils/__init__.py` (empty, for utilities submodule)
+- [x] T011 Create `tests/__init__.py` (empty, for test discovery)
 
 ### Documentation & Configuration
 
 - [ ] T012 Create `README.md` with feature overview, quickstart, and links to docs
-- [ ] T013 [P] Create `docs/API.md` as stub (placeholder for detailed API reference)
-- [ ] T014 [P] Create `docs/DEVELOPMENT.md` with setup, testing, and contribution guidelines
+- [x] T013 [P] Create `docs/API.md` as stub (placeholder for detailed API reference)
+- [x] T014 [P] Create `docs/DEVELOPMENT.md` with setup, testing, and contribution guidelines
 - [ ] T015 [P] Create `.pre-commit-config.yaml` with black, isort, flake8, mypy checks
-- [ ] T016 Create `pytest.ini` with coverage thresholds (min 80% coverage)
+- [x] T016 Create `pytest.ini` with coverage thresholds (min 80% coverage)
 
 ---
 
@@ -82,8 +82,8 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 ### Type Checking & Linting Setup
 
-- [ ] T027 Create `mypy.ini` with strict mode config (disallow_untyped_defs, no_implicit_optional, warn_unused_ignores)
-- [ ] T028 [P] Create `.flake8` config (max-line-length=120, ignore E501, E203, W503 for Pydantic compatibility)
+- [x] T027 Create `mypy.ini` with strict mode config (disallow_untyped_defs, no_implicit_optional, warn_unused_ignores)
+- [x] T028 [P] Create `.flake8` config (max-line-length=120, ignore E501, E203, W503 for Pydantic compatibility)
 - [ ] T029 Run initial mypy check on package stubs (expected: 0 errors baseline)
 
 ---
