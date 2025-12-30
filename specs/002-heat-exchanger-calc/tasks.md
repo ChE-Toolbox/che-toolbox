@@ -36,10 +36,10 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 - [x] T001 Create project directory structure: `src/heat_calc/`, `tests/`, `data/`, `docs/`
 - [x] T002 [P] Create `pyproject.toml` with dependencies (NumPy, SciPy, Pint, Pydantic, pytest, click, mypy)
-- [ ] T003 [P] Create `setup.py` for development install support
-- [ ] T004 [P] Create `tox.ini` for test environment management
+- [x] T003 [P] Create `setup.py` for development install support
+- [x] T004 [P] Create `tox.ini` for test environment management
 - [x] T005 [P] Create `.gitignore` with Python patterns (__pycache__, *.pyc, .venv, dist, build, *.egg-info, .pytest_cache)
-- [ ] T006 [P] Create `MANIFEST.in` to include data files in distribution
+- [x] T006 [P] Create `MANIFEST.in` to include data files in distribution
 
 ### Package Initialization
 
@@ -51,10 +51,10 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 ### Documentation & Configuration
 
-- [ ] T012 Create `README.md` with feature overview, quickstart, and links to docs
+- [x] T012 Create `README.md` with feature overview, quickstart, and links to docs
 - [x] T013 [P] Create `docs/API.md` as stub (placeholder for detailed API reference)
 - [x] T014 [P] Create `docs/DEVELOPMENT.md` with setup, testing, and contribution guidelines
-- [ ] T015 [P] Create `.pre-commit-config.yaml` with black, isort, flake8, mypy checks
+- [x] T015 [P] Create `.pre-commit-config.yaml` with black, isort, flake8, mypy checks
 - [x] T016 Create `pytest.ini` with coverage thresholds (min 80% coverage)
 
 ---
