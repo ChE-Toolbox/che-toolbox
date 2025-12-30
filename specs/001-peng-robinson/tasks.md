@@ -122,19 +122,19 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 ### NIST Data Collection
 
-- [ ] T039 [P] [US4] Create NIST reference data JSON for methane in data/nist_reference/methane.json (50 test points: Z factor, fugacity across 200-500 K, 1-100 bar)
-- [ ] T040 [P] [US4] Create NIST reference data JSON for ethane in data/nist_reference/ethane.json (50 test points across valid range)
-- [ ] T041 [P] [US4] Create NIST reference data JSON for propane in data/nist_reference/propane.json (50 test points across valid range)
-- [ ] T042 [P] [US4] Create NIST reference data JSON for n-butane in data/nist_reference/n_butane.json (50 test points across valid range)
-- [ ] T043 [P] [US4] Create NIST reference data JSON for water in data/nist_reference/water.json (50 test points across valid range)
+- [X] T039 [P] [US4] Create NIST reference data JSON for methane in data/nist_reference/methane.json (50 test points: Z factor, fugacity across 200-500 K, 1-100 bar)
+- [X] T040 [P] [US4] Create NIST reference data JSON for ethane in data/nist_reference/ethane.json (50 test points across valid range)
+- [X] T041 [P] [US4] Create NIST reference data JSON for propane in data/nist_reference/propane.json (50 test points across valid range)
+- [X] T042 [P] [US4] Create NIST reference data JSON for n-butane in data/nist_reference/n_butane.json (50 test points across valid range)
+- [X] T043 [P] [US4] Create NIST reference data JSON for water in data/nist_reference/water.json (50 test points across valid range)
 
 ### Validation Infrastructure
 
-- [ ] T044 [US4] Implement NISTDataLoader class in src/validation/nist_data.py to load and parse NIST reference JSON files
-- [ ] T045 [US4] Implement ValidationResult data class in src/validation/models.py to store test results (passed, failed, deviations)
-- [ ] T046 [US4] Implement NISTValidation class in src/validation/validator.py with validate_z_factor(), validate_fugacity(), validate_vapor_pressure() methods
-- [ ] T047 [US4] Implement validation report generator in src/validation/reporter.py: generate summary with pass rates, max/min/avg deviations
-- [ ] T048 [US4] Create pytest validation test suite in tests/validation/test_nist_pure_components.py for all 5 compounds (parametrized tests)
+- [X] T044 [US4] Implement NISTDataLoader class in src/validation/nist_data.py to load and parse NIST reference JSON files
+- [X] T045 [US4] Implement ValidationResult data class in src/validation/models.py to store test results (passed, failed, deviations)
+- [X] T046 [US4] Implement NISTValidation class in src/validation/validator.py with validate_z_factor(), validate_fugacity(), validate_vapor_pressure() methods
+- [X] T047 [US4] Implement validation report generator in src/validation/reporter.py: generate summary with pass rates, max/min/avg deviations
+- [X] T048 [US4] Create pytest validation test suite in tests/validation/test_nist_pure_components.py for all 5 compounds (parametrized tests)
 - [ ] T049 [P] [US4] Create pytest validation test suite in tests/validation/test_nist_mixtures.py for binary/ternary mixtures (if NIST mixture data available)
 
 ### Unit Tests (Supporting US1-US4)
