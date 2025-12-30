@@ -10,12 +10,23 @@ All models are Pydantic v2 with Pint unit validation.
 """
 
 from heat_calc.models.base import BaseCalculationInput, BaseCalculationResult
+from heat_calc.models.lmtd_input import (
+    FluidState,
+    HeatExchangerConfiguration,
+    LMTDInput,
+)
+from heat_calc.models.lmtd_results import LMTDResult
 
 __all__ = [
+    # Base classes
     "BaseCalculationInput",
     "BaseCalculationResult",
+    # LMTD models (Phase 3)
+    "FluidState",
+    "HeatExchangerConfiguration",
+    "LMTDInput",
+    "LMTDResult",
     # Story-specific models to be added:
-    # LMTD: LMTDInput, LMTDResult, FluidState, HeatExchangerConfiguration
     # NTU: NTUInput, NTUResult
     # Convection: ConvectionGeometry, ConvectionResult
     # Insulation: InsulationInput, InsulationResult

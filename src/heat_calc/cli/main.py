@@ -68,7 +68,109 @@ def calculate_lmtd(
     Example:
         calculate-lmtd exchanger.json --output result.json --format json
     """
-    click.echo("LMTD calculation stub - implementation in Phase 3", err=False)
+    try:
+        # Import here to avoid circular imports
+        from heat_calc.lmtd import calculate_lmtd as calc_lmtd
+        from heat_calc.models import (
+            FluidState,
+            HeatExchangerConfiguration,
+            LMTDInput,
+        )
+
+        if not input_file:
+            click.echo("Error: INPUT_FILE is required", err=True)
+            sys.exit(1)
+
+        # Load and parse input file
+        input_data = load_input_file(input_file)
+
+        # Parse into LMTDInput model
+        hot_inlet = FluidState(
+            temperature=input_data["hot_inlet"]["temperature"],
+            mass_flow_rate=input_data["hot_inlet"]["mass_flow_rate"],
+            specific_heat=input_data["hot_inlet"].get("specific_heat"),
+        )
+        hot_outlet = FluidState(
+            temperature=input_data["hot_outlet"]["temperature"],
+            mass_flow_rate=input_data["hot_outlet"]["mass_flow_rate"],
+            specific_heat=input_data["hot_outlet"].get("specific_heat"),
+        )
+        cold_inlet = FluidState(
+            temperature=input_data["cold_inlet"]["temperature"],
+            mass_flow_rate=input_data["cold_inlet"]["mass_flow_rate"],
+            specific_heat=input_data["cold_inlet"].get("specific_heat"),
+        )
+        cold_outlet = FluidState(
+            temperature=input_data["cold_outlet"]["temperature"],
+            mass_flow_rate=input_data["cold_outlet"]["mass_flow_rate"],
+            specific_heat=input_data["cold_outlet"].get("specific_heat"),
+        )
+
+        config = HeatExchangerConfiguration(
+            configuration=input_data["heat_exchanger"]["configuration"],
+            area=input_data["heat_exchanger"]["area"],
+            correction_factor=input_data["heat_exchanger"].get("correction_factor"),
+            overall_heat_transfer_coefficient=input_data["heat_exchanger"].get(
+                "overall_heat_transfer_coefficient"
+            ),
+        )
+
+        lmtd_input = LMTDInput(
+            hot_fluid_inlet=hot_inlet,
+            hot_fluid_outlet=hot_outlet,
+            cold_fluid_inlet=cold_inlet,
+            cold_fluid_outlet=cold_outlet,
+            heat_exchanger=config,
+            overall_ua=input_data.get("overall_ua"),
+        )
+
+        # Calculate
+        result = calc_lmtd(lmtd_input)
+
+        # Format output
+        output_dict = {
+            "success": result.success,
+            "calculation_method": result.calculation_method,
+            "heat_transfer_rate_w": result.heat_transfer_rate,
+            "lmtd_arithmetic_k": result.lmtd_arithmetic,
+            "lmtd_effective_k": result.lmtd_effective,
+            "correction_factor": result.correction_factor,
+            "configuration": result.configuration_used,
+            "effectiveness": result.effectiveness,
+            "capacity_ratio": result.capacity_ratio,
+            "energy_balance_error_percent": result.energy_balance_error_percent,
+            "overall_ua_w_k": result.overall_ua,
+        }
+
+        if verbose:
+            output_dict["intermediate_values"] = result.intermediate_values
+
+        if result.error_message:
+            output_dict["error_message"] = result.error_message
+
+        # Output result
+        if format == "table":
+            click.echo(format_table_output(output_dict))
+        elif format == "json":
+            click.echo(json.dumps(output_dict, indent=2, default=str))
+        elif format == "yaml":
+            click.echo(yaml.dump(output_dict, default_flow_style=False, sort_keys=False))
+
+        if output:
+            save_output_file(output_dict, output, format)
+
+        # Exit code based on success
+        sys.exit(0 if result.success else 2)
+
+    except FileNotFoundError as e:
+        click.echo(f"Error: {e}", err=True)
+        sys.exit(1)
+    except ValueError as e:
+        click.echo(f"Error: {e}", err=True)
+        sys.exit(1)
+    except Exception as e:
+        click.echo(f"Unexpected error: {e}", err=True)
+        sys.exit(2)
 
 
 @cli.command()

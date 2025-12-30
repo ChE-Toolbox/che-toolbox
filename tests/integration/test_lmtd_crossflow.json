@@ -1,0 +1,30 @@
+{
+  "description": "LMTD Crossflow (Unmixed-Unmixed) Test Case",
+  "source": "Incropera et al., Fundamentals of Heat and Mass Transfer",
+  "hot_inlet": {
+    "temperature": 373.15,
+    "mass_flow_rate": 10.0,
+    "specific_heat": 4180.0
+  },
+  "hot_outlet": {
+    "temperature": 343.15,
+    "mass_flow_rate": 10.0,
+    "specific_heat": 4180.0
+  },
+  "cold_inlet": {
+    "temperature": 293.15,
+    "mass_flow_rate": 10.0,
+    "specific_heat": 4180.0
+  },
+  "cold_outlet": {
+    "temperature": 333.15,
+    "mass_flow_rate": 10.0,
+    "specific_heat": 4180.0
+  },
+  "heat_exchanger": {
+    "configuration": "crossflow_unmixed_both",
+    "area": 75.0,
+    "overall_heat_transfer_coefficient": 500.0,
+    "correction_factor": 0.90
+  }
+}
