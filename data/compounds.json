@@ -1,0 +1,42 @@
+[
+  {
+    "name": "methane",
+    "cas_number": "74-82-8",
+    "molecular_weight": 16.043,
+    "tc": 190.564,
+    "pc": 4599200.0,
+    "acentric_factor": 0.011
+  },
+  {
+    "name": "ethane",
+    "cas_number": "74-84-0",
+    "molecular_weight": 30.070,
+    "tc": 305.322,
+    "pc": 4872200.0,
+    "acentric_factor": 0.099
+  },
+  {
+    "name": "propane",
+    "cas_number": "74-98-6",
+    "molecular_weight": 44.096,
+    "tc": 369.83,
+    "pc": 4248400.0,
+    "acentric_factor": 0.152
+  },
+  {
+    "name": "n-butane",
+    "cas_number": "106-97-8",
+    "molecular_weight": 58.122,
+    "tc": 425.125,
+    "pc": 3796000.0,
+    "acentric_factor": 0.200
+  },
+  {
+    "name": "water",
+    "cas_number": "7732-18-5",
+    "molecular_weight": 18.015,
+    "tc": 647.096,
+    "pc": 22064000.0,
+    "acentric_factor": 0.344
+  }
+]

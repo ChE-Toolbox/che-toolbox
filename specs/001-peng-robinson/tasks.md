@@ -23,11 +23,11 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 **Purpose**: Project initialization and basic structure per plan.md
 
-- [ ] T001 Create project directory structure: src/{eos,compounds,validation,cli}/, tests/{unit,validation,integration}/, data/{nist_reference}/
-- [ ] T002 Initialize Python project with pyproject.toml including dependencies: NumPy 1.24+, SciPy 1.10+, Pint 0.23+, Pydantic 2.x, pytest 7.x+, mypy 1.0+
-- [ ] T003 [P] Configure mypy for strict type checking in pyproject.toml
-- [ ] T004 [P] Configure pytest with coverage settings in pyproject.toml (target >80%)
-- [ ] T005 [P] Setup ruff for linting and formatting in pyproject.toml
+- [X] T001 Create project directory structure: src/{eos,compounds,validation,cli}/, tests/{unit,validation,integration}/, data/{nist_reference}/
+- [X] T002 Initialize Python project with pyproject.toml including dependencies: NumPy 1.24+, SciPy 1.10+, Pint 0.23+, Pydantic 2.x, pytest 7.x+, mypy 1.0+
+- [X] T003 [P] Configure mypy for strict type checking in pyproject.toml
+- [X] T004 [P] Configure pytest with coverage settings in pyproject.toml (target >80%)
+- [X] T005 [P] Setup ruff for linting and formatting in pyproject.toml
 
 ---
 
@@ -37,16 +37,16 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Create PhaseType enum in src/eos/models.py (VAPOR, LIQUID, SUPERCRITICAL, TWO_PHASE, UNKNOWN)
-- [ ] T007 [P] Implement Compound Pydantic model in src/compounds/models.py with validators for Tc>0, Pc>0, -1<ω<2
-- [ ] T008 [P] Implement Mixture Pydantic model in src/eos/models.py with validators for mole fraction sum=1.0±1e-6
-- [ ] T009 [P] Implement ThermodynamicState Pydantic model in src/eos/models.py with temperature, pressure, composition fields
-- [ ] T010 [P] Implement ValidationTestCase Pydantic model in src/validation/models.py
-- [ ] T011 [P] Implement BinaryInteractionParameter Pydantic model in src/eos/models.py
-- [ ] T012 Implement CompoundDatabase class in src/compounds/database.py with get(), get_by_cas(), list_compounds(), add_compound() methods
-- [ ] T013 Create data/compounds.json with critical properties for 5 compounds: methane, ethane, propane, n-butane, water (Tc, Pc, ω from research.md)
-- [ ] T014 [P] Create custom ConvergenceWarning exception class in src/eos/exceptions.py with best_estimate and residual attributes
-- [ ] T015 [P] Setup Pint unit registry and configure temperature/pressure unit handling in src/eos/units.py
+- [X] T006 Create PhaseType enum in src/eos/models.py (VAPOR, LIQUID, SUPERCRITICAL, TWO_PHASE, UNKNOWN)
+- [X] T007 [P] Implement Compound Pydantic model in src/compounds/models.py with validators for Tc>0, Pc>0, -1<ω<2
+- [X] T008 [P] Implement Mixture Pydantic model in src/eos/models.py with validators for mole fraction sum=1.0±1e-6
+- [X] T009 [P] Implement ThermodynamicState Pydantic model in src/eos/models.py with temperature, pressure, composition fields
+- [X] T010 [P] Implement ValidationTestCase Pydantic model in src/validation/models.py
+- [X] T011 [P] Implement BinaryInteractionParameter Pydantic model in src/eos/models.py
+- [X] T012 Implement CompoundDatabase class in src/compounds/database.py with get(), get_by_cas(), list_compounds(), add_compound() methods
+- [X] T013 Create data/compounds.json with critical properties for 5 compounds: methane, ethane, propane, n-butane, water (Tc, Pc, ω from research.md)
+- [X] T014 [P] Create custom ConvergenceWarning exception class in src/eos/exceptions.py with best_estimate and residual attributes
+- [X] T015 [P] Setup Pint unit registry and configure temperature/pressure unit handling in src/eos/units.py
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -60,16 +60,16 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 ### Implementation for User Story 1
 
-- [ ] T016 [P] [US1] Implement analytical cubic formula solver (Cardano's method) in src/eos/cubic_solver.py with function solve_cubic_analytical(a, b, c, d) -> tuple[float, ...]
-- [ ] T017 [P] [US1] Implement NumPy-based cubic solver in src/eos/cubic_solver.py with function solve_cubic_numpy(a, b, c, d) -> tuple[float, ...]
-- [ ] T018 [US1] Implement hybrid cubic solver in src/eos/cubic_solver.py with function solve_cubic(a, b, c, d, method="hybrid") combining NumPy with analytical fallback
-- [ ] T019 [US1] Implement Peng-Robinson EOS parameters calculation in src/eos/peng_robinson.py: functions calculate_a(Tc, Pc, omega, T), calculate_b(Tc, Pc)
-- [ ] T020 [US1] Implement Z factor calculation for pure components in src/eos/peng_robinson.py: method PengRobinsonEOS.calculate_z_factor(T, P, compound) using cubic solver, returns sorted tuple (smallest=liquid, largest=vapor)
-- [ ] T021 [US1] Implement fugacity coefficient calculation for pure components in src/eos/peng_robinson.py: method PengRobinsonEOS.calculate_fugacity_coefficient(T, P, compound, phase=None)
-- [ ] T022 [US1] Implement phase identification logic in src/eos/peng_robinson.py: determine VAPOR/LIQUID/SUPERCRITICAL/TWO_PHASE based on T/Tc, P/Pc, number of real roots
-- [ ] T023 [US1] Implement calculate_state() convenience method in src/eos/peng_robinson.py returning complete ThermodynamicState object
-- [ ] T024 [US1] Add input validation in PengRobinsonEOS methods: raise ValueError for T≤0, P≤0, invalid critical properties
-- [ ] T025 [US1] Add logging for calculation steps and phase identification in src/eos/peng_robinson.py
+- [X] T016 [P] [US1] Implement analytical cubic formula solver (Cardano's method) in src/eos/cubic_solver.py with function solve_cubic_analytical(a, b, c, d) -> tuple[float, ...]
+- [X] T017 [P] [US1] Implement NumPy-based cubic solver in src/eos/cubic_solver.py with function solve_cubic_numpy(a, b, c, d) -> tuple[float, ...]
+- [X] T018 [US1] Implement hybrid cubic solver in src/eos/cubic_solver.py with function solve_cubic(a, b, c, d, method="hybrid") combining NumPy with analytical fallback
+- [X] T019 [US1] Implement Peng-Robinson EOS parameters calculation in src/eos/peng_robinson.py: functions calculate_a(Tc, Pc, omega, T), calculate_b(Tc, Pc)
+- [X] T020 [US1] Implement Z factor calculation for pure components in src/eos/peng_robinson.py: method PengRobinsonEOS.calculate_z_factor(T, P, compound) using cubic solver, returns sorted tuple (smallest=liquid, largest=vapor)
+- [X] T021 [US1] Implement fugacity coefficient calculation for pure components in src/eos/peng_robinson.py: method PengRobinsonEOS.calculate_fugacity_coefficient(T, P, compound, phase=None)
+- [X] T022 [US1] Implement phase identification logic in src/eos/peng_robinson.py: determine VAPOR/LIQUID/SUPERCRITICAL/TWO_PHASE based on T/Tc, P/Pc, number of real roots
+- [X] T023 [US1] Implement calculate_state() convenience method in src/eos/peng_robinson.py returning complete ThermodynamicState object
+- [X] T024 [US1] Add input validation in PengRobinsonEOS methods: raise ValueError for T≤0, P≤0, invalid critical properties
+- [X] T025 [US1] Add logging for calculation steps and phase identification in src/eos/peng_robinson.py
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - can calculate Z and fugacity for pure components
 

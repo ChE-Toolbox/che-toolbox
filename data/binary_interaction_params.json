@@ -1,0 +1,32 @@
+[
+  {
+    "compound_i": "methane",
+    "compound_j": "ethane",
+    "kij": -0.001
+  },
+  {
+    "compound_i": "methane",
+    "compound_j": "propane",
+    "kij": 0.008
+  },
+  {
+    "compound_i": "ethane",
+    "compound_j": "propane",
+    "kij": 0.002
+  },
+  {
+    "compound_i": "methane",
+    "compound_j": "n-butane",
+    "kij": 0.015
+  },
+  {
+    "compound_i": "ethane",
+    "compound_j": "n-butane",
+    "kij": 0.008
+  },
+  {
+    "compound_i": "propane",
+    "compound_j": "n-butane",
+    "kij": 0.000
+  }
+]

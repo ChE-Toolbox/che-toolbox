@@ -26,19 +26,19 @@ classifiers = [
 ]
 
 dependencies = [
-    "chemeng-core>=0.1.0",
-    "chemeng-thermo>=0.1.0",
-    "chemeng-fluids>=0.1.0",
-    "chemeng-heat>=0.1.0",
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "pint>=0.23.0",
+    "pydantic>=2.0.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.4.0",
+    "pytest>=7.0.0",
     "pytest-cov>=4.1.0",
     "pytest-xdist>=3.3.0",
+    "mypy>=1.0.0",
     "ruff>=0.8.0",
-    "ty>=0.1.0",
     "pre-commit>=3.5.0",
 ]
 
@@ -68,3 +68,29 @@ indent-style = "space"
 [tool.bandit]
 exclude_dirs = ["tests", ".venv", "venv"]
 skips = ["B101"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+disallow_untyped_defs = true
+disallow_untyped_calls = true
+disallow_incomplete_defs = true
+warn_return_any = true
+warn_unused_configs = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "--strict-markers -ra"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "validation: NIST validation tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
