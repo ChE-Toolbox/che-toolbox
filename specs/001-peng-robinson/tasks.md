@@ -175,10 +175,10 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 ### Integration Tests
 
-- [ ] T069 [P] Create integration test for pure component workflow in tests/integration/test_pure_component.py: get compound → calculate Z → calculate fugacity
-- [ ] T070 [P] Create integration test for vapor pressure workflow in tests/integration/test_vapor_pressure.py: calculate Psat → verify phase equilibrium
-- [ ] T071 [P] Create integration test for mixture workflow in tests/integration/test_mixture.py: create mixture → calculate properties
-- [ ] T072 [P] Create integration test for CLI commands in tests/integration/test_cli.py: test all pr-calc commands with subprocess
+- [X] T069 [P] Create integration test for pure component workflow in tests/integration/test_pure_component.py: get compound → calculate Z → calculate fugacity
+- [X] T070 [P] Create integration test for vapor pressure workflow in tests/integration/test_vapor_pressure.py: calculate Psat → verify phase equilibrium
+- [X] T071 [P] Create integration test for mixture workflow in tests/integration/test_mixture.py: create mixture → calculate properties
+- [X] T072 [P] Create integration test for CLI commands in tests/integration/test_cli.py: test all pr-calc commands with subprocess
 
 **Checkpoint**: Full system operational - Python API and CLI both functional for all user stories
 
