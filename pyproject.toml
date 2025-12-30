@@ -42,6 +42,9 @@ dev = [
     "pre-commit>=3.5.0",
 ]
 
+[project.scripts]
+pr-calc = "src.cli.pr_calc:main"
+
 [project.urls]
 Homepage = "https://github.com/ChE-Toolbox/che-toolbox"
 Documentation = "https://che-toolbox.github.io/che-toolbox"

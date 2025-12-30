@@ -162,16 +162,16 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 ### CLI Implementation (Contracts from contracts/cli_interface.md)
 
-- [ ] T059 [P] Implement 'pr-calc z-factor' command in src/cli/pr_calc.py with argparse: pure component and mixture support, unit conversion
-- [ ] T060 [P] Implement 'pr-calc fugacity' command in src/cli/pr_calc.py: output fugacity coefficient and fugacity value
-- [ ] T061 [P] Implement 'pr-calc vapor-pressure' command in src/cli/pr_calc.py: subcritical check, convergence warnings
-- [ ] T062 [P] Implement 'pr-calc state' command in src/cli/pr_calc.py: complete state output with all properties
-- [ ] T063 [P] Implement 'pr-calc mixture' command in src/cli/pr_calc.py: load mixture JSON, calculate properties
-- [ ] T064 [P] Implement 'pr-calc validate' command in src/cli/pr_calc.py: run NIST validation suite, generate report
-- [ ] T065 [P] Implement 'pr-calc list-compounds' command in src/cli/pr_calc.py: display available compounds with properties
-- [ ] T066 Add CLI output formatting in src/cli/formatters.py: text format (human-readable) and JSON format
-- [ ] T067 Add CLI error handling and exit codes in src/cli/pr_calc.py: 0=success, 1=invalid input, 2=calc failure, 3=convergence warning, 4=validation failure
-- [ ] T068 Create CLI entry point script in pyproject.toml: register 'pr-calc' command
+- [X] T059 [P] Implement 'pr-calc z-factor' command in src/cli/pr_calc.py with argparse: pure component and mixture support, unit conversion
+- [X] T060 [P] Implement 'pr-calc fugacity' command in src/cli/pr_calc.py: output fugacity coefficient and fugacity value
+- [X] T061 [P] Implement 'pr-calc vapor-pressure' command in src/cli/pr_calc.py: subcritical check, convergence warnings
+- [X] T062 [P] Implement 'pr-calc state' command in src/cli/pr_calc.py: complete state output with all properties
+- [X] T063 [P] Implement 'pr-calc mixture' command in src/cli/pr_calc.py: load mixture JSON, calculate properties
+- [X] T064 [P] Implement 'pr-calc validate' command in src/cli/pr_calc.py: run NIST validation suite, generate report
+- [X] T065 [P] Implement 'pr-calc list-compounds' command in src/cli/pr_calc.py: display available compounds with properties
+- [X] T066 Add CLI output formatting in src/cli/formatters.py: text format (human-readable) and JSON format
+- [X] T067 Add CLI error handling and exit codes in src/cli/pr_calc.py: 0=success, 1=invalid input, 2=calc failure, 3=convergence warning, 4=validation failure
+- [X] T068 Create CLI entry point script in pyproject.toml: register 'pr-calc' command
 
 ### Integration Tests
 
