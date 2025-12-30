@@ -188,18 +188,18 @@ Single project structure: `src/`, `tests/`, `data/` at repository root per plan.
 
 **Purpose**: User-facing documentation, code quality improvements, and quickstart validation
 
-- [ ] T073 [P] Add NumPy-style docstrings to all public methods in src/eos/peng_robinson.py
-- [ ] T074 [P] Add NumPy-style docstrings to all public methods in src/compounds/database.py
-- [ ] T075 [P] Add NumPy-style docstrings to all mixing rules functions in src/eos/mixing_rules.py
-- [ ] T076 Create API reference documentation in docs/api_reference.md based on contracts/python_api.md
-- [ ] T077 [P] Create theory documentation in docs/theory.md: PR-EOS derivation, mixing rules explanation
-- [ ] T078 [P] Create troubleshooting guide in docs/troubleshooting.md: convergence issues, edge cases
-- [ ] T079 Create README.md at repository root: installation, quick start, examples
-- [ ] T080 Validate all examples from specs/001-peng-robinson/quickstart.md work correctly: run and verify output
-- [ ] T081 Run full test suite and verify >80% code coverage: pytest --cov=src --cov-report=html
-- [ ] T082 Run mypy strict type checking and fix any issues: mypy --strict src/
-- [ ] T083 Run ruff linting and fix any issues: ruff check . --fix
-- [ ] T084 Performance profiling: verify Z factor <1ms, fugacity <2ms, vapor pressure <50ms, validation suite <60s
+- [X] T073 [P] Add NumPy-style docstrings to all public methods in src/eos/peng_robinson.py
+- [X] T074 [P] Add NumPy-style docstrings to all public methods in src/compounds/database.py
+- [X] T075 [P] Add NumPy-style docstrings to all mixing rules functions in src/eos/mixing_rules.py
+- [X] T076 Create API reference documentation in docs/api_reference.md based on contracts/python_api.md
+- [X] T077 [P] Create theory documentation in docs/theory.md: PR-EOS derivation, mixing rules explanation
+- [X] T078 [P] Create troubleshooting guide in docs/troubleshooting.md: convergence issues, edge cases
+- [X] T079 Create README.md at repository root: installation, quick start, examples
+- [X] T080 Validate all examples from specs/001-peng-robinson/quickstart.md work correctly: run and verify output
+- [X] T081 Run full test suite and verify >80% code coverage: pytest --cov=src --cov-report=html
+- [X] T082 Run mypy strict type checking and fix any issues: mypy --strict src/
+- [X] T083 Run ruff linting and fix any issues: ruff check . --fix
+- [X] T084 Performance profiling: verify Z factor <1ms, fugacity <2ms, vapor pressure <50ms, validation suite <60s
 
 ---
 
