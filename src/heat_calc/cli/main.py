@@ -347,28 +347,28 @@ def calculate_convection(
         if geometry_type == "flat_plate":
             convection_input = FlatPlateConvection(
                 fluid_properties=fluid_props,
-                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]}
+                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]},
             )
         elif geometry_type == "pipe_flow":
             convection_input = PipeFlowConvection(
                 fluid_properties=fluid_props,
-                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]}
+                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]},
             )
         elif geometry_type == "cylinder_crossflow":
             convection_input = CylinderCrossflowConvection(
                 fluid_properties=fluid_props,
-                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]}
+                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]},
             )
         elif geometry_type == "vertical_plate_natural":
             convection_input = VerticalPlateNaturalConvection(
                 fluid_properties=fluid_props,
-                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]}
+                **{k: v for k, v in input_data.items() if k not in ["fluid_properties"]},
             )
         else:
             click.echo(
                 f"Error: Unknown geometry_type '{geometry_type}'. "
                 f"Must be one of: flat_plate, pipe_flow, cylinder_crossflow, vertical_plate_natural",
-                err=True
+                err=True,
             )
             sys.exit(2)
 
@@ -590,9 +590,7 @@ def load_input_file(file_path: str) -> dict[str, Any]:
                 data = yaml.safe_load(f)
                 return data if data is not None else {}
         else:
-            raise ValueError(
-                f"Unsupported file format: {path.suffix}. Use .json or .yaml"
-            )
+            raise ValueError(f"Unsupported file format: {path.suffix}. Use .json or .yaml")
     except json.JSONDecodeError as e:
         raise ValueError(f"Invalid JSON in {file_path}: {e}") from e
     except yaml.YAMLError as e:
@@ -683,14 +681,20 @@ def format_ntu_table(result: Any, verbose: bool = False) -> str:
     # Primary results
     lines.append("PRIMARY RESULTS:")
     lines.append(f"  NTU:                    {result.NTU:.4f}")
-    lines.append(f"  Effectiveness:          {result.effectiveness:.4f} ({result.effectiveness*100:.2f}%)")
+    lines.append(
+        f"  Effectiveness:          {result.effectiveness:.4f} ({result.effectiveness * 100:.2f}%)"
+    )
     lines.append(f"  Heat Transfer Rate:     {result.heat_transfer_rate:.2f} W")
     lines.append("")
 
     # Outlet temperatures
     lines.append("OUTLET TEMPERATURES:")
-    lines.append(f"  Hot Outlet:             {result.T_hot_outlet:.2f} K ({result.T_hot_outlet - 273.15:.2f} °C)")
-    lines.append(f"  Cold Outlet:            {result.T_cold_outlet:.2f} K ({result.T_cold_outlet - 273.15:.2f} °C)")
+    lines.append(
+        f"  Hot Outlet:             {result.T_hot_outlet:.2f} K ({result.T_hot_outlet - 273.15:.2f} °C)"
+    )
+    lines.append(
+        f"  Cold Outlet:            {result.T_cold_outlet:.2f} K ({result.T_cold_outlet - 273.15:.2f} °C)"
+    )
     lines.append("")
 
     # Heat capacity rates
@@ -706,7 +710,7 @@ def format_ntu_table(result: Any, verbose: bool = False) -> str:
     lines.append("THERMODYNAMIC LIMITS:")
     lines.append(f"  Q_max:                  {result.Q_max:.2f} W")
     lines.append(f"  Effectiveness Max:      {result.effectiveness_theoretical_max:.4f}")
-    lines.append(f"  Q_actual / Q_max:       {result.heat_transfer_rate/result.Q_max:.4f}")
+    lines.append(f"  Q_actual / Q_max:       {result.heat_transfer_rate / result.Q_max:.4f}")
     lines.append("")
 
     # Energy balance
@@ -767,7 +771,9 @@ def format_convection_table(result: Any) -> str:
 
     # Correlation validity
     lines.append("CORRELATION VALIDITY:")
-    lines.append(f"  Within Valid Range:         {'Yes' if result.is_within_correlation_range else 'No'}")
+    lines.append(
+        f"  Within Valid Range:         {'Yes' if result.is_within_correlation_range else 'No'}"
+    )
     if result.applicable_range:
         lines.append("  Applicable Ranges:")
         for param, (min_val, max_val) in result.applicable_range.items():
@@ -812,7 +818,9 @@ def format_insulation_table(result: Any, verbose: bool = False) -> str:
     # Optimization summary
     lines.append("OPTIMIZATION SUMMARY:")
     lines.append(f"  Mode:                           {result.optimization_mode}")
-    lines.append(f"  Optimal Insulation Thickness:   {result.optimal_insulation_thickness:.4f} m ({result.optimal_insulation_thickness*1000:.1f} mm)")
+    lines.append(
+        f"  Optimal Insulation Thickness:   {result.optimal_insulation_thickness:.4f} m ({result.optimal_insulation_thickness * 1000:.1f} mm)"
+    )
     lines.append("")
 
     # Heat loss comparison
@@ -824,9 +832,13 @@ def format_insulation_table(result: Any, verbose: bool = False) -> str:
 
     # Temperature profile
     lines.append("TEMPERATURE PROFILE:")
-    lines.append(f"  Surface Temperature (Insulated):{result.T_surface_insulated:.2f} K ({result.T_surface_insulated - 273.15:.2f} °C)")
+    lines.append(
+        f"  Surface Temperature (Insulated):{result.T_surface_insulated:.2f} K ({result.T_surface_insulated - 273.15:.2f} °C)"
+    )
     if result.T_surface_required is not None:
-        lines.append(f"  Required Surface Temperature:   {result.T_surface_required:.2f} K ({result.T_surface_required - 273.15:.2f} °C)")
+        lines.append(
+            f"  Required Surface Temperature:   {result.T_surface_required:.2f} K ({result.T_surface_required - 273.15:.2f} °C)"
+        )
     lines.append("")
 
     # Economic analysis

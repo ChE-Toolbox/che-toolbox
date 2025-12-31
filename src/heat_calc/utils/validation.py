@@ -148,9 +148,7 @@ def validate_range(value: float, min_val: float, max_val: float, param_name: str
         If value is outside the range.
     """
     if not (min_val <= value <= max_val):
-        raise ValueError(
-            f"{param_name} must be between {min_val} and {max_val}, got {value}"
-        )
+        raise ValueError(f"{param_name} must be between {min_val} and {max_val}, got {value}")
     return value
 
 

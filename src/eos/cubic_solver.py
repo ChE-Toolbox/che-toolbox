@@ -64,7 +64,7 @@ def solve_cubic_analytical(a: float, b: float, c: float, d: float) -> tuple[floa
 
     # First root
     if abs(cbrt_arg1) > 1e-15:
-        C = cbrt_arg1 ** (1 / 3) if cbrt_arg1 > 0 else -abs(cbrt_arg1) ** (1 / 3)
+        C = cbrt_arg1 ** (1 / 3) if cbrt_arg1 > 0 else -(abs(cbrt_arg1) ** (1 / 3))
         t1 = C - A / (3 * C) if abs(C) > 1e-15 else 0
     else:
         t1 = 0

@@ -84,9 +84,7 @@ def calculate_ntu(input_data: NTUInput) -> NTUResult:
     try:
         # Validate inlet conditions
         if input_data.T_hot_inlet <= input_data.T_cold_inlet:
-            return _create_error_result(
-                "Hot inlet temperature must exceed cold inlet temperature"
-            )
+            return _create_error_result("Hot inlet temperature must exceed cold inlet temperature")
 
         # Step 1: Calculate heat capacity rates
         C_hot = input_data.mdot_hot * input_data.cp_hot
@@ -118,31 +116,29 @@ def calculate_ntu(input_data: NTUInput) -> NTUResult:
         if input_data.T_hot_outlet is not None:
             T_hot_outlet = input_data.T_hot_outlet
             # Recalculate Q from hot side
-            Q_actual = input_data.mdot_hot * input_data.cp_hot * (
-                input_data.T_hot_inlet - T_hot_outlet
+            Q_actual = (
+                input_data.mdot_hot * input_data.cp_hot * (input_data.T_hot_inlet - T_hot_outlet)
             )
             T_cold_outlet = input_data.T_cold_inlet + Q_actual / C_cold
 
         elif input_data.T_cold_outlet is not None:
             T_cold_outlet = input_data.T_cold_outlet
             # Recalculate Q from cold side
-            Q_actual = input_data.mdot_cold * input_data.cp_cold * (
-                T_cold_outlet - input_data.T_cold_inlet
+            Q_actual = (
+                input_data.mdot_cold
+                * input_data.cp_cold
+                * (T_cold_outlet - input_data.T_cold_inlet)
             )
             T_hot_outlet = input_data.T_hot_inlet - Q_actual / C_hot
 
         # Step 7: Validate energy balance
-        Q_hot = input_data.mdot_hot * input_data.cp_hot * (
-            input_data.T_hot_inlet - T_hot_outlet
-        )
-        Q_cold = input_data.mdot_cold * input_data.cp_cold * (
-            T_cold_outlet - input_data.T_cold_inlet
+        Q_hot = input_data.mdot_hot * input_data.cp_hot * (input_data.T_hot_inlet - T_hot_outlet)
+        Q_cold = (
+            input_data.mdot_cold * input_data.cp_cold * (T_cold_outlet - input_data.T_cold_inlet)
         )
 
         Q_avg = (abs(Q_hot) + abs(Q_cold)) / 2
-        energy_balance_error = (
-            100.0 * abs(Q_hot - Q_cold) / Q_avg if Q_avg > 0 else 0.0
-        )
+        energy_balance_error = 100.0 * abs(Q_hot - Q_cold) / Q_avg if Q_avg > 0 else 0.0
 
         # Create result object
         result = NTUResult(
@@ -177,9 +173,7 @@ def calculate_ntu(input_data: NTUInput) -> NTUResult:
         return _create_error_result(f"NTU calculation failed: {e!s}")
 
 
-def _calculate_effectiveness(
-    ntu: float, c_ratio: float, configuration: str
-) -> tuple[float, float]:
+def _calculate_effectiveness(ntu: float, c_ratio: float, configuration: str) -> tuple[float, float]:
     """Calculate heat exchanger effectiveness for a given configuration.
 
     Parameters

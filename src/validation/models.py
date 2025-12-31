@@ -11,7 +11,9 @@ class ValidationTestCase(BaseModel):
     pressure: float = Field(..., gt=0, description="Pressure in Pa")
     expected_z_factor: float | None = Field(None, description="Reference Z factor from NIST")
     expected_fugacity: float | None = Field(None, description="Reference fugacity in Pa")
-    expected_vapor_pressure: float | None = Field(None, description="Reference vapor pressure in Pa")
+    expected_vapor_pressure: float | None = Field(
+        None, description="Reference vapor pressure in Pa"
+    )
     tolerance_z: float = Field(0.05, description="Tolerance for Z factor (default 5%)")
     tolerance_fugacity: float = Field(0.10, description="Tolerance for fugacity (default 10%)")
 

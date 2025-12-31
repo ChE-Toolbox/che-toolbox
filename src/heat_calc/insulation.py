@@ -84,7 +84,7 @@ def calculate_insulation(input_data: InsulationInput) -> InsulationResult:
             input_data.pipe_length,
             input_data.T_surface_uninsulated,
             input_data.T_ambient,
-            input_data.h_ambient
+            input_data.h_ambient,
         )
 
         # Find optimal insulation thickness
@@ -101,7 +101,7 @@ def calculate_insulation(input_data: InsulationInput) -> InsulationResult:
             input_data.T_ambient,
             input_data.h_ambient,
             optimal_thickness,
-            input_data.thermal_conductivity_insulation
+            input_data.thermal_conductivity_insulation,
         )
 
         # Calculate surface temperature with insulation
@@ -111,7 +111,7 @@ def calculate_insulation(input_data: InsulationInput) -> InsulationResult:
             input_data.T_ambient,
             input_data.h_ambient,
             optimal_thickness,
-            input_data.thermal_conductivity_insulation
+            input_data.thermal_conductivity_insulation,
         )
 
         # Calculate material quantities
@@ -119,7 +119,7 @@ def calculate_insulation(input_data: InsulationInput) -> InsulationResult:
             input_data.pipe_diameter,
             input_data.pipe_length,
             optimal_thickness,
-            input_data.density_insulation
+            input_data.density_insulation,
         )
 
         # Calculate economic metrics
@@ -132,7 +132,7 @@ def calculate_insulation(input_data: InsulationInput) -> InsulationResult:
             input_data.energy_cost,
             input_data.energy_annual_operating_hours,
             input_data.insulation_cost_per_thickness,
-            input_data.analysis_period_years
+            input_data.analysis_period_years,
         )
 
         # Build result object
@@ -160,7 +160,7 @@ def calculate_insulation(input_data: InsulationInput) -> InsulationResult:
                 "pipe_diameter": input_data.pipe_diameter,
                 "pipe_length": input_data.pipe_length,
                 "k_insulation": input_data.thermal_conductivity_insulation,
-            }
+            },
         )
 
         return result
@@ -222,24 +222,26 @@ def _validate_insulation_input(input_data: InsulationInput) -> None:
         )
 
     # Material properties validation
-    validate_positive_float(input_data.thermal_conductivity_insulation, "thermal_conductivity_insulation")
+    validate_positive_float(
+        input_data.thermal_conductivity_insulation, "thermal_conductivity_insulation"
+    )
     validate_positive_float(input_data.density_insulation, "density_insulation")
     validate_positive_float(input_data.h_ambient, "h_ambient")
 
     # Economic parameters validation
     validate_positive_float(input_data.energy_cost, "energy_cost")
-    validate_positive_float(input_data.insulation_cost_per_thickness, "insulation_cost_per_thickness")
+    validate_positive_float(
+        input_data.insulation_cost_per_thickness, "insulation_cost_per_thickness"
+    )
 
     if input_data.analysis_period_years <= 0:
-        raise ValueError(f"analysis_period_years must be positive, got {input_data.analysis_period_years}")
+        raise ValueError(
+            f"analysis_period_years must be positive, got {input_data.analysis_period_years}"
+        )
 
 
 def _calculate_heat_loss_uninsulated(
-    pipe_diameter: float,
-    pipe_length: float,
-    t_surface: float,
-    t_ambient: float,
-    h_ambient: float
+    pipe_diameter: float, pipe_length: float, t_surface: float, t_ambient: float, h_ambient: float
 ) -> float:
     """Calculate heat loss from uninsulated cylindrical pipe.
 
@@ -276,7 +278,7 @@ def _calculate_heat_loss_insulated(
     t_ambient: float,
     h_ambient: float,
     insulation_thickness: float,
-    k_insulation: float
+    k_insulation: float,
 ) -> float:
     """Calculate heat loss from insulated cylindrical pipe.
 
@@ -334,7 +336,7 @@ def _calculate_surface_temperature(
     t_ambient: float,
     h_ambient: float,
     insulation_thickness: float,
-    k_insulation: float
+    k_insulation: float,
 ) -> float:
     """Calculate outer surface temperature of insulated pipe.
 
@@ -384,10 +386,7 @@ def _calculate_surface_temperature(
 
 
 def _calculate_material_quantities(
-    pipe_diameter: float,
-    pipe_length: float,
-    insulation_thickness: float,
-    density_insulation: float
+    pipe_diameter: float, pipe_length: float, insulation_thickness: float, density_insulation: float
 ) -> tuple[float, float]:
     """Calculate insulation material volume and mass.
 
@@ -426,7 +425,7 @@ def _calculate_economic_metrics(
     energy_cost: float,
     operating_hours: int,
     insulation_cost_per_thickness: float,
-    analysis_period_years: int
+    analysis_period_years: int,
 ) -> dict[str, float]:
     """Calculate economic metrics for insulation investment.
 
@@ -458,7 +457,9 @@ def _calculate_economic_metrics(
     """
     # Heat loss reduction
     heat_loss_reduction = q_uninsulated - q_insulated
-    heat_loss_reduction_percent = (heat_loss_reduction / q_uninsulated) * 100 if q_uninsulated > 0 else 0.0
+    heat_loss_reduction_percent = (
+        (heat_loss_reduction / q_uninsulated) * 100 if q_uninsulated > 0 else 0.0
+    )
 
     # Annual energy savings (MWh)
     annual_energy_savings = (heat_loss_reduction * operating_hours) / 1e6  # W × h → MWh
@@ -468,7 +469,9 @@ def _calculate_economic_metrics(
 
     # Total insulation cost (material + installation)
     # Cost per unit area per unit thickness × area × thickness
-    pipe_diameter = 2.0 * (insulation_volume / (math.pi * pipe_length))**0.5 - 2.0 * insulation_thickness
+    pipe_diameter = (
+        2.0 * (insulation_volume / (math.pi * pipe_length)) ** 0.5 - 2.0 * insulation_thickness
+    )
     area = math.pi * (pipe_diameter + 2.0 * insulation_thickness) * pipe_length
     total_insulation_cost = insulation_cost_per_thickness * area * insulation_thickness
 
@@ -482,7 +485,7 @@ def _calculate_economic_metrics(
     if annual_cost_savings > 0:
         payback_period_years = total_insulation_cost / annual_cost_savings
     else:
-        payback_period_years = float('inf')
+        payback_period_years = float("inf")
 
     return {
         "heat_loss_reduction_percent": heat_loss_reduction_percent,
@@ -513,6 +516,7 @@ def _optimize_economic_thickness(input_data: InsulationInput, _q_uninsulated: fl
     float
         Optimal insulation thickness (m).
     """
+
     def total_annual_cost(thickness: float) -> float:
         """Objective function: total annualized cost."""
         # Calculate insulated heat loss
@@ -523,7 +527,7 @@ def _optimize_economic_thickness(input_data: InsulationInput, _q_uninsulated: fl
             input_data.T_ambient,
             input_data.h_ambient,
             thickness,
-            input_data.thermal_conductivity_insulation
+            input_data.thermal_conductivity_insulation,
         )
 
         # Annual energy cost
@@ -535,7 +539,7 @@ def _optimize_economic_thickness(input_data: InsulationInput, _q_uninsulated: fl
             input_data.pipe_diameter,
             input_data.pipe_length,
             thickness,
-            input_data.density_insulation
+            input_data.density_insulation,
         )
         r2 = input_data.pipe_diameter / 2.0 + thickness
         area_outer = 2.0 * math.pi * r2 * input_data.pipe_length
@@ -551,7 +555,7 @@ def _optimize_economic_thickness(input_data: InsulationInput, _q_uninsulated: fl
     result = minimize_scalar(
         total_annual_cost,
         bounds=(input_data.insulation_thickness_min, input_data.insulation_thickness_max),
-        method='bounded'
+        method="bounded",
     )
 
     return result.x
@@ -582,15 +586,15 @@ def _optimize_temperature_constrained(input_data: InsulationInput) -> float:
             input_data.T_ambient,
             input_data.h_ambient,
             thickness,
-            input_data.thermal_conductivity_insulation
+            input_data.thermal_conductivity_insulation,
         )
-        return (t_surf - t_limit)**2
+        return (t_surf - t_limit) ** 2
 
     # Optimize thickness to meet temperature constraint
     result = minimize_scalar(
         temperature_error,
         bounds=(input_data.insulation_thickness_min, input_data.insulation_thickness_max),
-        method='bounded'
+        method="bounded",
     )
 
     return result.x

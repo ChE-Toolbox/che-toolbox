@@ -83,8 +83,7 @@ def calculate_lmtd(input_data: LMTDInput) -> LMTDResult:
         f_correction = input_data.heat_exchanger.correction_factor or 1.0
         if f_correction is None:
             f_correction = _calculate_correction_factor(
-                input_data.heat_exchanger.configuration,
-                t_h_in, t_h_out, t_c_in, t_c_out
+                input_data.heat_exchanger.configuration, t_h_in, t_h_out, t_c_in, t_c_out
             )
 
         # Calculate effective LMTD
@@ -111,9 +110,7 @@ def calculate_lmtd(input_data: LMTDInput) -> LMTDResult:
         # Calculate energy balance error
         if q_hot > 0 or q_cold > 0:
             q_avg = (q_hot + q_cold) / 2 if (q_hot + q_cold) > 0 else max(q_hot, q_cold)
-            energy_balance_error = (
-                abs(q_hot - q_cold) / q_avg * 100 if q_avg > 0 else 0.0
-            )
+            energy_balance_error = abs(q_hot - q_cold) / q_avg * 100 if q_avg > 0 else 0.0
         else:
             energy_balance_error = 0.0
 
@@ -242,7 +239,9 @@ def _validate_lmtd_input(input_data: LMTDInput) -> None:
     validate_positive_float(input_data.heat_exchanger.area, "heat_exchanger_area")
 
 
-def _calculate_lmtd_arithmetic(t_h_in: float, t_h_out: float, t_c_in: float, t_c_out: float) -> float:
+def _calculate_lmtd_arithmetic(
+    t_h_in: float, t_h_out: float, t_c_in: float, t_c_out: float
+) -> float:
     """Calculate logarithmic mean temperature difference.
 
     LMTD = (ΔT1 - ΔT2) / ln(ΔT1 / ΔT2)
@@ -337,7 +336,11 @@ def _calculate_correction_factor(
 
     # For crossflow configurations, use simplified approximation
     # In practice, these come from charts in Incropera or other references
-    if configuration in ["crossflow_unmixed_both", "crossflow_unmixed_hot_mixed_cold", "crossflow_mixed_both"]:
+    if configuration in [
+        "crossflow_unmixed_both",
+        "crossflow_unmixed_hot_mixed_cold",
+        "crossflow_mixed_both",
+    ]:
         # Simplified approximation: 0.7-0.95 typical for crossflow
         # This is a placeholder; actual implementation would use correlation charts
         return 0.90  # Default conservative estimate

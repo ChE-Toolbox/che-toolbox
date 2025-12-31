@@ -122,7 +122,7 @@ def _calculate_flat_plate(input_data: FlatPlateConvection) -> ConvectionResult:
 
     if Re < Re_crit:
         # Laminar flow
-        Nu = 0.664 * Re**0.5 * Pr**(1/3)
+        Nu = 0.664 * Re**0.5 * Pr ** (1 / 3)
         flow_regime = "laminar"
         correlation = "Blasius laminar flat plate"
         applicable_range = {
@@ -131,7 +131,7 @@ def _calculate_flat_plate(input_data: FlatPlateConvection) -> ConvectionResult:
         }
     else:
         # Turbulent flow
-        Nu = 0.037 * Re**0.8 * Pr**(1/3)
+        Nu = 0.037 * Re**0.8 * Pr ** (1 / 3)
         flow_regime = "turbulent"
         correlation = "Turbulent flat plate (0.037 Re^0.8)"
         applicable_range = {
@@ -143,10 +143,7 @@ def _calculate_flat_plate(input_data: FlatPlateConvection) -> ConvectionResult:
     h = Nu * k / L
 
     # Check if within correlation range
-    is_within_range = _check_correlation_range(
-        {"Re": Re, "Pr": Pr},
-        applicable_range
-    )
+    is_within_range = _check_correlation_range({"Re": Re, "Pr": Pr}, applicable_range)
 
     return ConvectionResult(
         primary_value=h,
@@ -221,8 +218,8 @@ def _calculate_pipe_flow(input_data: PipeFlowConvection) -> ConvectionResult:
         # Turbulent flow - use Gnielinski correlation
         # Valid for 0.5 < Pr < 2000 and 3000 < Re < 5e6
         if 3000 <= Re <= 5e6 and 0.5 <= Pr <= 2000:
-            f = (0.790 * math.log(Re) - 1.64)**(-2)  # Petukhov friction factor
-            Nu = (f/8) * (Re - 1000) * Pr / (1 + 12.7 * (f/8)**0.5 * (Pr**(2/3) - 1))
+            f = (0.790 * math.log(Re) - 1.64) ** (-2)  # Petukhov friction factor
+            Nu = (f / 8) * (Re - 1000) * Pr / (1 + 12.7 * (f / 8) ** 0.5 * (Pr ** (2 / 3) - 1))
             correlation = "Gnielinski"
         else:
             # Fallback to Dittus-Boelter
@@ -251,10 +248,7 @@ def _calculate_pipe_flow(input_data: PipeFlowConvection) -> ConvectionResult:
     h = Nu * k / D
 
     # Check if within correlation range
-    is_within_range = _check_correlation_range(
-        {"Re": Re, "Pr": Pr},
-        applicable_range
-    )
+    is_within_range = _check_correlation_range({"Re": Re, "Pr": Pr}, applicable_range)
 
     return ConvectionResult(
         primary_value=h,
@@ -318,14 +312,13 @@ def _calculate_cylinder_crossflow(input_data: CylinderCrossflowConvection) -> Co
 
     # Churchill-Bernstein correlation
     if Re * Pr > 0.2:
-        Nu = (0.3 +
-              (0.62 * Re**0.5 * Pr**(1/3)) /
-              (1 + (0.4/Pr)**(2/3))**0.25 *
-              (1 + (Re/282000)**(5/8))**(4/5))
+        Nu = 0.3 + (0.62 * Re**0.5 * Pr ** (1 / 3)) / (1 + (0.4 / Pr) ** (2 / 3)) ** 0.25 * (
+            1 + (Re / 282000) ** (5 / 8)
+        ) ** (4 / 5)
         correlation = "Churchill-Bernstein"
     else:
         # Fallback for very low Re×Pr
-        Nu = 0.3 + 0.62 * Re**0.5 * Pr**(1/3)
+        Nu = 0.3 + 0.62 * Re**0.5 * Pr ** (1 / 3)
         correlation = "Churchill-Bernstein (simplified)"
 
     # Determine flow regime based on Reynolds number
@@ -347,8 +340,7 @@ def _calculate_cylinder_crossflow(input_data: CylinderCrossflowConvection) -> Co
 
     # Check if within correlation range
     is_within_range = _check_correlation_range(
-        {"Re": Re, "Pr": Pr, "Re×Pr": Re * Pr},
-        applicable_range
+        {"Re": Re, "Pr": Pr, "Re×Pr": Re * Pr}, applicable_range
     )
 
     return ConvectionResult(
@@ -427,7 +419,7 @@ def _calculate_natural_convection(input_data: VerticalPlateNaturalConvection) ->
     # Determine flow regime and calculate Nusselt number
     if Ra < 1e9:
         # Laminar natural convection
-        Nu = 0.68 + (0.670 * Ra**0.25) / (1 + (0.492/Pr)**(9/16))**(4/9)
+        Nu = 0.68 + (0.670 * Ra**0.25) / (1 + (0.492 / Pr) ** (9 / 16)) ** (4 / 9)
         flow_regime = "natural_laminar"
         correlation = "Churchill-Chu (laminar)"
         applicable_range = {
@@ -436,7 +428,7 @@ def _calculate_natural_convection(input_data: VerticalPlateNaturalConvection) ->
         }
     else:
         # Turbulent natural convection
-        Nu = 0.15 * Ra**(1/3)
+        Nu = 0.15 * Ra ** (1 / 3)
         flow_regime = "natural_turbulent"
         correlation = "Churchill-Chu (turbulent)"
         applicable_range = {
@@ -448,10 +440,7 @@ def _calculate_natural_convection(input_data: VerticalPlateNaturalConvection) ->
     h = Nu * k / H
 
     # Check if within correlation range
-    is_within_range = _check_correlation_range(
-        {"Ra": Ra, "Pr": Pr},
-        applicable_range
-    )
+    is_within_range = _check_correlation_range({"Ra": Ra, "Pr": Pr}, applicable_range)
 
     return ConvectionResult(
         primary_value=h,
@@ -483,8 +472,7 @@ def _calculate_natural_convection(input_data: VerticalPlateNaturalConvection) ->
 
 
 def _check_correlation_range(
-    values: dict[str, float],
-    ranges: dict[str, tuple[float, float]]
+    values: dict[str, float], ranges: dict[str, tuple[float, float]]
 ) -> bool:
     """Check if parameter values are within correlation validity ranges.
 

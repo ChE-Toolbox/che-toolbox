@@ -4,7 +4,6 @@ Defines Pydantic models for convection calculation outputs including heat
 transfer coefficient, dimensionless numbers, and flow regime identification.
 """
 
-
 from pydantic import Field, field_validator
 
 from heat_calc.models.base import BaseCalculationResult
@@ -143,11 +142,11 @@ class ConvectionResult(BaseCalculationResult):
 
     @field_validator("applicable_range")
     @classmethod
-    def validate_applicable_range(cls, v: dict[str, tuple[float, float]]) -> dict[str, tuple[float, float]]:
+    def validate_applicable_range(
+        cls, v: dict[str, tuple[float, float]]
+    ) -> dict[str, tuple[float, float]]:
         """Validate that range tuples are properly ordered (min, max)."""
         for param, (min_val, max_val) in v.items():
             if min_val > max_val:
-                raise ValueError(
-                    f"Invalid range for {param}: min ({min_val}) > max ({max_val})"
-                )
+                raise ValueError(f"Invalid range for {param}: min ({min_val}) > max ({max_val})")
         return v

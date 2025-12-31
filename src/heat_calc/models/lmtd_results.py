@@ -179,7 +179,5 @@ class LMTDResult(BaseCalculationResult):
     def validate_correction_factor(cls, v: float) -> float:
         """Validate correction factor is in valid range [0, 1]."""
         if not (0.0 <= v <= 1.0):
-            raise ValueError(
-                f"Correction factor {v} must be in range [0, 1]"
-            )
+            raise ValueError(f"Correction factor {v} must be in range [0, 1]")
         return v
