@@ -153,14 +153,15 @@ class VanDerWaalsEOS:
         a = self.calculate_a(tc, pc, temperature)
         b = self.calculate_b(tc, pc)
 
-        # Solve cubic equation
-        # Coefficients for: V³ + p*V² + q*V + r = 0
-        # From: V³ - (b + RT/P)V² + (a/P)V - ab/P = 0
-        p = -(b + self.R * temperature / pressure)
-        q = a / pressure
-        r = -a * b / pressure
+        # Solve cubic equation: V³ - (b + RT/P)V² + (a/P)V - ab/P = 0
+        # In form: a*V³ + b*V² + c*V + d = 0
+        # Coefficients:
+        a_coeff = 1.0
+        b_coeff = -(b + self.R * temperature / pressure)
+        c_coeff = a / pressure
+        d_coeff = -a * b / pressure
 
-        roots = solve_cubic(p, q, r)
+        roots = solve_cubic(a_coeff, b_coeff, c_coeff, d_coeff)
 
         # Filter real, positive roots
         valid_roots = [root for root in roots if isinstance(root, float) and root > 0]
@@ -258,14 +259,19 @@ class VanDerWaalsEOS:
         else:
             phase = PhaseType.VAPOR
 
+        # Store additional state properties on the state object
+        # Note: ThermodynamicState uses standard field names (temperature, pressure, composition, z_factor)
+        # Additional fields are stored as a custom dict to preserve the data
         state = ThermodynamicState(
-            T=temperature,
-            P=pressure,
-            n=n,
-            z=z,
-            v_molar=v_molar,
+            temperature=temperature,
+            pressure=pressure,
+            composition=compound.name,
             phase=phase,
+            z_factor=z,
         )
+        # Attach additional attributes for convenience (not part of model validation)
+        state._n = n  # type: ignore
+        state._v_molar = v_molar  # type: ignore
 
         logger.debug(f"Calculated VDW state: Z={z:.4f}, phase={phase.value}")
         return state

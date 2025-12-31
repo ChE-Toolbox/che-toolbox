@@ -161,14 +161,17 @@ class IdealGasEOS:
         # Ideal gas is always in vapor phase
         phase = PhaseType.VAPOR
 
+        compound_name = compound.name if compound else "ideal_gas"
         state = ThermodynamicState(
-            T=temperature,
-            P=pressure,
-            n=n,
-            z=z,
-            v_molar=v_molar,
+            temperature=temperature,
+            pressure=pressure,
+            composition=compound_name,
             phase=phase,
+            z_factor=z,
         )
+        # Attach additional attributes for convenience (not part of model validation)
+        state._n = n  # type: ignore
+        state._v_molar = v_molar  # type: ignore
 
         logger.debug(
             f"Calculated ideal gas state: Z={z:.4f}, V_m={v_molar:.6e} m³/mol"
