@@ -14,10 +14,10 @@ from fluids.valve.cv import (
     calculate_valve_sizing,
 )
 from fluids.valve.performance import (
+    assess_valve_performance,
+    calculate_relative_flow_capacity,
     calculate_valve_authority,
     calculate_valve_rangeability,
-    calculate_relative_flow_capacity,
-    assess_valve_performance,
 )
 
 __all__ = [

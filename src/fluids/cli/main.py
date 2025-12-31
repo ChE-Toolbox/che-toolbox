@@ -10,7 +10,6 @@ Provides command-line interface for:
 
 import argparse
 import sys
-from typing import List, Optional
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -49,7 +48,7 @@ def create_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: Optional[List[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     """
     Main entry point for the CLI.
 

@@ -2,7 +2,6 @@
 Input validation and physical reasonableness checks for calculations.
 """
 
-from typing import Optional, Tuple
 
 
 class ValidationError(Exception):
@@ -16,7 +15,7 @@ def validate_reynolds_components(
     velocity: float,
     diameter: float,
     viscosity: float,
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """
     Validate Reynolds number calculation inputs.
 
@@ -41,7 +40,7 @@ def validate_reynolds_components(
     return True, None
 
 
-def validate_flow_regime(reynolds_number: float) -> Tuple[str, Optional[str]]:
+def validate_flow_regime(reynolds_number: float) -> tuple[str, str | None]:
     """
     Classify flow regime and return warning if in transitional zone.
 
@@ -66,7 +65,7 @@ def validate_flow_regime(reynolds_number: float) -> Tuple[str, Optional[str]]:
 
 def validate_pipe_geometry(
     diameter: float, length: float, roughness: float
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """
     Validate pipe geometry parameters.
 
@@ -96,7 +95,7 @@ def validate_pressure_drop_inputs(
     diameter: float,
     velocity: float,
     density: float,
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """
     Validate Darcy-Weisbach pressure drop inputs.
 
@@ -126,7 +125,7 @@ def validate_pressure_drop_inputs(
 
 def validate_pump_head(
     static_head: float, dynamic_head: float, friction_losses: float
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """
     Validate pump head calculation inputs.
 
@@ -153,7 +152,7 @@ def validate_pump_power(
     density: float,
     head: float,
     efficiency: float,
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """
     Validate pump power calculation inputs.
 
@@ -182,7 +181,7 @@ def validate_valve_cv(
     flow_rate: float,
     pressure_drop: float,
     specific_gravity: float,
-) -> Tuple[bool, Optional[str]]:
+) -> tuple[bool, str | None]:
     """
     Validate valve Cv calculation inputs.
 
@@ -204,7 +203,7 @@ def validate_valve_cv(
     return True, None
 
 
-def validate_unit_system(unit_system: str) -> Tuple[bool, Optional[str]]:
+def validate_unit_system(unit_system: str) -> tuple[bool, str | None]:
     """
     Validate unit system specification.
 

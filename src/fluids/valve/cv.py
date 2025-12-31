@@ -7,8 +7,8 @@ Provides calculations for:
 - Valve sizing based on required flow
 """
 
-from typing import Dict, Any, Optional
 import math
+from typing import Any
 
 
 def calculate_cv_required(
@@ -16,7 +16,7 @@ def calculate_cv_required(
     pressure_drop: float,
     fluid_gravity: float = 1.0,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate Cv required for given flow and pressure drop.
 
@@ -119,7 +119,7 @@ def calculate_flow_rate_through_valve(
     pressure_drop: float,
     fluid_gravity: float = 1.0,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate flow rate through valve given Cv and pressure drop.
 
@@ -210,7 +210,7 @@ def calculate_valve_sizing(
     valve_cv_options: list,
     fluid_gravity: float = 1.0,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Find suitable valve Cv from available options.
 

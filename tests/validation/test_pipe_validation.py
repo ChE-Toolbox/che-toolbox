@@ -5,12 +5,12 @@ These tests validate calculations against Crane TP-410 and engineering standards
 Reference: Crane Co. Technical Paper No. 410M, "Flow of Fluids Through Valves, Fittings, and Pipe"
 """
 
-import pytest
 import math
+
 from fluids.pipe import (
-    calculate_reynolds,
     calculate_friction_factor,
     calculate_pressure_drop,
+    calculate_reynolds,
 )
 
 

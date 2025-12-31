@@ -2,8 +2,8 @@
 Darcy-Weisbach pressure drop calculation for pipe flow.
 """
 
-import math
-from typing import Any, Dict
+from typing import Any
+
 from fluids.core.validators import validate_pressure_drop_inputs
 from fluids.output.formatter import create_result
 
@@ -15,7 +15,7 @@ def calculate_pressure_drop(
     velocity: float,
     density: float,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate pressure drop using Darcy-Weisbach equation.
 

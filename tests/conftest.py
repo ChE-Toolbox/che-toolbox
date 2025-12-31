@@ -8,7 +8,7 @@ Provides:
 
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import pytest
 
@@ -135,7 +135,7 @@ def ureg():
 
 
 @pytest.fixture
-def standard_water() -> Dict[str, float]:
+def standard_water() -> dict[str, float]:
     """
     Standard water properties at 20°C and 1 atm.
 
@@ -154,7 +154,7 @@ def standard_water() -> Dict[str, float]:
 
 
 @pytest.fixture
-def standard_pipe() -> Dict[str, float]:
+def standard_pipe() -> dict[str, float]:
     """
     Standard steel pipe dimensions for testing.
 
@@ -170,7 +170,7 @@ def standard_pipe() -> Dict[str, float]:
 
 
 @pytest.fixture
-def standard_pump() -> Dict[str, Any]:
+def standard_pump() -> dict[str, Any]:
     """
     Standard centrifugal pump specifications.
 
@@ -196,7 +196,7 @@ def standard_pump() -> Dict[str, Any]:
 
 
 @pytest.fixture
-def standard_valve() -> Dict[str, Any]:
+def standard_valve() -> dict[str, Any]:
     """
     Standard ball valve specifications.
 
@@ -218,7 +218,7 @@ def standard_valve() -> Dict[str, Any]:
 
 
 @pytest.fixture
-def crane_tp410_reference_data() -> Dict[str, Dict[str, float]]:
+def crane_tp410_reference_data() -> dict[str, dict[str, float]]:
     """
     Reference data from Crane TP-410 for validation.
 
@@ -246,7 +246,7 @@ def crane_tp410_reference_data() -> Dict[str, Dict[str, float]]:
 
 
 @pytest.fixture
-def turbulent_flow_cases() -> list[Dict[str, float]]:
+def turbulent_flow_cases() -> list[dict[str, float]]:
     """
     Test cases for turbulent flow regimes.
 
@@ -282,7 +282,7 @@ def turbulent_flow_cases() -> list[Dict[str, float]]:
 
 
 @pytest.fixture
-def laminar_flow_cases() -> list[Dict[str, float]]:
+def laminar_flow_cases() -> list[dict[str, float]]:
     """
     Test cases for laminar flow regimes.
 
@@ -310,7 +310,7 @@ def laminar_flow_cases() -> list[Dict[str, float]]:
 
 
 @pytest.fixture
-def transitional_flow_cases() -> list[Dict[str, float]]:
+def transitional_flow_cases() -> list[dict[str, float]]:
     """
     Test cases for transitional flow regimes (Re 2300-4000).
 

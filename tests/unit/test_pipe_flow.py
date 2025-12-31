@@ -4,12 +4,14 @@ Unit tests for pipe flow calculations.
 Tests Reynolds number, friction factor, and pressure drop calculations.
 """
 
-import pytest
 import math
+
+import pytest
+
 from fluids.pipe import (
-    calculate_reynolds,
     calculate_friction_factor,
     calculate_pressure_drop,
+    calculate_reynolds,
 )
 
 

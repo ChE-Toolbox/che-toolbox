@@ -4,17 +4,19 @@ Unit tests for pump sizing calculations.
 Tests pump head, power, and NPSH calculations.
 """
 
-import pytest
 import math
+
+import pytest
+
 from fluids.pump import (
-    calculate_total_head,
-    calculate_static_head,
+    calculate_brake_power,
     calculate_dynamic_head,
     calculate_hydraulic_power,
-    calculate_brake_power,
     calculate_motor_power,
     calculate_npsh_available,
     calculate_npsh_required,
+    calculate_static_head,
+    calculate_total_head,
     check_cavitation_risk,
 )
 

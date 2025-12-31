@@ -7,7 +7,7 @@ Provides calculations for:
 - Cavitation risk assessment
 """
 
-from typing import Dict, Any
+from typing import Any
 
 
 def calculate_npsh_available(
@@ -18,7 +18,7 @@ def calculate_npsh_available(
     fluid_density: float = 1000.0,
     g: float = 9.81,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate NPSH available in the system.
 
@@ -142,7 +142,7 @@ def calculate_npsh_required(
     pump_design_point_flow: float,
     actual_flow: float,
     npsh_required_at_design: float = 1.0,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate NPSH required by pump at operating conditions.
 
@@ -225,7 +225,7 @@ def calculate_npsh_required(
 def check_cavitation_risk(
     npsh_available: float,
     npsh_required: float,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Check cavitation risk based on NPSH margin.
 

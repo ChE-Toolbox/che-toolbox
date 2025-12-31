@@ -8,14 +8,13 @@ Provides calculations for:
 - Valve performance verification
 """
 
-from typing import Dict, Any, Optional
-import math
+from typing import Any
 
 
 def calculate_valve_authority(
     valve_pressure_drop: float,
     system_pressure_drop: float,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate valve authority (relative pressure drop).
 
@@ -100,7 +99,7 @@ def calculate_valve_rangeability(
     cv_min: float,
     cv_max: float,
     min_controllable_opening_percent: float = 5.0,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate valve rangeability (control range).
 
@@ -191,7 +190,7 @@ def calculate_valve_rangeability(
 def calculate_relative_flow_capacity(
     opening_percent: float,
     valve_type: str = "linear",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate relative flow capacity at a given opening.
 
@@ -278,7 +277,7 @@ def assess_valve_performance(
     cv_max: float,
     pressure_drop_design: float,
     system_pressure_drop: float,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Assess overall valve performance characteristics.
 

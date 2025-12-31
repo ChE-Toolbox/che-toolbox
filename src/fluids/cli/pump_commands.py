@@ -3,19 +3,19 @@
 import argparse
 import json
 import sys
-from typing import Any, Dict
+from typing import Any
 
 from fluids.pump import (
-    calculate_total_head,
-    calculate_hydraulic_power,
     calculate_brake_power,
+    calculate_hydraulic_power,
     calculate_npsh_available,
     calculate_npsh_required,
+    calculate_total_head,
     check_cavitation_risk,
 )
 
 
-def format_output(result: Dict[str, Any], format: str, verbosity: str) -> str:
+def format_output(result: dict[str, Any], format: str, verbosity: str) -> str:
     """
     Format calculation result for output.
 

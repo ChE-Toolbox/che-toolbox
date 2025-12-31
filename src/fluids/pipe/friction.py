@@ -5,8 +5,10 @@ Friction factor depends on Reynolds number and pipe roughness.
 """
 
 import math
-from typing import Any, Dict, Optional
+from typing import Any
+
 from scipy import optimize
+
 from fluids.output.formatter import create_result
 
 
@@ -15,7 +17,7 @@ def calculate_friction_factor(
     roughness: float,
     diameter: float,
     method: str = "churchill",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate friction factor for pipe flow.
 

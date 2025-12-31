@@ -7,7 +7,7 @@ Provides calculations for:
 - Motor power (including motor efficiency)
 """
 
-from typing import Dict, Any
+from typing import Any
 
 
 def calculate_hydraulic_power(
@@ -16,7 +16,7 @@ def calculate_hydraulic_power(
     fluid_density: float = 1000.0,
     g: float = 9.81,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate hydraulic power (ideal power without losses).
 
@@ -136,7 +136,7 @@ def calculate_brake_power(
     fluid_density: float = 1000.0,
     g: float = 9.81,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate brake power (actual power required from pump).
 
@@ -209,7 +209,7 @@ def calculate_brake_power(
         "hydraulic_power": hydraulic_power,
         "pump_efficiency": pump_efficiency,
         "power_loss": brake_power - hydraulic_power,
-        "formula_used": f"P_brake = P_hydraulic / η_pump",
+        "formula_used": "P_brake = P_hydraulic / η_pump",
         "warnings": warnings,
         "intermediate_values": {
             "flow_rate": flow_rate,
@@ -224,7 +224,7 @@ def calculate_brake_power(
 def calculate_motor_power(
     brake_power: float,
     motor_efficiency: float = 0.95,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate motor power (electrical power input to motor).
 

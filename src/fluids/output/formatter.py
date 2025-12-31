@@ -4,15 +4,14 @@ Output formatting for calculation results with configurable verbosity.
 Supports minimal, standard, and detailed output formats in both text and JSON.
 """
 
-import json
-from typing import Any, Dict, Literal, Optional, Union
+from typing import Any, Literal
 
 
 def format_calculation(
-    result: Dict[str, Any],
+    result: dict[str, Any],
     verbosity: Literal["minimal", "standard", "detailed"] = "standard",
     output_format: Literal["text", "json"] = "text",
-) -> Union[str, Dict[str, Any]]:
+) -> str | dict[str, Any]:
     """
     Format calculation result based on verbosity and output format.
 
@@ -32,9 +31,9 @@ def format_calculation(
 
 
 def _format_json(
-    result: Dict[str, Any],
+    result: dict[str, Any],
     verbosity: Literal["minimal", "standard", "detailed"],
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """Format result as JSON."""
     if verbosity == "minimal":
         return {
@@ -54,7 +53,7 @@ def _format_json(
 
 
 def _format_text(
-    result: Dict[str, Any],
+    result: dict[str, Any],
     verbosity: Literal["minimal", "standard", "detailed"],
 ) -> str:
     """Format result as human-readable text."""
@@ -129,11 +128,11 @@ def create_result(
     value: float,
     unit: str,
     formula_used: str = "",
-    intermediate_values: Optional[Dict[str, Any]] = None,
-    warnings: Optional[list[str]] = None,
+    intermediate_values: dict[str, Any] | None = None,
+    warnings: list[str] | None = None,
     source: str = "",
     reference_data: str = "",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Create a standardized calculation result dictionary.
 

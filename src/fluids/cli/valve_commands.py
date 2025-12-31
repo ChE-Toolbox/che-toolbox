@@ -3,7 +3,7 @@
 import argparse
 import json
 import sys
-from typing import Any, Dict
+from typing import Any
 
 from fluids.valve import (
     calculate_cv_required,
@@ -12,7 +12,7 @@ from fluids.valve import (
 )
 
 
-def format_output(result: Dict[str, Any], format: str, verbosity: str) -> str:
+def format_output(result: dict[str, Any], format: str, verbosity: str) -> str:
     """
     Format calculation result for output.
 
@@ -45,7 +45,7 @@ def format_output(result: Dict[str, Any], format: str, verbosity: str) -> str:
             lines.append(f"Formula: {result['formula_used']}")
 
         # For valve sizing results, show recommendations
-        if "recommended_sizes" in result and result["recommended_sizes"]:
+        if result.get("recommended_sizes"):
             lines.append("\nRecommended Valve Sizes:")
             for size in result["recommended_sizes"][:3]:  # Show top 3
                 lines.append(f"  - {size}")

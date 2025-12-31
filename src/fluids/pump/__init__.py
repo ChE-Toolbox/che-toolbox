@@ -8,19 +8,19 @@ Provides calculations for:
 """
 
 from fluids.pump.head import (
-    calculate_total_head,
-    calculate_static_head,
     calculate_dynamic_head,
-)
-from fluids.pump.power import (
-    calculate_hydraulic_power,
-    calculate_brake_power,
-    calculate_motor_power,
+    calculate_static_head,
+    calculate_total_head,
 )
 from fluids.pump.npsh import (
     calculate_npsh_available,
     calculate_npsh_required,
     check_cavitation_risk,
+)
+from fluids.pump.power import (
+    calculate_brake_power,
+    calculate_hydraulic_power,
+    calculate_motor_power,
 )
 
 __all__ = [

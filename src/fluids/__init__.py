@@ -15,24 +15,24 @@ from fluids.pipe import (
     calculate_reynolds,
 )
 from fluids.pump import (
-    calculate_total_head,
-    calculate_static_head,
+    calculate_brake_power,
     calculate_dynamic_head,
     calculate_hydraulic_power,
-    calculate_brake_power,
     calculate_motor_power,
     calculate_npsh_available,
     calculate_npsh_required,
+    calculate_static_head,
+    calculate_total_head,
     check_cavitation_risk,
 )
 from fluids.valve import (
+    assess_valve_performance,
     calculate_cv_required,
     calculate_flow_rate_through_valve,
-    calculate_valve_sizing,
+    calculate_relative_flow_capacity,
     calculate_valve_authority,
     calculate_valve_rangeability,
-    calculate_relative_flow_capacity,
-    assess_valve_performance,
+    calculate_valve_sizing,
 )
 
 __version__ = "0.1.0"

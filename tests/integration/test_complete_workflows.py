@@ -4,23 +4,23 @@ End-to-end integration tests for complete engineering workflows.
 These tests verify that all three user stories work together seamlessly.
 """
 
-import pytest
 import math
-from fluids.pipe import calculate_reynolds, calculate_friction_factor, calculate_pressure_drop
+
+from fluids.pipe import calculate_friction_factor, calculate_pressure_drop, calculate_reynolds
 from fluids.pump import (
-    calculate_total_head,
-    calculate_hydraulic_power,
     calculate_brake_power,
+    calculate_hydraulic_power,
     calculate_motor_power,
     calculate_npsh_available,
     calculate_npsh_required,
+    calculate_total_head,
     check_cavitation_risk,
 )
 from fluids.valve import (
-    calculate_cv_required,
-    calculate_valve_sizing,
-    calculate_valve_authority,
     assess_valve_performance,
+    calculate_cv_required,
+    calculate_valve_authority,
+    calculate_valve_sizing,
 )
 
 
@@ -183,15 +183,15 @@ class TestCompleteSystemDesign:
         assert 0.2 <= authority["value"] <= 0.6  # Good valve authority
 
         # ============ SYSTEM SUMMARY ============
-        print(f"\n=== COMPLETE SYSTEM DESIGN SUMMARY ===")
+        print("\n=== COMPLETE SYSTEM DESIGN SUMMARY ===")
         print(f"Flow Rate: {flow_rate_m3s:.4f} m³/s ({flow_rate_gpm:.1f} gpm)")
         print(f"Elevation: {elevation:.1f} m")
         print(f"Pipe Length: {pipe_length:.1f} m")
-        print(f"\nPipe Flow Analysis:")
+        print("\nPipe Flow Analysis:")
         print(f"  Reynolds: {re_result['value']:.0f} ({re_result['flow_regime']})")
         print(f"  Friction Factor: {ff_result['value']:.4f}")
         print(f"  Pressure Drop: {friction_loss/6894.76:.2f} psi")
-        print(f"\nPump Requirements:")
+        print("\nPump Requirements:")
         print(f"  Total Head: {total_head:.2f} m")
         print(f"  Hydraulic Power: {hydraulic['value']:.2f} kW")
         print(f"  Brake Power (82% eff): {brake['value']:.2f} kW")
@@ -199,7 +199,7 @@ class TestCompleteSystemDesign:
         print(f"  NPSH Available: {npsh_available['value']:.2f} m")
         print(f"  NPSH Required: {npsh_required['value']:.2f} m")
         print(f"  Cavitation Risk: {cavitation['cavitation_risk']}")
-        print(f"\nValve Sizing:")
+        print("\nValve Sizing:")
         print(f"  Cv Required: {cv_required['value']:.2f}")
         print(f"  Selected Valve: {valve_selection['recommended_cv']}")
         print(f"  Opening: {valve_selection['recommended_percentage']:.1f}%")

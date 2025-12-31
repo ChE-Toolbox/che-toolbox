@@ -5,15 +5,15 @@ These tests validate pump calculations against engineering standards and
 typical pump curves from manufacturer datasheets.
 """
 
-import pytest
 import math
+
 from fluids.pump import (
-    calculate_total_head,
-    calculate_hydraulic_power,
     calculate_brake_power,
+    calculate_hydraulic_power,
     calculate_motor_power,
     calculate_npsh_available,
     calculate_npsh_required,
+    calculate_total_head,
     check_cavitation_risk,
 )
 

@@ -4,10 +4,11 @@ Reynolds number calculation for pipe flow analysis.
 Reynolds number determines flow regime (laminar, transitional, turbulent).
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
+
 from fluids.core.validators import (
-    validate_reynolds_components,
     validate_flow_regime,
+    validate_reynolds_components,
 )
 from fluids.output.formatter import create_result
 
@@ -18,7 +19,7 @@ def calculate_reynolds(
     diameter: float,
     viscosity: float,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate Reynolds number for pipe flow.
 

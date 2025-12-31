@@ -8,7 +8,7 @@ Provides calculations for pump head requirements including:
 - Total head (sum of all head components)
 """
 
-from typing import Dict, Any, Optional
+from typing import Any
 
 
 def calculate_total_head(
@@ -18,7 +18,7 @@ def calculate_total_head(
     fluid_density: float = 1000.0,
     g: float = 9.81,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate total head required by pump.
 
@@ -58,7 +58,7 @@ def calculate_total_head(
     ValueError
         If any required input is invalid or unphysical
     """
-    from fluids.core.validators import validate_pipe_geometry, validate_unit_system
+    from fluids.core.validators import validate_unit_system
 
     # Validate inputs
     is_valid, error_msg = validate_unit_system(unit_system)
@@ -127,7 +127,7 @@ def calculate_total_head(
 def calculate_static_head(
     elevation_change: float,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate static head (elevation change).
 
@@ -178,7 +178,7 @@ def calculate_dynamic_head(
     velocity: float,
     g: float = 9.81,
     unit_system: str = "SI",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Calculate dynamic head (velocity head).
 

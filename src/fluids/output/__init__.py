@@ -1,5 +1,5 @@
 """Output formatting for calculation results."""
 
-from fluids.output.formatter import format_calculation, create_result
+from fluids.output.formatter import create_result, format_calculation
 
-__all__ = ["format_calculation", "create_result"]
+__all__ = ["create_result", "format_calculation"]

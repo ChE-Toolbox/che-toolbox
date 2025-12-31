@@ -4,16 +4,18 @@ Unit tests for valve sizing calculations.
 Tests valve Cv, flow rate, and performance calculations.
 """
 
-import pytest
 import math
+
+import pytest
+
 from fluids.valve import (
+    assess_valve_performance,
     calculate_cv_required,
     calculate_flow_rate_through_valve,
-    calculate_valve_sizing,
+    calculate_relative_flow_capacity,
     calculate_valve_authority,
     calculate_valve_rangeability,
-    calculate_relative_flow_capacity,
-    assess_valve_performance,
+    calculate_valve_sizing,
 )
 
 

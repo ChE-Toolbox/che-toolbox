@@ -4,8 +4,9 @@ Pydantic data models for fluid mechanics calculations.
 Provides type-safe data validation for fluids, pipes, pumps, valves, and systems.
 """
 
-from typing import Any, Dict, Optional
-from pydantic import BaseModel, Field, field_validator
+from typing import Any
+
+from pydantic import BaseModel, Field
 
 
 class Fluid(BaseModel):
@@ -50,7 +51,7 @@ class Pipe(BaseModel):
     material: str = Field(
         default="steel", description="Pipe material (steel, copper, pvc, etc.)"
     )
-    fluid: Optional[Fluid] = Field(default=None, description="Fluid in the pipe")
+    fluid: Fluid | None = Field(default=None, description="Fluid in the pipe")
 
     class Config:
         json_schema_extra = {
@@ -84,7 +85,7 @@ class Pump(BaseModel):
         description="Pump efficiency (0-1)",
     )
     npsh_required: float = Field(..., ge=0, description="NPSH required in meters")
-    efficiency_curve: Dict[float, float] = Field(
+    efficiency_curve: dict[float, float] = Field(
         default_factory=dict,
         description="Efficiency curve {flow_rate: efficiency}",
     )
@@ -115,7 +116,7 @@ class Valve(BaseModel):
     name: str = Field(..., description="Valve model name")
     type: str = Field(..., description="Valve type (ball, gate, globe)")
     nominal_size: str = Field(..., description="Valve nominal size (e.g., '2 inch')")
-    cv_rating: float | Dict[str, float] = Field(
+    cv_rating: float | dict[str, float] = Field(
         ..., description="Cv rating (single value or dict with opening %)"
     )
     rangeability: float = Field(
@@ -148,7 +149,7 @@ class System(BaseModel):
     elevation_changes: list[float] = Field(
         default_factory=list, description="Elevation changes in meters"
     )
-    operating_conditions: Dict[str, Any] = Field(
+    operating_conditions: dict[str, Any] = Field(
         default_factory=dict, description="Operating conditions (flow rate, etc.)"
     )
 

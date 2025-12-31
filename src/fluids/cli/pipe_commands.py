@@ -3,16 +3,16 @@
 import argparse
 import json
 import sys
-from typing import Any, Dict
+from typing import Any
 
 from fluids.pipe import (
-    calculate_reynolds,
     calculate_friction_factor,
     calculate_pressure_drop,
+    calculate_reynolds,
 )
 
 
-def format_output(result: Dict[str, Any], format: str, verbosity: str) -> str:
+def format_output(result: dict[str, Any], format: str, verbosity: str) -> str:
     """
     Format calculation result for output.
 
