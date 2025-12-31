@@ -293,15 +293,15 @@ def handle_validate(args: argparse.Namespace) -> int:
             # Run flash
             result = flash.calculate(
                 feed_composition=case["z"],  # type: ignore[arg-type]
-                temperature=cast(float, case["T"]),
-                pressure=cast(float, case["P"]),
+                temperature=cast("float", case["T"]),
+                pressure=cast("float", case["P"]),
                 critical_temperatures=tc,
                 critical_pressures=pc,
             )
 
             # Check results
-            L_error = abs(result.L - cast(float, case["expected_L"]))
-            V_error = abs(result.V - cast(float, case["expected_V"]))
+            L_error = abs(result.L - cast("float", case["expected_L"]))
+            V_error = abs(result.V - cast("float", case["expected_V"]))
             material_balance_error = float(
                 np.max(np.abs((result.L * result.x + result.V * result.y) - np.array(case["z"])))
             )
