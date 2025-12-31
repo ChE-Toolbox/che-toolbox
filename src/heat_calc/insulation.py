@@ -559,7 +559,7 @@ def _optimize_economic_thickness(input_data: InsulationInput, _q_uninsulated: fl
         method="bounded",
     )
 
-    return cast(float, result.x)
+    return cast("float", result.x)
 
 
 def _optimize_temperature_constrained(input_data: InsulationInput) -> float:
@@ -598,4 +598,4 @@ def _optimize_temperature_constrained(input_data: InsulationInput) -> float:
         method="bounded",
     )
 
-    return cast(float, result.x)
+    return cast("float", result.x)
