@@ -52,7 +52,7 @@ class NISTDataLoader:
             raise FileNotFoundError(f"NIST data file not found: {filepath}")
 
         try:
-            with open(filepath) as f:
+            with filepath.open() as f:
                 data = json.load(f)
 
             if not isinstance(data, list):

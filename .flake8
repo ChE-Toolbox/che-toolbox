@@ -1,0 +1,20 @@
+[flake8]
+max-line-length = 120
+extend-ignore = E501,E203,W503
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    build,
+    dist,
+    .mypy_cache,
+    .pytest_cache,
+    .tox,
+    *.egg-info
+
+per-file-ignores =
+    __init__.py:F401
+    tests/*:F841
+
+docstring-convention = numpy

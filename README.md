@@ -555,6 +555,73 @@ If you use this library in published work, please cite:
 
 ---
 
+## Heat Exchanger Calculations
+
+A comprehensive library for designing and analyzing heat exchangers using multiple calculation methods.
+
+### Features
+
+- **LMTD Method:** Log Mean Temperature Difference calculations for all configurations
+- **NTU Method:** Number of Transfer Units for effectiveness-based design
+- **Convection Correlations:** Empirical correlations for various geometries
+- **Insulation Analysis:** Economic optimization of thermal insulation thickness
+
+### Quick Start
+
+```python
+from heat_calc.lmtd import calculate_lmtd
+from heat_calc.models import LMTDInput, FluidState, HeatExchangerConfiguration
+
+# Define fluid states
+hot_in = FluidState(temperature=400.0, unit="K", flow_rate=10.0, cp=4.18)
+hot_out = FluidState(temperature=350.0, unit="K")
+cold_in = FluidState(temperature=300.0, unit="K", flow_rate=15.0, cp=4.18)
+cold_out = FluidState(temperature=320.0, unit="K")
+
+# Configure heat exchanger
+config = HeatExchangerConfiguration(
+    arrangement="counterflow",
+    area=100.0,
+    unit="m**2"
+)
+
+# Calculate
+input_data = LMTDInput(
+    hot=hot_in, hot_outlet=hot_out,
+    cold=cold_in, cold_outlet=cold_out,
+    configuration=config
+)
+result = calculate_lmtd(input_data)
+print(f"Heat Transfer Rate: {result.primary_value}")
+print(f"LMTD: {result.lmtd}")
+```
+
+### CLI Commands
+
+```bash
+# Calculate using LMTD method
+calculate-lmtd input.json --output result.json
+
+# Calculate using NTU method
+calculate-ntu input.yaml
+
+# Calculate convection coefficients
+calculate-convection --temperature 300 --velocity 5.0
+
+# Optimize insulation thickness
+calculate-insulation --heat-loss-current 1000 --annual-cost 5000
+```
+
+### Documentation
+
+- **[Development Guide](docs/DEVELOPMENT.md)** - Setup and contribution workflow
+- **[API Reference](docs/API.md)** - Function signatures and data models
+- **[Data Models](specs/002-heat-exchanger-calc/data-model.md)** - Pydantic model documentation
+- **[Quickstart](specs/002-heat-exchanger-calc/quickstart.md)** - Usage examples
+- **[CLI Interface](specs/002-heat-exchanger-calc/contracts/cli_interface.md)** - Command reference
+
+---
+
 ## References
 
 - IAPWS-IF97 Release on the Functional Specifications and Critical Equations of State for Common Water Substance (1997)
@@ -570,6 +637,8 @@ If you use this library in published work, please cite:
 See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
 
 ---
+
+## Status
 
 ✅ Production-ready
 ✅ Validated against NIST and engineering standards
