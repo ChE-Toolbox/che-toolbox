@@ -59,7 +59,7 @@ class TestHeadCalculations:
         result = calculate_dynamic_head(velocity=velocity)
 
         # H_velocity = V²/(2g) = 4/(2*9.81) ≈ 0.204 m
-        expected = (velocity ** 2) / (2 * 9.81)
+        expected = (velocity**2) / (2 * 9.81)
         assert math.isclose(result["value"], expected, rel_tol=0.01)
 
     def test_dynamic_head_zero_velocity(self):
@@ -405,8 +405,10 @@ class TestIntegrationPumpSizing:
         velocity = 2.0  # m/s
 
         # Calculate pressure drop (use a friction factor)
-        pressure_drop = 0.03 * (pipe_length / standard_pipe["diameter"]) * (
-            standard_water["density"] * velocity ** 2 / 2
+        pressure_drop = (
+            0.03
+            * (pipe_length / standard_pipe["diameter"])
+            * (standard_water["density"] * velocity**2 / 2)
         )
 
         # Calculate total head required

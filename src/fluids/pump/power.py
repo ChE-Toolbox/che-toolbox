@@ -185,20 +185,14 @@ def calculate_brake_power(
         raise ValueError("Pump efficiency must be between 0 and 1")
 
     # Calculate hydraulic power first
-    hydraulic_result = calculate_hydraulic_power(
-        flow_rate, head, fluid_density, g, unit_system
-    )
+    hydraulic_result = calculate_hydraulic_power(flow_rate, head, fluid_density, g, unit_system)
     hydraulic_power = hydraulic_result["value"]
 
     warnings = []
     if pump_efficiency < 0.5:
-        warnings.append(
-            f"Pump efficiency {pump_efficiency:.2%} is unusually low; verify input"
-        )
+        warnings.append(f"Pump efficiency {pump_efficiency:.2%} is unusually low; verify input")
     if pump_efficiency > 0.95:
-        warnings.append(
-            f"Pump efficiency {pump_efficiency:.2%} is very high; verify input"
-        )
+        warnings.append(f"Pump efficiency {pump_efficiency:.2%} is very high; verify input")
 
     # Calculate brake power
     brake_power = hydraulic_power / pump_efficiency
@@ -263,9 +257,7 @@ def calculate_motor_power(
 
     warnings = []
     if motor_efficiency < 0.85:
-        warnings.append(
-            f"Motor efficiency {motor_efficiency:.2%} is unusually low; verify input"
-        )
+        warnings.append(f"Motor efficiency {motor_efficiency:.2%} is unusually low; verify input")
     if brake_power == 0:
         warnings.append("Zero brake power: motor power is zero")
 

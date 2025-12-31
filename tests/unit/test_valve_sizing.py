@@ -345,7 +345,10 @@ class TestValvePerformanceAssessment:
         )
 
         assert 25 <= result["opening_percent"] <= 75
-        assert "good" in result["opening_assessment"].lower() or "moderate" in result["opening_assessment"].lower()
+        assert (
+            "good" in result["opening_assessment"].lower()
+            or "moderate" in result["opening_assessment"].lower()
+        )
 
     def test_performance_severely_throttled(self):
         """Test valve performance when severely throttled."""
@@ -386,9 +389,7 @@ class TestIntegrationValveSizing:
         available_cvs = [25, 50, 75, 100, 150]
 
         # Step 1: Calculate required Cv
-        cv_required = calculate_cv_required(
-            required_flow, required_dp, unit_system="US"
-        )
+        cv_required = calculate_cv_required(required_flow, required_dp, unit_system="US")
         assert cv_required["value"] > 0
 
         # Step 2: Select valve
@@ -399,9 +400,7 @@ class TestIntegrationValveSizing:
         assert selected_cv in available_cvs
 
         # Step 3: Verify flow
-        actual_flow = calculate_flow_rate_through_valve(
-            selected_cv, required_dp, unit_system="US"
-        )
+        actual_flow = calculate_flow_rate_through_valve(selected_cv, required_dp, unit_system="US")
         assert actual_flow["value"] >= required_flow
 
         # Step 4: Assess authority

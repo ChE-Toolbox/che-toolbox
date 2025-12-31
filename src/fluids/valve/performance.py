@@ -63,10 +63,14 @@ def calculate_valve_authority(
     # Assessment
     if authority < 0.2:
         assessment = "Low authority"
-        recommendation = "Valve has poor control resolution. Consider larger valve with higher pressure drop."
+        recommendation = (
+            "Valve has poor control resolution. Consider larger valve with higher pressure drop."
+        )
     elif authority < 0.3:
         assessment = "Below optimal"
-        recommendation = "Authority below typical range (0.3-0.5). May have reduced control response."
+        recommendation = (
+            "Authority below typical range (0.3-0.5). May have reduced control response."
+        )
     elif authority <= 0.5:
         assessment = "Good authority"
         recommendation = "Valve authority in typical optimal range."
@@ -148,7 +152,9 @@ def calculate_valve_rangeability(
     # Assessment based on typical valve rangeability values
     if rangeability < 10:
         assessment = "Limited rangeability"
-        recommendation = "Poor flow control range; may not be suitable for applications requiring broad turndown"
+        recommendation = (
+            "Poor flow control range; may not be suitable for applications requiring broad turndown"
+        )
     elif rangeability < 20:
         assessment = "Moderate rangeability"
         recommendation = "Adequate for moderate flow control applications"
@@ -163,9 +169,7 @@ def calculate_valve_rangeability(
         recommendation = "Suitable for very wide flow control applications"
 
     if rangeability < 20:
-        warnings.append(
-            "Rangeability below 20:1; may have difficulty controlling low flows"
-        )
+        warnings.append("Rangeability below 20:1; may have difficulty controlling low flows")
 
     return {
         "value": rangeability,
@@ -228,9 +232,7 @@ def calculate_relative_flow_capacity(
 
     valve_type = valve_type.lower().strip()
     if valve_type not in ["linear", "parabolic", "equal_percentage"]:
-        raise ValueError(
-            "Valve type must be 'linear', 'parabolic', or 'equal_percentage'"
-        )
+        raise ValueError("Valve type must be 'linear', 'parabolic', or 'equal_percentage'")
 
     # Convert percentage to fraction
     x = opening_percent / 100.0
@@ -243,7 +245,7 @@ def calculate_relative_flow_capacity(
         formula = "Relative flow = opening%/100"
     elif valve_type == "parabolic":
         # Cv ∝ opening²
-        relative_flow = x ** 2
+        relative_flow = x**2
         description = "Parabolic flow characteristic: flow proportional to opening squared"
         formula = "Relative flow = (opening%/100)²"
     else:  # equal_percentage
@@ -313,9 +315,7 @@ def assess_valve_performance(
     opening_percent = (cv_at_design / cv_max) * 100
 
     # Calculate authority
-    authority_result = calculate_valve_authority(
-        pressure_drop_design, system_pressure_drop
-    )
+    authority_result = calculate_valve_authority(pressure_drop_design, system_pressure_drop)
 
     # Check opening percentage
     if opening_percent < 10:

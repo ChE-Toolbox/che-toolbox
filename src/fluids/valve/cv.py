@@ -91,9 +91,7 @@ def calculate_cv_required(
 
     # Warnings for very small or very large Cv
     if cv < 0.1:
-        warnings.append(
-            f"Cv {cv:.3f} is very small; may result in poor control resolution"
-        )
+        warnings.append(f"Cv {cv:.3f} is very small; may result in poor control resolution")
     if cv > 1000:
         warnings.append(f"Cv {cv:.1f} is very large; consider multiple valves")
 
@@ -198,7 +196,9 @@ def calculate_flow_rate_through_valve(
         "intermediate_values": {
             "cv": cv,
             "pressure_drop": pressure_drop,
-            "pressure_ratio_term": pressure_drop / fluid_gravity if unit_system == "US" else pressure_drop,
+            "pressure_ratio_term": pressure_drop / fluid_gravity
+            if unit_system == "US"
+            else pressure_drop,
         },
         "source": "Valve flow rate calculation (IEC 60534)",
     }
@@ -265,9 +265,7 @@ def calculate_valve_sizing(
     suitable_valves = []
 
     # Ideal Cv needed
-    cv_needed = calculate_cv_required(
-        flow_rate, pressure_drop, fluid_gravity, unit_system
-    )["value"]
+    cv_needed = calculate_cv_required(flow_rate, pressure_drop, fluid_gravity, unit_system)["value"]
 
     # Evaluate each option
     for cv_option in sorted(valve_cv_options):

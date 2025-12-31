@@ -154,8 +154,7 @@ def cmd_npsh(args: argparse.Namespace) -> int:
                     "margin": risk_result.get("margin", 0),
                     "risk_level": risk_result.get("risk_level", "unknown"),
                     "unit": npsha_result["unit"],
-                    "warnings": npsha_result.get("warnings", [])
-                    + risk_result.get("warnings", []),
+                    "warnings": npsha_result.get("warnings", []) + risk_result.get("warnings", []),
                 }
                 output = format_output(combined_result, args.output_format, args.verbosity)
             except Exception as e:

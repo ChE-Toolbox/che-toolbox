@@ -203,9 +203,7 @@ def register_commands(subparsers: argparse._SubParsersAction[argparse.ArgumentPa
         help="Calculate friction factor",
         description="Calculate Darcy friction factor for pipe flow",
     )
-    friction_parser.add_argument(
-        "--reynolds", type=float, required=True, help="Reynolds number"
-    )
+    friction_parser.add_argument("--reynolds", type=float, required=True, help="Reynolds number")
     friction_parser.add_argument(
         "--roughness",
         type=float,

@@ -87,17 +87,13 @@ def calculate_npsh_available(
     # Convert pressures to head
     if unit_system == "SI":
         # Pressure head = ΔP / (ρg) in meters
-        pressure_head = (atmospheric_pressure - vapor_pressure) / (
-            fluid_density * g
-        )
+        pressure_head = (atmospheric_pressure - vapor_pressure) / (fluid_density * g)
         unit = "m"
     else:  # US customary
         # Pressure head in feet
         # 1 psi = 2.3066 ft of water (for ρ = 62.4 lb/ft³)
         # More general: head = pressure * 144 / (ρ * 32.174)
-        pressure_head = (atmospheric_pressure - vapor_pressure) * 144.0 / (
-            fluid_density * 32.174
-        )
+        pressure_head = (atmospheric_pressure - vapor_pressure) * 144.0 / (fluid_density * 32.174)
         unit = "ft"
 
     # Convert suction losses to head
@@ -200,7 +196,7 @@ def calculate_npsh_required(
         )
 
     # Square-law relationship for NPSH required
-    npsh_required = npsh_required_at_design * (flow_ratio ** 2)
+    npsh_required = npsh_required_at_design * (flow_ratio**2)
 
     return {
         "value": npsh_required,
@@ -216,7 +212,7 @@ def calculate_npsh_required(
             "design_point_flow": pump_design_point_flow,
             "actual_flow": actual_flow,
             "npsh_at_design": npsh_required_at_design,
-            "flow_ratio_squared": flow_ratio ** 2,
+            "flow_ratio_squared": flow_ratio**2,
         },
         "source": "NPSH Required calculation (pump performance curve)",
     }

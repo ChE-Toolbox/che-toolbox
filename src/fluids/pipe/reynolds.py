@@ -45,9 +45,7 @@ def calculate_reynolds(
         ValueError: If inputs are invalid or negative
     """
     # Validate inputs
-    is_valid, error_msg = validate_reynolds_components(
-        density, velocity, diameter, viscosity
-    )
+    is_valid, error_msg = validate_reynolds_components(density, velocity, diameter, viscosity)
     if not is_valid:
         raise ValueError(error_msg)
 

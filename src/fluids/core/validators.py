@@ -3,7 +3,6 @@ Input validation and physical reasonableness checks for calculations.
 """
 
 
-
 class ValidationError(Exception):
     """Raised when validation fails."""
 

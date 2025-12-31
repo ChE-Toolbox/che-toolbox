@@ -94,7 +94,7 @@ class TestPumpHeadValidation:
             velocity=velocity,
         )
 
-        expected_dynamic_head = (velocity ** 2) / (2 * g)
+        expected_dynamic_head = (velocity**2) / (2 * g)
         assert math.isclose(result["dynamic_head"], expected_dynamic_head, rel_tol=0.01)
 
 

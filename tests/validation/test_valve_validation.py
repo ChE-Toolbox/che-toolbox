@@ -87,9 +87,7 @@ class TestCvValidation:
         cv_result = calculate_cv_required(Q_design, dP, unit_system="US")
 
         # Use that Cv to calculate flow
-        flow_result = calculate_flow_rate_through_valve(
-            cv_result["value"], dP, unit_system="US"
-        )
+        flow_result = calculate_flow_rate_through_valve(cv_result["value"], dP, unit_system="US")
 
         # Should recover original flow
         assert math.isclose(flow_result["value"], Q_design, rel_tol=0.01)
@@ -253,7 +251,10 @@ class TestValveRangeabilityValidation:
 
         assert poor_range["value"] < good_range["value"]
         assert "limited" in poor_range["assessment"].lower()
-        assert "excellent" in good_range["assessment"].lower() or "good" in good_range["assessment"].lower()
+        assert (
+            "excellent" in good_range["assessment"].lower()
+            or "good" in good_range["assessment"].lower()
+        )
 
 
 class TestValveFlowCharacteristic:
@@ -355,9 +356,7 @@ class TestIntegrationValveSizing:
         available_valves = [25, 35, 50, 75, 100, 150]  # Standard sizes
 
         # Step 1: Calculate required Cv
-        cv_needed = calculate_cv_required(
-            required_flow, available_pressure_drop, unit_system="US"
-        )
+        cv_needed = calculate_cv_required(required_flow, available_pressure_drop, unit_system="US")
 
         # Step 2: Select valve size
         selection = calculate_valve_sizing(
@@ -380,7 +379,8 @@ class TestIntegrationValveSizing:
 
         # Step 4: Assess valve authority
         authority = calculate_valve_authority(
-            available_pressure_drop, 30.0  # System pressure drop
+            available_pressure_drop,
+            30.0,  # System pressure drop
         )
 
         assert authority["value"] > 0.1  # Should have some authority
@@ -394,7 +394,10 @@ class TestIntegrationValveSizing:
         )
 
         # Should be in reasonable operating range
-        assert "throttled" not in performance["opening_assessment"].lower() or performance["opening_percent"] > 5
+        assert (
+            "throttled" not in performance["opening_assessment"].lower()
+            or performance["opening_percent"] > 5
+        )
 
     def test_control_valve_optimization(self):
         """Test optimization for good control characteristics."""
@@ -422,9 +425,7 @@ class TestIntegrationValveSizing:
         pressure_drop = 50.0  # psi (high drop for control)
         sizes = [1, 2, 5, 10, 15, 25]
 
-        result = calculate_valve_sizing(
-            flow, pressure_drop, sizes, unit_system="US"
-        )
+        result = calculate_valve_sizing(flow, pressure_drop, sizes, unit_system="US")
 
         # Should select small valve
         assert result["recommended_cv"] <= 10

@@ -1,6 +1,5 @@
 """Data models for validation test cases and results."""
 
-
 from pydantic import BaseModel, Field
 
 

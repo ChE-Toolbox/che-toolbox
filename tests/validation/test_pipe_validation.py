@@ -89,8 +89,8 @@ class TestFrictionFactorValidation:
         """Test that laminar friction factor matches exact solution f = 64/Re."""
         # Test across range of laminar Reynolds numbers
         test_cases = [
-            (100, 0.64),    # Re=100 → f=0.64
-            (500, 0.128),   # Re=500 → f=0.128
+            (100, 0.64),  # Re=100 → f=0.64
+            (500, 0.128),  # Re=500 → f=0.128
             (1000, 0.064),  # Re=1000 → f=0.064
             (2000, 0.032),  # Re=2000 → f=0.032
         ]
@@ -144,7 +144,7 @@ class TestFrictionFactorValidation:
         )
 
         # Blasius formula: f = 0.316 * Re^(-0.25)
-        blasius_f = 0.316 * (reynolds ** -0.25)
+        blasius_f = 0.316 * (reynolds**-0.25)
 
         # Should be reasonably close (within 10%)
         assert math.isclose(result["value"], blasius_f, rel_tol=0.10)
@@ -211,7 +211,7 @@ class TestPressureDropValidation:
         )
 
         # Manual calculation
-        expected_dp = friction_factor * (length / diameter) * (density * velocity ** 2 / 2)
+        expected_dp = friction_factor * (length / diameter) * (density * velocity**2 / 2)
 
         assert math.isclose(result["value"], expected_dp, rel_tol=0.01)
 

@@ -14,15 +14,11 @@ class Fluid(BaseModel):
 
     name: str = Field(..., description="Fluid name (e.g., 'water', 'oil')")
     density: float = Field(..., gt=0, description="Fluid density in kg/m³")
-    dynamic_viscosity: float = Field(
-        ..., gt=0, description="Dynamic viscosity in Pa·s"
-    )
+    dynamic_viscosity: float = Field(..., gt=0, description="Dynamic viscosity in Pa·s")
     specific_gravity: float = Field(
         default=1.0, gt=0, description="Specific gravity (dimensionless)"
     )
-    temperature: float = Field(
-        default=293.15, description="Temperature in Kelvin"
-    )
+    temperature: float = Field(default=293.15, description="Temperature in Kelvin")
     pressure: float = Field(default=101325, description="Pressure in Pa")
     vapor_pressure: float = Field(default=0.0, ge=0, description="Vapor pressure in Pa")
 
@@ -45,12 +41,8 @@ class Pipe(BaseModel):
 
     diameter: float = Field(..., gt=0, description="Pipe inner diameter in meters")
     length: float = Field(..., gt=0, description="Pipe length in meters")
-    absolute_roughness: float = Field(
-        ..., ge=0, description="Absolute roughness in meters"
-    )
-    material: str = Field(
-        default="steel", description="Pipe material (steel, copper, pvc, etc.)"
-    )
+    absolute_roughness: float = Field(..., ge=0, description="Absolute roughness in meters")
+    material: str = Field(default="steel", description="Pipe material (steel, copper, pvc, etc.)")
     fluid: Fluid | None = Field(default=None, description="Fluid in the pipe")
 
     class Config:

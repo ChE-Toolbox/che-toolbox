@@ -81,7 +81,7 @@ def calculate_total_head(
 
     # Calculate dynamic head (velocity head): h_v = V²/(2g)
     if velocity > 0:
-        dynamic_head = (velocity ** 2) / (2 * g)
+        dynamic_head = (velocity**2) / (2 * g)
     else:
         dynamic_head = 0.0
         warnings.append("Zero velocity: dynamic head component is zero")
@@ -222,7 +222,7 @@ def calculate_dynamic_head(
 
     # Calculate dynamic head
     if velocity > 0:
-        dynamic_head = (velocity ** 2) / (2 * g)
+        dynamic_head = (velocity**2) / (2 * g)
     else:
         dynamic_head = 0.0
         warnings.append("Zero velocity: dynamic head is zero")

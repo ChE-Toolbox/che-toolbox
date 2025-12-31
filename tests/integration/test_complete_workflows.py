@@ -190,7 +190,7 @@ class TestCompleteSystemDesign:
         print("\nPipe Flow Analysis:")
         print(f"  Reynolds: {re_result['value']:.0f} ({re_result['flow_regime']})")
         print(f"  Friction Factor: {ff_result['value']:.4f}")
-        print(f"  Pressure Drop: {friction_loss/6894.76:.2f} psi")
+        print(f"  Pressure Drop: {friction_loss / 6894.76:.2f} psi")
         print("\nPump Requirements:")
         print(f"  Total Head: {total_head:.2f} m")
         print(f"  Hydraulic Power: {hydraulic['value']:.2f} kW")

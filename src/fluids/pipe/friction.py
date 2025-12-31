@@ -170,9 +170,7 @@ def _colebrook_friction_factor(reynolds: float, relative_roughness: float) -> fl
         return residual
 
     # Initial guess using Swamee-Jain approximation
-    f_guess = 0.25 / (
-        math.log10(relative_roughness / 3.7 + 5.74 / reynolds**0.9) ** 2
-    )
+    f_guess = 0.25 / (math.log10(relative_roughness / 3.7 + 5.74 / reynolds**0.9) ** 2)
 
     # Solve using Brent's method
     try:
