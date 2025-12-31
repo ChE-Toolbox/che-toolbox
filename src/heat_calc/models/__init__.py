@@ -16,6 +16,18 @@ from heat_calc.models.lmtd_input import (
     LMTDInput,
 )
 from heat_calc.models.lmtd_results import LMTDResult
+from heat_calc.models.ntu_input import NTUInput
+from heat_calc.models.ntu_results import NTUResult
+from heat_calc.models.convection_input import (
+    CylinderCrossflowConvection,
+    FlatPlateConvection,
+    FluidProperties,
+    PipeFlowConvection,
+    VerticalPlateNaturalConvection,
+)
+from heat_calc.models.convection_results import ConvectionResult
+from heat_calc.models.insulation_input import InsulationInput
+from heat_calc.models.insulation_results import InsulationResult
 
 __all__ = [
     # Base classes
@@ -26,8 +38,17 @@ __all__ = [
     "HeatExchangerConfiguration",
     "LMTDInput",
     "LMTDResult",
-    # Story-specific models to be added:
-    # NTU: NTUInput, NTUResult
-    # Convection: ConvectionGeometry, ConvectionResult
-    # Insulation: InsulationInput, InsulationResult
+    # NTU models (Phase 4)
+    "NTUInput",
+    "NTUResult",
+    # Convection models (Phase 5)
+    "FluidProperties",
+    "FlatPlateConvection",
+    "PipeFlowConvection",
+    "CylinderCrossflowConvection",
+    "VerticalPlateNaturalConvection",
+    "ConvectionResult",
+    # Insulation models (Phase 6)
+    "InsulationInput",
+    "InsulationResult",
 ]
