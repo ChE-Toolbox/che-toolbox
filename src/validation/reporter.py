@@ -153,7 +153,11 @@ class ValidationReporter:
             f"  Pass Rate:        {report.z_factor_pass_rate:.1f}%",
         ]
 
-        if report.min_z_deviation is not None:
+        if (
+            report.min_z_deviation is not None
+            and report.max_z_deviation is not None
+            and report.avg_z_deviation is not None
+        ):
             lines.extend([
                 f"  Min Deviation:    {report.min_z_deviation:.4f} ({report.min_z_deviation*100:.2f}%)",
                 f"  Max Deviation:    {report.max_z_deviation:.4f} ({report.max_z_deviation*100:.2f}%)",
@@ -168,7 +172,11 @@ class ValidationReporter:
             f"  Pass Rate:        {report.fugacity_pass_rate:.1f}%",
         ])
 
-        if report.min_fugacity_deviation is not None:
+        if (
+            report.min_fugacity_deviation is not None
+            and report.max_fugacity_deviation is not None
+            and report.avg_fugacity_deviation is not None
+        ):
             lines.extend([
                 f"  Min Deviation:    {report.min_fugacity_deviation:.4f} ({report.min_fugacity_deviation*100:.2f}%)",
                 f"  Max Deviation:    {report.max_fugacity_deviation:.4f} ({report.max_fugacity_deviation*100:.2f}%)",

@@ -89,7 +89,6 @@ def compare_compressibility_factors(
         raise ValueError("Compound must have valid critical pressure (pc)")
 
     # Initialize EOS solvers
-    ideal_eos = IdealGasEOS()
     vdw_eos = VanDerWaalsEOS()
     pr_eos = PengRobinsonEOS()
 
@@ -101,14 +100,10 @@ def compare_compressibility_factors(
     vdw_Z = VanDerWaalsEOS.calculate_Z(pressure, temperature, vdw_volume)
 
     # Calculate Peng-Robinson Z-factor
-    pr_volume = pr_eos.calculate_volume(
-        tc=compound.tc,
-        pc=compound.pc,
-        temperature=temperature,
-        pressure=pressure,
-        omega=compound.omega,
-    )
-    pr_Z = PengRobinsonEOS.calculate_Z(pressure, temperature, pr_volume)
+    # Returns tuple of Z factors (smallest=liquid, largest=vapor)
+    pr_z_factors = pr_eos.calculate_z_factor(temperature, pressure, compound)
+    # Use largest Z factor (vapor phase) for comparison
+    pr_Z = pr_z_factors[-1]
 
     return {
         'ideal_Z': ideal_Z,

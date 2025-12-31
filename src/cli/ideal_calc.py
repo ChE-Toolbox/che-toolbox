@@ -263,7 +263,7 @@ def handle_state(args: argparse.Namespace) -> int:
         return 2
 
 
-def main(argv: list | None = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     """Main entry point for the CLI."""
     parser = create_parser()
 

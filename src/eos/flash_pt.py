@@ -311,15 +311,15 @@ class FlashPT:
         """
         def rachford_rice_equation(V: float) -> float:
             """RR equation as function of V."""
-            return np.sum(feed_composition * (K_values - 1) / (1 + V * (K_values - 1)))
+            return float(np.sum(feed_composition * (K_values - 1) / (1 + V * (K_values - 1))))
 
         def rachford_rice_derivative(V: float) -> float:
             """Derivative of RR equation w.r.t. V."""
-            return -np.sum(
+            return float(-np.sum(
                 feed_composition
                 * (K_values - 1) ** 2
                 / (1 + V * (K_values - 1)) ** 2
-            )
+            ))
 
         # Newton-Raphson starting from V=0.5
         V = 0.5

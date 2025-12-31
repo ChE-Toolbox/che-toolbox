@@ -1,9 +1,11 @@
 """Unit handling and conversion for thermodynamic calculations."""
 
+from typing import Any
+
 import pint
 
 # Create global unit registry
-ureg = pint.UnitRegistry()
+ureg: pint.UnitRegistry[Any] = pint.UnitRegistry()
 
 # Define base units
 K = ureg.kelvin

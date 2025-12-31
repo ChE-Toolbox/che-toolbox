@@ -191,7 +191,7 @@ class PengRobinsonEOS:
         z_factors = self.calculate_z_factor(temperature, pressure, compound)
 
         # Select appropriate Z factor
-        if phase == PhaseType.LIQUID or phase == "liquid":
+        if phase == PhaseType.LIQUID:
             z = z_factors[0]  # smallest Z
             logger.debug(f"Using liquid Z factor: {z}")
         else:
@@ -366,7 +366,7 @@ class PengRobinsonEOS:
 
         try:
             # Use Brent's method to find root of residual function
-            p_sat = brentq(
+            p_sat: float = brentq(
                 self._fugacity_residual,
                 p_lower,
                 p_upper,

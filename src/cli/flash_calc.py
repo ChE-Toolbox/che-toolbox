@@ -9,7 +9,7 @@ import argparse
 import json
 import logging
 import sys
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 
@@ -177,20 +177,20 @@ def handle_calculate(args: argparse.Namespace) -> int:
         z = np.array([args.z1, args.z2])
         tc = np.array([comp1.tc, comp2.tc])
         pc = np.array([comp1.pc, comp2.pc])
-        omega = np.array([comp1.omega, comp2.omega])
 
         # Convert pressure from bar to Pa
         pressure_pa = args.pressure * 100000.0
 
         # Run flash calculation
-        flash = FlashPT(max_iterations=args.max_iter, tolerance=args.tolerance)
+        flash = FlashPT()
         result = flash.calculate(
-            z=z,
+            feed_composition=z,
             temperature=args.temperature,
             pressure=pressure_pa,
             critical_temperatures=tc,
             critical_pressures=pc,
-            acentric_factors=omega,
+            tolerance=args.tolerance,
+            max_iterations=args.max_iter,
         )
 
         if args.output_format == "json":
@@ -291,8 +291,8 @@ def handle_validate(args: argparse.Namespace) -> int:
             case = test_cases[case_name]
 
             # Get compounds
-            comp1 = db.get(case["comp1"])
-            comp2 = db.get(case["comp2"])
+            comp1 = db.get(str(case["comp1"]))
+            comp2 = db.get(str(case["comp2"]))
 
             if comp1 is None or comp2 is None:
                 print(f"Warning: Skipping {case_name} - compounds not found", file=sys.stderr)
@@ -301,24 +301,22 @@ def handle_validate(args: argparse.Namespace) -> int:
             # Prepare inputs
             tc = np.array([comp1.tc, comp2.tc])
             pc = np.array([comp1.pc, comp2.pc])
-            omega = np.array([comp1.omega, comp2.omega])
 
             # Run flash
             result = flash.calculate(
-                z=case["z"],
-                temperature=case["T"],
-                pressure=case["P"],
+                feed_composition=case["z"],  # type: ignore[arg-type]
+                temperature=cast(float, case["T"]),
+                pressure=cast(float, case["P"]),
                 critical_temperatures=tc,
                 critical_pressures=pc,
-                acentric_factors=omega,
             )
 
             # Check results
-            L_error = abs(result.L - case["expected_L"])
-            V_error = abs(result.V - case["expected_V"])
-            material_balance_error = np.max(
-                np.abs((result.L * result.x + result.V * result.y) - case["z"])
-            )
+            L_error = abs(result.L - cast(float, case["expected_L"]))
+            V_error = abs(result.V - cast(float, case["expected_V"]))
+            material_balance_error = float(np.max(
+                np.abs((result.L * result.x + result.V * result.y) - np.array(case["z"]))
+            ))
 
             passed = (
                 result.convergence == FlashConvergence.SUCCESS and
@@ -368,7 +366,7 @@ def handle_validate(args: argparse.Namespace) -> int:
         return 2
 
 
-def main(argv: list | None = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     """Main entry point for the CLI."""
     parser = create_parser()
 
