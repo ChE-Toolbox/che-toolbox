@@ -64,7 +64,7 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         # The func attribute is set by each subcommand's handler
-        return cast(int, args.func(args))
+        return cast("int", args.func(args))
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1
