@@ -10,6 +10,7 @@ Provides command-line interface for:
 
 import argparse
 import sys
+from typing import cast
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -63,7 +64,7 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         # The func attribute is set by each subcommand's handler
-        return args.func(args)
+        return cast(int, args.func(args))
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         return 1

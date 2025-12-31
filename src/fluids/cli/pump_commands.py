@@ -101,7 +101,7 @@ def cmd_power(args: argparse.Namespace) -> int:
             result = calculate_brake_power(
                 flow_rate=args.flow_rate,
                 head=args.head,
-                efficiency=args.efficiency,
+                pump_efficiency=args.efficiency,
                 fluid_density=args.density,
                 unit_system=args.unit_system,
             )
@@ -138,8 +138,9 @@ def cmd_npsh(args: argparse.Namespace) -> int:
         if args.pump_type and args.flow_rate:
             try:
                 npshr_result = calculate_npsh_required(
-                    pump_type=args.pump_type,
-                    flow_rate=args.flow_rate,
+                    pump_design_point_flow=args.design_flow or args.flow_rate,
+                    actual_flow=args.flow_rate,
+                    npsh_required_at_design=1.0,
                 )
                 risk_result = check_cavitation_risk(
                     npsh_available=npsha_result["value"],
@@ -174,7 +175,7 @@ def cmd_npsh(args: argparse.Namespace) -> int:
         return 1
 
 
-def register_commands(subparsers: argparse._SubParsersAction) -> None:
+def register_commands(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     """
     Register pump-related commands.
 

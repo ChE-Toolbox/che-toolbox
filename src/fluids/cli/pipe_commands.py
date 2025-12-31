@@ -91,7 +91,7 @@ def cmd_reynolds(args: argparse.Namespace) -> int:
             velocity=args.velocity,
             diameter=args.diameter,
             viscosity=args.viscosity,
-            unit_system=args.unit_system,
+            _unit_system=args.unit_system,
         )
         output = format_output(result, args.output_format, args.verbosity)
         print(output)
@@ -136,7 +136,7 @@ def cmd_pressure_drop(args: argparse.Namespace) -> int:
         return 1
 
 
-def register_commands(subparsers: argparse._SubParsersAction) -> None:
+def register_commands(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     """
     Register pipe-related commands.
 

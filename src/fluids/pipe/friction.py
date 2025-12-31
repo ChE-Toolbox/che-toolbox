@@ -138,7 +138,7 @@ def _churchill_friction_factor(reynolds: float, relative_roughness: float) -> fl
     b_inv = (37530 / reynolds) ** 16
     b_inv = max(b_inv, 0)
 
-    f = 8 * ((8 / reynolds) ** 12 + 1 / (a_inv + b_inv) ** 1.5) ** (1 / 12)
+    f: float = float(8 * ((8 / reynolds) ** 12 + 1 / (a_inv + b_inv) ** 1.5) ** (1 / 12))
 
     return f
 
@@ -181,4 +181,4 @@ def _colebrook_friction_factor(reynolds: float, relative_roughness: float) -> fl
         # Fallback to initial guess if brentq fails
         f = f_guess
 
-    return f
+    return float(f)

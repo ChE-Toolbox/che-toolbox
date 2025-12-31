@@ -119,10 +119,13 @@ def cmd_flow_rate(args: argparse.Namespace) -> int:
 def cmd_sizing(args: argparse.Namespace) -> int:
     """Handle valve sizing command."""
     try:
+        # Convert valve type to CV options if needed
+        valve_cv_opts: list[float] = args.valve_cv_options if hasattr(args, 'valve_cv_options') else [25, 50, 75, 100]
+
         result = calculate_valve_sizing(
             flow_rate=args.flow_rate,
             pressure_drop=args.pressure_drop,
-            valve_type=args.valve_type,
+            valve_cv_options=valve_cv_opts,
             fluid_gravity=args.specific_gravity,
             unit_system=args.unit_system,
         )
@@ -134,7 +137,7 @@ def cmd_sizing(args: argparse.Namespace) -> int:
         return 1
 
 
-def register_commands(subparsers: argparse._SubParsersAction) -> None:
+def register_commands(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     """
     Register valve-related commands.
 

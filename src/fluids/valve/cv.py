@@ -207,7 +207,7 @@ def calculate_flow_rate_through_valve(
 def calculate_valve_sizing(
     flow_rate: float,
     pressure_drop: float,
-    valve_cv_options: list,
+    valve_cv_options: list[float],
     fluid_gravity: float = 1.0,
     unit_system: str = "SI",
 ) -> dict[str, Any]:
