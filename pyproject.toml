@@ -33,9 +33,7 @@ cli = ["click>=8.1.0"]
 dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
-    "black>=23.7.0",
-    "isort>=5.12.0",
-    "flake8>=6.0.0",
+    "ruff>=0.1.0",
     "mypy>=1.4.0",
 ]
 
@@ -51,15 +49,17 @@ package-dir = {"" = "src"}
 packages = ["iapws_if97", "iapws_if97.regions", "iapws_if97_cli"]
 package-data = {iapws_if97 = ["validation/*.json"]}
 
-[tool.black]
+[tool.ruff]
 line-length = 100
-target-version = ['py311']
-include = '\.pyi?$'
+target-version = "py311"
 
-[tool.isort]
-profile = "black"
-line_length = 100
-skip_gitignore = true
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "YTT", "S", "B", "A", "C4", "T10", "T20", "SIM", "PIE", "PT", "Q"]
+ignore = ["S101"]  # Allow assert statements (common in tests)
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
 
 [tool.mypy]
 python_version = "3.11"
