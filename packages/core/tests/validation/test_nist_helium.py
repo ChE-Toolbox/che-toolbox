@@ -16,9 +16,7 @@ def test_helium_critical_temperature() -> None:
     Tolerance: ±0.01%
     """
     helium = get_compound("helium")
-    assert helium.critical_properties.temperature.magnitude == pytest.approx(
-        5.1953, rel=1e-4
-    )
+    assert helium.critical_properties.temperature.magnitude == pytest.approx(5.1953, rel=1e-4)
 
 
 @pytest.mark.validation

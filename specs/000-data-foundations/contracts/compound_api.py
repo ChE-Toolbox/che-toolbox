@@ -16,7 +16,6 @@ from typing import Protocol, runtime_checkable
 from pint import Quantity, UnitRegistry
 from pydantic import BaseModel, Field
 
-
 # =============================================================================
 # Pydantic Models (Data Transfer Objects)
 # =============================================================================
@@ -54,9 +53,7 @@ class PhasePropertiesDTO(BaseModel):
     triple_point_temperature: QuantityDTO | None = Field(
         None, description="Triple point temperature"
     )
-    triple_point_pressure: QuantityDTO | None = Field(
-        None, description="Triple point pressure"
-    )
+    triple_point_pressure: QuantityDTO | None = Field(None, description="Triple point pressure")
 
 
 class SourceAttributionDTO(BaseModel):
@@ -194,9 +191,7 @@ class UnitHandler(Protocol):
     and maintain dimensional consistency.
     """
 
-    def convert(
-        self, value: float, from_unit: str, to_unit: str
-    ) -> float:
+    def convert(self, value: float, from_unit: str, to_unit: str) -> float:
         """
         Convert value between compatible units.
 
@@ -217,9 +212,7 @@ class UnitHandler(Protocol):
         """
         ...
 
-    def convert_quantity(
-        self, quantity: QuantityDTO, to_unit: str
-    ) -> QuantityDTO:
+    def convert_quantity(self, quantity: QuantityDTO, to_unit: str) -> QuantityDTO:
         """
         Convert a QuantityDTO to different units.
 
@@ -308,9 +301,7 @@ class CompoundNotFoundError(Exception):
     def __init__(self, identifier: str, identifier_type: str = "cas_number"):
         self.identifier = identifier
         self.identifier_type = identifier_type
-        super().__init__(
-            f"Compound not found: {identifier_type}='{identifier}'"
-        )
+        super().__init__(f"Compound not found: {identifier_type}='{identifier}'")
 
 
 class DimensionalityError(Exception):

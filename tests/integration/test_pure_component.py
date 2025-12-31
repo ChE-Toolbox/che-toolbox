@@ -61,9 +61,7 @@ class TestPureComponentWorkflow:
 
         assert state.phase == PhaseType.SUPERCRITICAL
 
-    def test_propane_phase_identification(
-        self, eos: PengRobinsonEOS, db: CompoundDatabase
-    ) -> None:
+    def test_propane_phase_identification(self, eos: PengRobinsonEOS, db: CompoundDatabase) -> None:
         """Test phase identification for propane."""
         propane = db.get("propane")
         assert propane is not None

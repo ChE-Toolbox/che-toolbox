@@ -36,7 +36,6 @@ class TestMixingRules:
 
     def test_calculate_a_mix_binary(self) -> None:
         """Test geometric mixing rule for 'a' with binary mixture."""
-        import math
 
         a_values = [4.0, 9.0]  # sqrt values are 2 and 3
         mole_fractions = [0.6, 0.4]

@@ -3,7 +3,7 @@
 import json
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ class NISTDataLoader:
         if not self.data_dir.exists():
             logger.warning(f"NIST data directory not found: {self.data_dir}")
 
-    def load_compound_data(self, compound_name: str) -> list[dict]:
+    def load_compound_data(self, compound_name: str) -> list[dict[str, Any]]:
         """Load NIST reference data for a compound.
 
         Parameters
@@ -76,10 +76,7 @@ class NISTDataLoader:
         if not self.data_dir.exists():
             return []
 
-        compounds = [
-            f.stem for f in self.data_dir.glob("*.json")
-            if f.is_file()
-        ]
+        compounds = [f.stem for f in self.data_dir.glob("*.json") if f.is_file()]
         logger.debug(f"Found {len(compounds)} compounds with NIST data: {compounds}")
         return sorted(compounds)
 
@@ -101,7 +98,11 @@ class NISTDataLoader:
             if not data:
                 return None
 
-            temperatures = [d.get("temperature") for d in data if "temperature" in d]
+            temperatures = [
+                float(d["temperature"])
+                for d in data
+                if "temperature" in d and d["temperature"] is not None
+            ]
             if not temperatures:
                 return None
 
@@ -128,7 +129,9 @@ class NISTDataLoader:
             if not data:
                 return None
 
-            pressures = [d.get("pressure") for d in data if "pressure" in d]
+            pressures = [
+                float(d["pressure"]) for d in data if "pressure" in d and d["pressure"] is not None
+            ]
             if not pressures:
                 return None
 

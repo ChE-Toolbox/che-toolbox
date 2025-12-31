@@ -2,7 +2,6 @@
 
 import logging
 from dataclasses import dataclass
-from typing import Optional
 
 from .models import ValidationResult
 
@@ -20,12 +19,12 @@ class ValidationReport:
     z_factor_failed: int
     fugacity_passed: int
     fugacity_failed: int
-    min_z_deviation: Optional[float]
-    max_z_deviation: Optional[float]
-    avg_z_deviation: Optional[float]
-    min_fugacity_deviation: Optional[float]
-    max_fugacity_deviation: Optional[float]
-    avg_fugacity_deviation: Optional[float]
+    min_z_deviation: float | None
+    max_z_deviation: float | None
+    avg_z_deviation: float | None
+    min_fugacity_deviation: float | None
+    max_fugacity_deviation: float | None
+    avg_fugacity_deviation: float | None
 
     @property
     def overall_pass_rate(self) -> float:
@@ -91,7 +90,9 @@ class ValidationReporter:
 
         # Z factor analysis
         z_passed = sum(1 for r in results if r.z_factor_passed)
-        z_failed = sum(1 for r in results if not r.z_factor_passed and r.calculated_z_factor is not None)
+        z_failed = sum(
+            1 for r in results if not r.z_factor_passed and r.calculated_z_factor is not None
+        )
 
         z_deviations = [r.z_factor_deviation for r in results if r.z_factor_deviation is not None]
         min_z_dev = min(z_deviations) if z_deviations else None
@@ -100,7 +101,9 @@ class ValidationReporter:
 
         # Fugacity analysis
         fug_passed = sum(1 for r in results if r.fugacity_passed)
-        fug_failed = sum(1 for r in results if not r.fugacity_passed and r.calculated_fugacity is not None)
+        fug_failed = sum(
+            1 for r in results if not r.fugacity_passed and r.calculated_fugacity is not None
+        )
 
         fug_deviations = [r.fugacity_deviation for r in results if r.fugacity_deviation is not None]
         min_fug_dev = min(fug_deviations) if fug_deviations else None
@@ -142,39 +145,53 @@ class ValidationReporter:
             "NIST VALIDATION REPORT",
             "=" * 70,
             "",
-            f"Overall Results",
+            "Overall Results",
             f"  Total Tests:      {report.total_tests}",
             f"  Passed:           {report.passed_tests}",
             f"  Failed:           {report.failed_tests}",
             f"  Pass Rate:        {report.overall_pass_rate:.1f}%",
             "",
-            f"Z Factor Validation",
+            "Z Factor Validation",
             f"  Passed:           {report.z_factor_passed}",
             f"  Failed:           {report.z_factor_failed}",
             f"  Pass Rate:        {report.z_factor_pass_rate:.1f}%",
         ]
 
-        if report.min_z_deviation is not None:
-            lines.extend([
-                f"  Min Deviation:    {report.min_z_deviation:.4f} ({report.min_z_deviation*100:.2f}%)",
-                f"  Max Deviation:    {report.max_z_deviation:.4f} ({report.max_z_deviation*100:.2f}%)",
-                f"  Avg Deviation:    {report.avg_z_deviation:.4f} ({report.avg_z_deviation*100:.2f}%)",
-            ])
+        if (
+            report.min_z_deviation is not None
+            and report.max_z_deviation is not None
+            and report.avg_z_deviation is not None
+        ):
+            lines.extend(
+                [
+                    f"  Min Deviation:    {report.min_z_deviation:.4f} ({report.min_z_deviation * 100:.2f}%)",
+                    f"  Max Deviation:    {report.max_z_deviation:.4f} ({report.max_z_deviation * 100:.2f}%)",
+                    f"  Avg Deviation:    {report.avg_z_deviation:.4f} ({report.avg_z_deviation * 100:.2f}%)",
+                ]
+            )
 
-        lines.extend([
-            "",
-            f"Fugacity Validation",
-            f"  Passed:           {report.fugacity_passed}",
-            f"  Failed:           {report.fugacity_failed}",
-            f"  Pass Rate:        {report.fugacity_pass_rate:.1f}%",
-        ])
+        lines.extend(
+            [
+                "",
+                "Fugacity Validation",
+                f"  Passed:           {report.fugacity_passed}",
+                f"  Failed:           {report.fugacity_failed}",
+                f"  Pass Rate:        {report.fugacity_pass_rate:.1f}%",
+            ]
+        )
 
-        if report.min_fugacity_deviation is not None:
-            lines.extend([
-                f"  Min Deviation:    {report.min_fugacity_deviation:.4f} ({report.min_fugacity_deviation*100:.2f}%)",
-                f"  Max Deviation:    {report.max_fugacity_deviation:.4f} ({report.max_fugacity_deviation*100:.2f}%)",
-                f"  Avg Deviation:    {report.avg_fugacity_deviation:.4f} ({report.avg_fugacity_deviation*100:.2f}%)",
-            ])
+        if (
+            report.min_fugacity_deviation is not None
+            and report.max_fugacity_deviation is not None
+            and report.avg_fugacity_deviation is not None
+        ):
+            lines.extend(
+                [
+                    f"  Min Deviation:    {report.min_fugacity_deviation:.4f} ({report.min_fugacity_deviation * 100:.2f}%)",
+                    f"  Max Deviation:    {report.max_fugacity_deviation:.4f} ({report.max_fugacity_deviation * 100:.2f}%)",
+                    f"  Avg Deviation:    {report.avg_fugacity_deviation:.4f} ({report.avg_fugacity_deviation * 100:.2f}%)",
+                ]
+            )
 
         lines.extend(["", "=" * 70])
 

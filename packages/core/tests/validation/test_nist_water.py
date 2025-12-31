@@ -23,9 +23,7 @@ def test_water_critical_temperature() -> None:
     """
     water = get_compound("water")
     assert water.critical_properties.temperature.unit in ("kelvin", "K")
-    assert water.critical_properties.temperature.magnitude == pytest.approx(
-        647.096, rel=1e-4
-    )
+    assert water.critical_properties.temperature.magnitude == pytest.approx(647.096, rel=1e-4)
 
 
 @pytest.mark.validation
@@ -38,9 +36,7 @@ def test_water_critical_pressure() -> None:
     """
     water = get_compound("water")
     assert water.critical_properties.pressure.unit in ("pascal", "Pa")
-    assert water.critical_properties.pressure.magnitude == pytest.approx(
-        22064000, rel=1e-4
-    )
+    assert water.critical_properties.pressure.magnitude == pytest.approx(22064000, rel=1e-4)
 
 
 @pytest.mark.validation
@@ -79,9 +75,7 @@ def test_water_normal_boiling_point() -> None:
     """
     water = get_compound("water")
     assert water.phase_properties.normal_boiling_point.unit in ("kelvin", "K")
-    assert water.phase_properties.normal_boiling_point.magnitude == pytest.approx(
-        373.124, rel=1e-3
-    )
+    assert water.phase_properties.normal_boiling_point.magnitude == pytest.approx(373.124, rel=1e-3)
 
 
 @pytest.mark.validation

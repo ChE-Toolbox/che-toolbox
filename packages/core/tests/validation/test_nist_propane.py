@@ -16,9 +16,7 @@ def test_propane_critical_temperature() -> None:
     Tolerance: ±0.01%
     """
     propane = get_compound("propane")
-    assert propane.critical_properties.temperature.magnitude == pytest.approx(
-        369.89, rel=1e-4
-    )
+    assert propane.critical_properties.temperature.magnitude == pytest.approx(369.89, rel=1e-4)
 
 
 @pytest.mark.validation
@@ -29,9 +27,7 @@ def test_propane_critical_pressure() -> None:
     Tolerance: ±0.01%
     """
     propane = get_compound("propane")
-    assert propane.critical_properties.pressure.magnitude == pytest.approx(
-        4251200, rel=1e-4
-    )
+    assert propane.critical_properties.pressure.magnitude == pytest.approx(4251200, rel=1e-4)
 
 
 @pytest.mark.validation

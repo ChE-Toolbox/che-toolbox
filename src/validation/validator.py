@@ -1,8 +1,6 @@
 """NIST validation framework."""
 
 import logging
-from pathlib import Path
-from typing import Optional
 
 from ..compounds.database import CompoundDatabase
 from ..eos.peng_robinson import PengRobinsonEOS
@@ -17,9 +15,9 @@ class NISTValidation:
 
     def __init__(
         self,
-        eos: Optional[PengRobinsonEOS] = None,
-        db: Optional[CompoundDatabase] = None,
-        nist_loader: Optional[NISTDataLoader] = None,
+        eos: PengRobinsonEOS | None = None,
+        db: CompoundDatabase | None = None,
+        nist_loader: NISTDataLoader | None = None,
     ) -> None:
         """Initialize NIST validator.
 
@@ -45,7 +43,7 @@ class NISTValidation:
         compound_name: str,
         expected_z: float,
         tolerance: float = 0.05,
-    ) -> tuple[bool, float, Optional[str]]:
+    ) -> tuple[bool, float, str | None]:
         """Validate Z factor calculation.
 
         Parameters
@@ -95,7 +93,7 @@ class NISTValidation:
         compound_name: str,
         expected_fugacity: float,
         tolerance: float = 0.10,
-    ) -> tuple[bool, float, Optional[str]]:
+    ) -> tuple[bool, float, str | None]:
         """Validate fugacity calculation.
 
         Parameters
@@ -143,7 +141,7 @@ class NISTValidation:
         compound_name: str,
         expected_vapor_pressure: float,
         tolerance: float = 0.05,
-    ) -> tuple[bool, float, Optional[str]]:
+    ) -> tuple[bool, float, str | None]:
         """Validate vapor pressure calculation.
 
         Parameters
@@ -177,7 +175,9 @@ class NISTValidation:
             if expected_vapor_pressure == 0:
                 deviation = abs(calculated_psat - expected_vapor_pressure)
             else:
-                deviation = abs(calculated_psat - expected_vapor_pressure) / abs(expected_vapor_pressure)
+                deviation = abs(calculated_psat - expected_vapor_pressure) / abs(
+                    expected_vapor_pressure
+                )
 
             passed = deviation <= tolerance
             return passed, deviation, None
@@ -199,7 +199,9 @@ class NISTValidation:
         ValidationResult
             Validation result with calculated values and pass/fail status
         """
-        logger.debug(f"Validating {test_case.compound_name} at T={test_case.temperature}K, P={test_case.pressure}Pa")
+        logger.debug(
+            f"Validating {test_case.compound_name} at T={test_case.temperature}K, P={test_case.pressure}Pa"
+        )
 
         result = ValidationResult(test_case=test_case)
 
@@ -211,7 +213,9 @@ class NISTValidation:
 
             # Calculate Z factor if expected
             if test_case.expected_z_factor is not None:
-                z_factors = self.eos.calculate_z_factor(test_case.temperature, test_case.pressure, compound)
+                z_factors = self.eos.calculate_z_factor(
+                    test_case.temperature, test_case.pressure, compound
+                )
                 result.calculated_z_factor = z_factors[-1]
 
                 deviation = abs(result.calculated_z_factor - test_case.expected_z_factor) / abs(

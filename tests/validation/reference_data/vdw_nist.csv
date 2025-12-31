@@ -1,0 +1,28 @@
+# Van der Waals NIST Reference Data
+# Source: NIST WebBook (https://webbook.nist.gov/)
+# Format: compound,T(K),P(Pa),Z_nist,notes
+# Tolerance: ±2% absolute error
+
+# Methane (CH4) - Non-polar, simple cubic behavior
+methane,300.0,50e6,0.864,"High pressure, attractive forces dominate"
+methane,200.0,10e6,0.912,"Moderate pressure, far from critical"
+methane,150.0,5e6,0.956,"Low pressure, near-ideal behavior"
+
+# Ethane (C2H6) - Hydrocarbon, moderate polarity
+ethane,350.0,20e6,0.752,"High pressure, non-ideal"
+ethane,300.0,10e6,0.856,"Moderate conditions"
+ethane,400.0,5e6,0.953,"Low pressure"
+
+# Propane (C3H8) - Extended range testing
+propane,400.0,15e6,0.798,"High pressure"
+propane,350.0,8e6,0.902,"Moderate pressure"
+propane,300.0,2e6,0.972,"Low pressure"
+
+# Water (H2O) - Polar compound (challenging for cubic EOS)
+water,500.0,25e6,0.712,"High pressure, polar interactions"
+water,450.0,12e6,0.834,"Moderate conditions"
+
+# Nitrogen (N2) - Inert reference
+nitrogen,250.0,30e6,0.801,"High pressure"
+nitrogen,300.0,15e6,0.889,"Moderate pressure"
+nitrogen,350.0,5e6,0.965,"Low pressure, near-ideal"

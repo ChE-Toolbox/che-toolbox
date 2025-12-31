@@ -16,9 +16,7 @@ def test_nitrogen_critical_temperature() -> None:
     Tolerance: ±0.01%
     """
     nitrogen = get_compound("nitrogen")
-    assert nitrogen.critical_properties.temperature.magnitude == pytest.approx(
-        126.192, rel=1e-4
-    )
+    assert nitrogen.critical_properties.temperature.magnitude == pytest.approx(126.192, rel=1e-4)
 
 
 @pytest.mark.validation
@@ -29,9 +27,7 @@ def test_nitrogen_critical_pressure() -> None:
     Tolerance: ±0.01%
     """
     nitrogen = get_compound("nitrogen")
-    assert nitrogen.critical_properties.pressure.magnitude == pytest.approx(
-        3395800, rel=1e-4
-    )
+    assert nitrogen.critical_properties.pressure.magnitude == pytest.approx(3395800, rel=1e-4)
 
 
 @pytest.mark.validation

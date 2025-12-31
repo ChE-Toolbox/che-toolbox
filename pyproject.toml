@@ -44,6 +44,9 @@ dev = [
 
 [project.scripts]
 pr-calc = "src.cli.pr_calc:main"
+vdw-calc = "src.cli.vdw_calc:main"
+ideal-calc = "src.cli.ideal_calc:main"
+flash-calc = "src.cli.flash_calc:main"
 
 [project.urls]
 Homepage = "https://github.com/ChE-Toolbox/che-toolbox"

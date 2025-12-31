@@ -2,7 +2,6 @@
 
 import json
 from pathlib import Path
-from typing import Optional
 
 from .models import Compound
 
@@ -33,7 +32,7 @@ class CompoundDatabase:
                 compound = Compound(**compound_data)
                 self._compounds[compound.name.lower()] = compound
 
-    def get(self, name: str) -> Optional[Compound]:
+    def get(self, name: str) -> Compound | None:
         """Get compound by name.
 
         Parameters
@@ -48,7 +47,7 @@ class CompoundDatabase:
         """
         return self._compounds.get(name.lower())
 
-    def get_by_cas(self, cas_number: str) -> Optional[Compound]:
+    def get_by_cas(self, cas_number: str) -> Compound | None:
         """Get compound by CAS number.
 
         Parameters
@@ -89,9 +88,7 @@ class CompoundDatabase:
     def save(self) -> None:
         """Save database to JSON file."""
         compounds_data = [
-            c.model_dump() for c in sorted(
-                self._compounds.values(), key=lambda c: c.name
-            )
+            c.model_dump() for c in sorted(self._compounds.values(), key=lambda c: c.name)
         ]
         with open(self.db_path, "w") as f:
             json.dump(compounds_data, f, indent=2)

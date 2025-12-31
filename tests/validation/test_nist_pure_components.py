@@ -5,7 +5,6 @@ import pytest
 from src.compounds.database import CompoundDatabase
 from src.eos.peng_robinson import PengRobinsonEOS
 from src.validation.nist_data import NISTDataLoader
-from src.validation.models import ValidationTestCase
 from src.validation.validator import NISTValidation
 
 
@@ -28,7 +27,9 @@ def nist_loader() -> NISTDataLoader:
 
 
 @pytest.fixture
-def validator(eos: PengRobinsonEOS, db: CompoundDatabase, nist_loader: NISTDataLoader) -> NISTValidation:
+def validator(
+    eos: PengRobinsonEOS, db: CompoundDatabase, nist_loader: NISTDataLoader
+) -> NISTValidation:
     """Create NIST validator."""
     return NISTValidation(eos=eos, db=db, nist_loader=nist_loader)
 

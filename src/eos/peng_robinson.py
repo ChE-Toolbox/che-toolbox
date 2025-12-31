@@ -3,15 +3,13 @@
 import logging
 import math
 import warnings
-from typing import Optional
 
 from scipy.optimize import brentq
 
 from ..compounds.models import Compound
 from .cubic_solver import solve_cubic
 from .exceptions import ConvergenceWarning
-from .mixing_rules import calculate_a_mix, calculate_b_mix
-from .models import Mixture, PhaseType, ThermodynamicState
+from .models import PhaseType, ThermodynamicState
 
 logger = logging.getLogger(__name__)
 
@@ -54,7 +52,9 @@ class PengRobinsonEOS:
             raise ValueError(f"Critical pressure must be positive, got {pc}")
 
         tr = temperature / tc
-        alpha_func = (1 + (0.37464 + 1.54226 * omega - 0.26992 * omega**2) * (1 - math.sqrt(tr))) ** 2
+        alpha_func = (
+            1 + (0.37464 + 1.54226 * omega - 0.26992 * omega**2) * (1 - math.sqrt(tr))
+        ) ** 2
 
         a0 = 0.45724 * (PengRobinsonEOS.R**2 * tc**2) / pc
         a = a0 * alpha_func
@@ -122,7 +122,9 @@ class PengRobinsonEOS:
         if pressure <= 0:
             raise ValueError(f"Pressure must be positive, got {pressure}")
 
-        logger.debug(f"Calculating Z factor for {compound.name} at T={temperature}K, P={pressure}Pa")
+        logger.debug(
+            f"Calculating Z factor for {compound.name} at T={temperature}K, P={pressure}Pa"
+        )
 
         # Calculate EOS parameters
         a = self.calculate_a(compound.tc, compound.pc, compound.acentric_factor, temperature)
@@ -153,7 +155,9 @@ class PengRobinsonEOS:
         logger.debug(f"Found {len(valid_z)} valid Z factors: {valid_z}")
 
         if not valid_z:
-            raise ValueError(f"No valid Z factors found for {compound.name} at T={temperature}, P={pressure}")
+            raise ValueError(
+                f"No valid Z factors found for {compound.name} at T={temperature}, P={pressure}"
+            )
 
         return valid_z
 
@@ -162,7 +166,7 @@ class PengRobinsonEOS:
         temperature: float,
         pressure: float,
         compound: Compound,
-        phase: Optional[PhaseType] = None,
+        phase: PhaseType | None = None,
     ) -> float:
         """Calculate fugacity coefficient for a pure component.
 
@@ -187,13 +191,15 @@ class PengRobinsonEOS:
         ValueError
             If phase cannot be determined or calculated
         """
-        logger.debug(f"Calculating fugacity coefficient for {compound.name} at T={temperature}K, P={pressure}Pa")
+        logger.debug(
+            f"Calculating fugacity coefficient for {compound.name} at T={temperature}K, P={pressure}Pa"
+        )
 
         # Get Z factors
         z_factors = self.calculate_z_factor(temperature, pressure, compound)
 
         # Select appropriate Z factor
-        if phase == PhaseType.LIQUID or phase == "liquid":
+        if phase == PhaseType.LIQUID:
             z = z_factors[0]  # smallest Z
             logger.debug(f"Using liquid Z factor: {z}")
         else:
@@ -215,12 +221,10 @@ class PengRobinsonEOS:
             raise ValueError(f"Invalid Z factor {z} relative to B={B}")
 
         ln_phi = (
-            z - 1
+            z
+            - 1
             - math.log(z - B)
-            + (A / (2 * sqrt_2 * B))
-            * math.log(
-                (z + (1 - sqrt_2) * B) / (z + (1 + sqrt_2) * B)
-            )
+            + (A / (2 * sqrt_2 * B)) * math.log((z + (1 - sqrt_2) * B) / (z + (1 + sqrt_2) * B))
         )
 
         phi = math.exp(ln_phi)
@@ -233,7 +237,7 @@ class PengRobinsonEOS:
         temperature: float,
         pressure: float,
         compound: Compound,
-        z_factors: Optional[tuple[float, ...]] = None,
+        z_factors: tuple[float, ...] | None = None,
     ) -> PhaseType:
         """Identify the thermodynamic phase.
 
@@ -265,7 +269,7 @@ class PengRobinsonEOS:
             try:
                 z_factors = self.calculate_z_factor(temperature, pressure, compound)
             except ValueError:
-                logger.warning(f"Could not calculate Z factors for phase identification")
+                logger.warning("Could not calculate Z factors for phase identification")
                 return PhaseType.UNKNOWN
 
         # Three real roots indicate two-phase region
@@ -312,8 +316,12 @@ class PengRobinsonEOS:
             Residual (f_vapor - f_liquid)
         """
         try:
-            phi_v = self.calculate_fugacity_coefficient(temperature, pressure, compound, phase=PhaseType.VAPOR)
-            phi_l = self.calculate_fugacity_coefficient(temperature, pressure, compound, phase=PhaseType.LIQUID)
+            phi_v = self.calculate_fugacity_coefficient(
+                temperature, pressure, compound, phase=PhaseType.VAPOR
+            )
+            phi_l = self.calculate_fugacity_coefficient(
+                temperature, pressure, compound, phase=PhaseType.LIQUID
+            )
 
             # Fugacity residual: f_v - f_l = pressure * (phi_v - phi_l)
             residual = phi_v - phi_l
@@ -368,7 +376,7 @@ class PengRobinsonEOS:
 
         try:
             # Use Brent's method to find root of residual function
-            p_sat = brentq(
+            p_sat: float = brentq(
                 self._fugacity_residual,
                 p_lower,
                 p_upper,
@@ -379,7 +387,7 @@ class PengRobinsonEOS:
 
             logger.info(
                 f"Vapor pressure for {compound.name} at T={temperature}K: "
-                f"P_sat={p_sat:.2e} Pa ({p_sat/1e5:.4f} bar)"
+                f"P_sat={p_sat:.2e} Pa ({p_sat / 1e5:.4f} bar)"
             )
 
             return p_sat
@@ -439,7 +447,9 @@ class PengRobinsonEOS:
         phase = self.identify_phase(temperature, pressure, compound, z_factors)
 
         # Calculate fugacity coefficient (for vapor phase)
-        phi = self.calculate_fugacity_coefficient(temperature, pressure, compound, phase=PhaseType.VAPOR)
+        phi = self.calculate_fugacity_coefficient(
+            temperature, pressure, compound, phase=PhaseType.VAPOR
+        )
 
         # Calculate fugacity
         fugacity = phi * pressure

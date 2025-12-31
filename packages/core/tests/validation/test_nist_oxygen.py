@@ -17,9 +17,7 @@ def test_oxygen_critical_temperature() -> None:
     Tolerance: ±0.01% (minimal variance)
     """
     oxygen = get_compound("oxygen")
-    assert oxygen.critical_properties.temperature.magnitude == pytest.approx(
-        154.581, rel=1e-3
-    )
+    assert oxygen.critical_properties.temperature.magnitude == pytest.approx(154.581, rel=1e-3)
 
 
 @pytest.mark.validation

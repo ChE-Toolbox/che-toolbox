@@ -17,9 +17,7 @@ def test_methane_critical_temperature() -> None:
     Tolerance: ±0.01%
     """
     methane = get_compound("methane")
-    assert methane.critical_properties.temperature.magnitude == pytest.approx(
-        190.564, rel=1e-4
-    )
+    assert methane.critical_properties.temperature.magnitude == pytest.approx(190.564, rel=1e-4)
 
 
 @pytest.mark.validation
@@ -30,9 +28,7 @@ def test_methane_critical_pressure() -> None:
     Tolerance: ±0.01%
     """
     methane = get_compound("methane")
-    assert methane.critical_properties.pressure.magnitude == pytest.approx(
-        4599200, rel=1e-4
-    )
+    assert methane.critical_properties.pressure.magnitude == pytest.approx(4599200, rel=1e-4)
 
 
 @pytest.mark.validation

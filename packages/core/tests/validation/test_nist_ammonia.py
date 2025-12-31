@@ -17,9 +17,7 @@ def test_ammonia_critical_temperature() -> None:
     Tolerance: ±0.1% (slight variance between sources)
     """
     ammonia = get_compound("ammonia")
-    assert ammonia.critical_properties.temperature.magnitude == pytest.approx(
-        405.40, rel=1e-3
-    )
+    assert ammonia.critical_properties.temperature.magnitude == pytest.approx(405.40, rel=1e-3)
 
 
 @pytest.mark.validation
@@ -31,9 +29,7 @@ def test_ammonia_critical_pressure() -> None:
     Tolerance: ±0.5% (slight variance between sources)
     """
     ammonia = get_compound("ammonia")
-    assert ammonia.critical_properties.pressure.magnitude == pytest.approx(
-        11333000, rel=5e-3
-    )
+    assert ammonia.critical_properties.pressure.magnitude == pytest.approx(11333000, rel=5e-3)
 
 
 @pytest.mark.validation
