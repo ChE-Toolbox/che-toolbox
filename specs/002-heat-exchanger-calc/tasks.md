@@ -84,7 +84,7 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 - [x] T027 Create `mypy.ini` with strict mode config (disallow_untyped_defs, no_implicit_optional, warn_unused_ignores)
 - [x] T028 [P] Create `.flake8` config (max-line-length=120, ignore E501, E203, W503 for Pydantic compatibility)
-- [ ] T029 Run initial mypy check on package stubs (expected: 0 errors baseline)
+- [x] T029 Run initial mypy check on package stubs (expected: 0 errors baseline)
 
 ---
 
@@ -180,54 +180,54 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 ### Models (Pydantic Entities)
 
-- [ ] T062 [US2] Create `src/heat_calc/models/ntu_input.py` with: `NTUInput` class per data-model.md
-- [ ] T063 [US2] Create `src/heat_calc/models/ntu_results.py` with: `NTUResult` class with NTU, effectiveness, outlet temps, C_min/C_max, Q_max, energy_balance fields
-- [ ] T064 [US2] [P] Add Pydantic validators to `NTUInput`: mutually exclusive `T_hot_outlet` and `T_cold_outlet` (supply one or neither, not both)
-- [ ] T065 [US2] [P] Add Pydantic validators to `NTUResult`: effectiveness in [0, 1], NTU >= 0, Q_actual ≤ Q_max
+- [x] T062 [US2] Create `src/heat_calc/models/ntu_input.py` with: `NTUInput` class per data-model.md
+- [x] T063 [US2] Create `src/heat_calc/models/ntu_results.py` with: `NTUResult` class with NTU, effectiveness, outlet temps, C_min/C_max, Q_max, energy_balance fields
+- [x] T064 [US2] [P] Add Pydantic validators to `NTUInput`: mutually exclusive `T_hot_outlet` and `T_cold_outlet` (supply one or neither, not both)
+- [x] T065 [US2] [P] Add Pydantic validators to `NTUResult`: effectiveness in [0, 1], NTU >= 0, Q_actual ≤ Q_max
 
 ### Core Calculation Function
 
-- [ ] T066 [US2] Create `src/heat_calc/ntu.py` with function stub: `calculate_ntu(input_data: NTUInput) -> NTUResult`
-- [ ] T067 [US2] Implement heat capacity rate calculations: `C_hot = mdot_hot × cp_hot`, `C_cold = mdot_cold × cp_cold`, `C_min`, `C_max`, `C_ratio`
-- [ ] T068 [US2] Implement counterflow effectiveness correlation: `ε = (1 - exp(-NTU(1-Cr))) / (1 - Cr×exp(-NTU(1-Cr)))` for Cr ≠ 1
-- [ ] T069 [US2] [P] Implement parallel flow effectiveness: `ε = (1 - exp(-NTU(1+Cr))) / (1 + Cr)` for all Cr
-- [ ] T070 [US2] [P] Implement shell-and-tube (1 shell pass, 2 tube passes) effectiveness correlation
-- [ ] T071 [US2] [P] Implement crossflow unmixed/unmixed and mixed configurations
-- [ ] T072 [US2] Implement NTU calculation: `NTU = UA / C_min` with reverse lookup if needed
-- [ ] T073 [US2] [P] Implement outlet temperature calculation: `T_outlet = T_inlet ± Q / (mdot × cp)` with energy balance check
-- [ ] T074 [US2] [P] Implement Q_max (thermodynamic limit): `Q_max = C_min × (T_hot_inlet - T_cold_inlet)`
-- [ ] T075 [US2] Implement edge cases: NTU → 0 (ε → 0), NTU → ∞ (ε → 1 or Cr×1), Cr > 1 handling, retrograde temps
+- [x] T066 [US2] Create `src/heat_calc/ntu.py` with function stub: `calculate_ntu(input_data: NTUInput) -> NTUResult`
+- [x] T067 [US2] Implement heat capacity rate calculations: `C_hot = mdot_hot × cp_hot`, `C_cold = mdot_cold × cp_cold`, `C_min`, `C_max`, `C_ratio`
+- [x] T068 [US2] Implement counterflow effectiveness correlation: `ε = (1 - exp(-NTU(1-Cr))) / (1 - Cr×exp(-NTU(1-Cr)))` for Cr ≠ 1
+- [x] T069 [US2] [P] Implement parallel flow effectiveness: `ε = (1 - exp(-NTU(1+Cr))) / (1 + Cr)` for all Cr
+- [x] T070 [US2] [P] Implement shell-and-tube (1 shell pass, 2 tube passes) effectiveness correlation
+- [x] T071 [US2] [P] Implement crossflow unmixed/unmixed and mixed configurations
+- [x] T072 [US2] Implement NTU calculation: `NTU = UA / C_min` with reverse lookup if needed
+- [x] T073 [US2] [P] Implement outlet temperature calculation: `T_outlet = T_inlet ± Q / (mdot × cp)` with energy balance check
+- [x] T074 [US2] [P] Implement Q_max (thermodynamic limit): `Q_max = C_min × (T_hot_inlet - T_cold_inlet)`
+- [x] T075 [US2] Implement edge cases: NTU → 0 (ε → 0), NTU → ∞ (ε → 1 or Cr×1), Cr > 1 handling, retrograde temps
 
 ### Unit Tests
 
-- [ ] T076 [US2] Create `tests/unit/test_ntu.py` with test structure
-- [ ] T077 [US2] [P] Test counterflow NTU: basic case, Cr = 0, Cr near 1, high NTU
-- [ ] T078 [US2] [P] Test parallel flow NTU: all Cr values, effectiveness limits
-- [ ] T079 [US2] [P] Test shell-and-tube effectiveness: 1-2 LMTD correction factors, extreme Cr
-- [ ] T080 [US2] [P] Test crossflow configurations: unmixed/unmixed, mixed combinations
-- [ ] T081 [US2] Test outlet temperature calculation: known inlet and UA, verify energy balance
-- [ ] T082 [US2] [P] Test effectiveness bounds: 0 ≤ ε ≤ 1, ε increases with NTU, ε decreases with Cr
-- [ ] T083 [US2] Test edge cases: NTU = 0, very high NTU, Cr > 1, retrograde temps
+- [x] T076 [US2] Create `tests/unit/test_ntu.py` with test structure
+- [x] T077 [US2] [P] Test counterflow NTU: basic case, Cr = 0, Cr near 1, high NTU
+- [x] T078 [US2] [P] Test parallel flow NTU: all Cr values, effectiveness limits
+- [x] T079 [US2] [P] Test shell-and-tube effectiveness: 1-2 LMTD correction factors, extreme Cr
+- [x] T080 [US2] [P] Test crossflow configurations: unmixed/unmixed, mixed combinations
+- [x] T081 [US2] Test outlet temperature calculation: known inlet and UA, verify energy balance
+- [x] T082 [US2] [P] Test effectiveness bounds: 0 ≤ ε ≤ 1, ε increases with NTU, ε decreases with Cr
+- [x] T083 [US2] Test edge cases: NTU = 0, very high NTU, Cr > 1, retrograde temps
 
 ### Validation Tests (Literature)
 
-- [ ] T084 [US2] Create `tests/validation/test_ntu_correlations.py` with reference correlation loading
-- [ ] T085 [US2] [P] Implement validation test loop: load NTU reference cases, calculate effectiveness, compare within tolerance (2%)
-- [ ] T086 [US2] Test validation: at least 5 reference configurations from Perry's or GPSA, all within 2% tolerance
+- [x] T084 [US2] Create `tests/validation/test_ntu_correlations.py` with reference correlation loading
+- [x] T085 [US2] [P] Implement validation test loop: load NTU reference cases, calculate effectiveness, compare within tolerance (2%)
+- [x] T086 [US2] Test validation: at least 5 reference configurations from Perry's or GPSA, all within 2% tolerance
 
 ### CLI Implementation
 
-- [ ] T087 [US2] Implement `calculate-ntu` CLI command: input file parsing, format options, error handling
-- [ ] T088 [US2] [P] Test CLI: calculate-ntu with various input files, verify outlet temp output
+- [x] T087 [US2] Implement `calculate-ntu` CLI command: input file parsing, format options, error handling
+- [x] T088 [US2] [P] Test CLI: calculate-ntu with various input files, verify outlet temp output
 
 ### Final Integration
 
-- [ ] T089 [US2] Update `src/heat_calc/__init__.py` to export: `calculate_ntu`, `NTUInput`, `NTUResult`
-- [ ] T090 [US2] [P] Run mypy check on ntu module: zero errors
-- [ ] T091 [US2] Run test suite: pytest tests/unit/test_ntu.py tests/validation/test_ntu_correlations.py --cov (expect >85% coverage)
-- [ ] T092 [US2] [P] Manual CLI testing and documentation
+- [x] T089 [US2] Update `src/heat_calc/__init__.py` to export: `calculate_ntu`, `NTUInput`, `NTUResult`
+- [x] T090 [US2] [P] Run mypy check on ntu module: zero errors
+- [x] T091 [US2] Run test suite: pytest tests/unit/test_ntu.py tests/validation/test_ntu_correlations.py --cov (expect >85% coverage)
+- [x] T092 [US2] [P] Manual CLI testing and documentation
 
-**US2 Subtotal**: 31 tasks | **Status**: Pending US1 completion
+**US2 Subtotal**: 31 tasks | **Status**: ✅ COMPLETE
 
 ---
 
@@ -245,17 +245,17 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 **Task Count**: ~20 tasks (abbreviated here for space)
 
-- [ ] T093 [US3] Create convection models in `src/heat_calc/models/convection_input.py` and `_results.py`
-- [ ] T094 [US3] Create `src/heat_calc/convection.py` with geometry-specific correlation functions
-- [ ] T095 [US3] Implement flat plate laminar (Nusselt: 0.664×Re^0.5×Pr^(1/3))
-- [ ] T096 [US3] [P] Implement flat plate turbulent (Gnielinski or Dittus-Boelert variant)
-- [ ] T097 [US3] [P] Implement pipe flow (Dittus-Boelert: Nu = 0.023×Re^0.8×Pr^0.4)
-- [ ] T098 [US3] Implement cylinder crossflow (Ranz-Marshall or Morgan correlation per Re range)
-- [ ] T099 [US3] [P] Implement natural convection vertical plate (Ra-based correlation)
-- [ ] T100 [US3] Create unit and validation tests with literature references
-- [ ] T101 [US3] Implement `calculate-convection` CLI command
+- [x] T093 [US3] Create convection models in `src/heat_calc/models/convection_input.py` and `_results.py`
+- [x] T094 [US3] Create `src/heat_calc/convection.py` with geometry-specific correlation functions
+- [x] T095 [US3] Implement flat plate laminar (Nusselt: 0.664×Re^0.5×Pr^(1/3))
+- [x] T096 [US3] [P] Implement flat plate turbulent (Gnielinski or Dittus-Boelert variant)
+- [x] T097 [US3] [P] Implement pipe flow (Dittus-Boelert: Nu = 0.023×Re^0.8×Pr^0.4)
+- [x] T098 [US3] Implement cylinder crossflow (Ranz-Marshall or Morgan correlation per Re range)
+- [x] T099 [US3] [P] Implement natural convection vertical plate (Ra-based correlation)
+- [x] T100 [US3] Create unit and validation tests with literature references
+- [x] T101 [US3] Implement `calculate-convection` CLI command
 
-**US3 Subtotal**: ~20 tasks | **Status**: Pending US1/US2 completion
+**US3 Subtotal**: ~20 tasks | **Status**: ✅ COMPLETE
 
 ---
 
@@ -271,16 +271,16 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 **Task Count**: ~20 tasks (similar pattern to US3)
 
-- [ ] T102 [US4] Create insulation models in `src/heat_calc/models/insulation_input.py` and `_results.py`
-- [ ] T103 [US4] Create `src/heat_calc/insulation.py` with optimization function
-- [ ] T104 [US4] Implement heat loss calculation for cylindrical geometry
-- [ ] T105 [US4] [P] Implement economic optimization (minimize: insulation_cost + energy_loss_cost)
-- [ ] T106 [US4] [P] Implement temperature constraint mode
-- [ ] T107 [US4] Implement payback period calculation
+- [x] T102 [US4] Create insulation models in `src/heat_calc/models/insulation_input.py` and `_results.py`
+- [x] T103 [US4] Create `src/heat_calc/insulation.py` with optimization function
+- [x] T104 [US4] Implement heat loss calculation for cylindrical geometry
+- [x] T105 [US4] [P] Implement economic optimization (minimize: insulation_cost + energy_loss_cost)
+- [x] T106 [US4] [P] Implement temperature constraint mode
+- [x] T107 [US4] Implement payback period calculation
 - [ ] T108 [US4] Create unit and validation tests
-- [ ] T109 [US4] Implement `calculate-insulation` CLI command
+- [x] T109 [US4] Implement `calculate-insulation` CLI command
 
-**US4 Subtotal**: ~20 tasks | **Status**: Pending US1/US2/US3 completion
+**US4 Subtotal**: ~20 tasks | **Status**: ✅ COMPLETE (except tests - T108)
 
 ---
 
