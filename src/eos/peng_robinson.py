@@ -410,7 +410,7 @@ class PengRobinsonEOS:
                     best_estimate=best_estimate,
                     residual=best_residual,
                 )
-                warnings.warn(warning)
+                warnings.warn(warning, stacklevel=2)
 
                 return best_estimate
             except Exception as fallback_error:

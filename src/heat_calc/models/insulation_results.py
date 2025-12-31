@@ -261,19 +261,22 @@ class InsulationResult(BaseCalculationResult):
         Payback = total_insulation_cost / annual_cost_savings
         Only applies to economic_payback mode.
         """
-        if v > 0 and "optimization_mode" in info.data:
-            mode = info.data["optimization_mode"]
-            if mode == "economic_payback":
-                if "total_insulation_cost" in info.data and "annual_cost_savings" in info.data:
-                    cost = info.data["total_insulation_cost"]
-                    savings = info.data["annual_cost_savings"]
-                    if savings > 0:
-                        expected = cost / savings
-                        if abs(v - expected) > 0.1:  # 0.1 year tolerance
-                            raise ValueError(
-                                f"payback_period_years ({v:.2f}) does not match "
-                                f"calculated value ({expected:.2f})"
-                            )
+        if (
+            v > 0
+            and "optimization_mode" in info.data
+            and info.data["optimization_mode"] == "economic_payback"
+            and "total_insulation_cost" in info.data
+            and "annual_cost_savings" in info.data
+        ):
+            cost = info.data["total_insulation_cost"]
+            savings = info.data["annual_cost_savings"]
+            if savings > 0:
+                expected = cost / savings
+                if abs(v - expected) > 0.1:  # 0.1 year tolerance
+                    raise ValueError(
+                        f"payback_period_years ({v:.2f}) does not match "
+                        f"calculated value ({expected:.2f})"
+                    )
         return v
 
     @field_validator("net_annual_savings")

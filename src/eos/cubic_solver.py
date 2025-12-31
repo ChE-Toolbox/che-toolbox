@@ -43,16 +43,12 @@ def solve_cubic_analytical(a: float, b: float, c: float, d: float) -> tuple[floa
     A = q - p**2 / 3
     B = 2 * p**3 / 27 - p * q / 3 + r
 
-    # Discriminant
-    discriminant = -(4 * A**3 + 27 * B**2)
-
     # Use Cardano's formula
     sqrt_part = B**2 / 4 + A**3 / 27
     sqrt_abs = abs(sqrt_part)
 
     if sqrt_part >= 0:
         cbrt_arg1 = -B / 2 + math.sqrt(sqrt_abs)
-        cbrt_arg2 = -B / 2 - math.sqrt(sqrt_abs)
     else:
         # Complex cube roots - handle complex arithmetic
         real_part = -B / 2
@@ -64,21 +60,12 @@ def solve_cubic_analytical(a: float, b: float, c: float, d: float) -> tuple[floa
         cbrt_arg1_angle = angle / 3
         cbrt_arg1 = cbrt_arg1_mag * math.cos(cbrt_arg1_angle)
 
-        cbrt_arg2_mag = magnitude ** (1 / 3)
-        cbrt_arg2_angle = angle / 3
-        cbrt_arg2 = cbrt_arg2_mag * math.cos(cbrt_arg2_angle)
-
-    C_cubed = -A / 3 if abs(A) > 1e-15 else 0
-
     roots = []
 
     # First root
     if abs(cbrt_arg1) > 1e-15:
-        C = cbrt_arg1 ** (1 / 3) if cbrt_arg1 > 0 else -(abs(cbrt_arg1) ** (1 / 3))
-        if abs(C) > 1e-15:
-            t1 = C - A / (3 * C)
-        else:
-            t1 = 0
+        C = cbrt_arg1 ** (1 / 3) if cbrt_arg1 > 0 else -abs(cbrt_arg1) ** (1 / 3)
+        t1 = C - A / (3 * C) if abs(C) > 1e-15 else 0
     else:
         t1 = 0
 
@@ -89,10 +76,7 @@ def solve_cubic_analytical(a: float, b: float, c: float, d: float) -> tuple[floa
     omega = (-1 + 1j * math.sqrt(3)) / 2
 
     if abs(sqrt_abs) > 1e-15 or abs(sqrt_part) > 1e-15:
-        if abs(cbrt_arg1) > 1e-15:
-            C_val = cbrt_arg1 ** (1 / 3)
-        else:
-            C_val = 0
+        C_val = cbrt_arg1 ** (1 / 3) if abs(cbrt_arg1) > 1e-15 else 0
 
         if abs(C_val) > 1e-15:
             t2 = omega * C_val - A / (3 * omega * C_val)

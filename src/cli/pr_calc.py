@@ -463,7 +463,7 @@ def handle_mixture(args: argparse.Namespace) -> int:
         if not mixture_path.exists():
             raise FileNotFoundError(f"Mixture file not found: {args.mixture_file}")
 
-        with open(mixture_path) as f:
+        with mixture_path.open() as f:
             mixture_data = json.load(f)
 
         # Create mixture from JSON
@@ -541,8 +541,6 @@ def handle_validate(args: argparse.Namespace) -> int:
 
         total_passed = 0
         total_tests = 0
-
-        results: dict[str, dict[str, int | float]] = {}
 
         if args.output_format == "json":
             from typing import Any

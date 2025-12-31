@@ -140,10 +140,9 @@ def calculate_ntu(input_data: NTUInput) -> NTUResult:
         )
 
         Q_avg = (abs(Q_hot) + abs(Q_cold)) / 2
-        if Q_avg > 0:
-            energy_balance_error = 100.0 * abs(Q_hot - Q_cold) / Q_avg
-        else:
-            energy_balance_error = 0.0
+        energy_balance_error = (
+            100.0 * abs(Q_hot - Q_cold) / Q_avg if Q_avg > 0 else 0.0
+        )
 
         # Create result object
         result = NTUResult(
@@ -278,10 +277,7 @@ def _calculate_effectiveness(
             term1 = ntu**0.22 / c_ratio
             term2 = math.exp(-c_ratio * ntu**0.78) - 1.0
             exponent = term1 * term2
-            if exponent > 100:  # Avoid overflow
-                effectiveness = 1.0
-            else:
-                effectiveness = 1.0 - math.exp(exponent)
+            effectiveness = 1.0 if exponent > 100 else 1.0 - math.exp(exponent)
         eff_max = 1.0
 
     elif configuration == "crossflow_mixed_one":

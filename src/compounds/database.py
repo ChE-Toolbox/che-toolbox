@@ -26,7 +26,7 @@ class CompoundDatabase:
         if not self.db_path.exists():
             return
 
-        with open(self.db_path) as f:
+        with self.db_path.open() as f:
             data = json.load(f)
             for compound_data in data:
                 compound = Compound(**compound_data)
@@ -90,5 +90,5 @@ class CompoundDatabase:
         compounds_data = [
             c.model_dump() for c in sorted(self._compounds.values(), key=lambda c: c.name)
         ]
-        with open(self.db_path, "w") as f:
+        with self.db_path.open("w") as f:
             json.dump(compounds_data, f, indent=2)

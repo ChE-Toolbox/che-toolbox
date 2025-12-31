@@ -15,7 +15,6 @@ References
 """
 
 import math
-from typing import Union
 
 from heat_calc.models.convection_input import (
     CylinderCrossflowConvection,
@@ -26,12 +25,12 @@ from heat_calc.models.convection_input import (
 from heat_calc.models.convection_results import ConvectionResult
 
 # Type alias for any convection input
-ConvectionInput = Union[
-    FlatPlateConvection,
-    PipeFlowConvection,
-    CylinderCrossflowConvection,
-    VerticalPlateNaturalConvection,
-]
+ConvectionInput = (
+    FlatPlateConvection
+    | PipeFlowConvection
+    | CylinderCrossflowConvection
+    | VerticalPlateNaturalConvection
+)
 
 
 def calculate_convection(input_data: ConvectionInput) -> ConvectionResult:

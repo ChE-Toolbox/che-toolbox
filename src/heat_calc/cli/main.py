@@ -304,8 +304,8 @@ def calculate_ntu(
 )
 def calculate_convection(
     input_file: str | None,
-    temperature: float | None,
-    velocity: float | None,
+    _temperature: float | None,
+    _velocity: float | None,
     output: str | None,
     format: str,
 ) -> None:
@@ -452,8 +452,8 @@ def calculate_convection(
 )
 def calculate_insulation(
     input_file: str | None,
-    heat_loss: float | None,
-    annual_cost: float | None,
+    _heat_loss: float | None,
+    _annual_cost: float | None,
     output: str | None,
     format: str,
     verbose: bool,
@@ -583,10 +583,10 @@ def load_input_file(file_path: str) -> dict[str, Any]:
 
     try:
         if path.suffix.lower() in [".json"]:
-            with open(path) as f:
+            with path.open() as f:
                 return json.load(f)
         elif path.suffix.lower() in [".yaml", ".yml"]:
-            with open(path) as f:
+            with path.open() as f:
                 data = yaml.safe_load(f)
                 return data if data is not None else {}
         else:
@@ -620,10 +620,10 @@ def save_output_file(data: dict[str, Any], file_path: str, format: str) -> None:
 
     try:
         if format.lower() == "json":
-            with open(path, "w") as f:
+            with path.open("w") as f:
                 json.dump(data, f, indent=2, default=str)
         elif format.lower() in ["yaml", "yml"]:
-            with open(path, "w") as f:
+            with path.open("w") as f:
                 yaml.dump(data, f, default_flow_style=False, sort_keys=False)
         else:
             raise ValueError(f"Unsupported output format: {format}")

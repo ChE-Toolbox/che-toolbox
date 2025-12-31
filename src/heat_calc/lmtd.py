@@ -111,10 +111,9 @@ def calculate_lmtd(input_data: LMTDInput) -> LMTDResult:
         # Calculate energy balance error
         if q_hot > 0 or q_cold > 0:
             q_avg = (q_hot + q_cold) / 2 if (q_hot + q_cold) > 0 else max(q_hot, q_cold)
-            if q_avg > 0:
-                energy_balance_error = abs(q_hot - q_cold) / q_avg * 100
-            else:
-                energy_balance_error = 0.0
+            energy_balance_error = (
+                abs(q_hot - q_cold) / q_avg * 100 if q_avg > 0 else 0.0
+            )
         else:
             energy_balance_error = 0.0
 
@@ -304,10 +303,10 @@ def _calculate_lmtd_arithmetic(t_h_in: float, t_h_out: float, t_c_in: float, t_c
 
 def _calculate_correction_factor(
     configuration: str,
-    t_h_in: float,
-    t_h_out: float,
-    t_c_in: float,
-    t_c_out: float,
+    _t_h_in: float,
+    _t_h_out: float,
+    _t_c_in: float,
+    _t_c_out: float,
 ) -> float:
     """Calculate F correction factor for non-ideal heat exchanger geometries.
 
@@ -319,13 +318,13 @@ def _calculate_correction_factor(
     ----------
     configuration : str
         Heat exchanger configuration.
-    t_h_in : float
+    _t_h_in : float
         Hot inlet temperature (K).
-    t_h_out : float
+    _t_h_out : float
         Hot outlet temperature (K).
-    t_c_in : float
+    _t_c_in : float
         Cold inlet temperature (K).
-    t_c_out : float
+    _t_c_out : float
         Cold outlet temperature (K).
 
     Returns

@@ -495,7 +495,7 @@ def _calculate_economic_metrics(
     }
 
 
-def _optimize_economic_thickness(input_data: InsulationInput, q_uninsulated: float) -> float:
+def _optimize_economic_thickness(input_data: InsulationInput, _q_uninsulated: float) -> float:
     """Find optimal insulation thickness by minimizing total cost.
 
     Total cost = Capital cost (amortized) + Energy cost
@@ -505,7 +505,7 @@ def _optimize_economic_thickness(input_data: InsulationInput, q_uninsulated: flo
     ----------
     input_data : InsulationInput
         Input data with economic parameters.
-    q_uninsulated : float
+    _q_uninsulated : float
         Baseline heat loss without insulation (W).
 
     Returns
