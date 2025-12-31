@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "source": "Generated from iapws library (verified IAPWS-IF97 implementation)",
+    "standard": "Industrial Formulation for the Thermodynamic Properties of Water and Steam",
+    "version": "1997",
+    "reference": "https://www.iapws.org/",
+    "last_updated": "2025-12-30",
+    "description": "Reference test points for validation of IAPWS-IF97 implementation"
+  },
+  "regions": {
+    "region1": [
+      {
+        "point_id": "R1_001",
+        "pressure_Pa": 3000000.0,
+        "temperature_K": 300,
+        "enthalpy_kJ_per_kg": 115.33127302143888,
+        "entropy_kJ_per_kg_K": 0.39229479240262577,
+        "density_kg_per_m3": 997.852940098482,
+        "internal_energy_kJ_per_kg": 112.32481798237879,
+        "source": "IAPWS library verification"
+      },
+      {
+        "point_id": "R1_002",
+        "pressure_Pa": 80000000.0,
+        "temperature_K": 300,
+        "enthalpy_kJ_per_kg": 184.1428277342547,
+        "entropy_kJ_per_kg_K": 0.3685638523984814,
+        "density_kg_per_m3": 1029.6742925605045,
+        "internal_energy_kJ_per_kg": 106.4483562125243,
+        "source": "IAPWS library verification"
+      },
+      {
+        "point_id": "R1_003",
+        "pressure_Pa": 3000000.0,
+        "temperature_K": 500,
+        "enthalpy_kJ_per_kg": 975.5422390972249,
+        "entropy_kJ_per_kg_K": 2.5804191200518094,
+        "density_kg_per_m3": 831.6575410467731,
+        "internal_energy_kJ_per_kg": 971.9349850870899,
+        "source": "IAPWS library verification"
+      }
+    ],
+    "region2": [
+      {
+        "point_id": "R2_001",
+        "pressure_Pa": 35000.0,
+        "temperature_K": 300,
+        "enthalpy_kJ_per_kg": 112.60396598544843,
+        "entropy_kJ_per_kg_K": 0.393114941237386,
+        "density_kg_per_m3": 996.5283607410142,
+        "internal_energy_kJ_per_kg": 112.56884405477504,
+        "source": "IAPWS library verification"
+      },
+      {
+        "point_id": "R2_002",
+        "pressure_Pa": 35000.0,
+        "temperature_K": 700,
+        "enthalpy_kJ_per_kg": 3335.244140405193,
+        "entropy_kJ_per_kg_K": 9.11183115263478,
+        "density_kg_per_m3": 0.10837865852729466,
+        "internal_energy_kJ_per_kg": 3012.3023317908574,
+        "source": "IAPWS library verification"
+      },
+      {
+        "point_id": "R2_003",
+        "pressure_Pa": 30000000.0,
+        "temperature_K": 700,
+        "enthalpy_kJ_per_kg": 2631.4947448448074,
+        "entropy_kJ_per_kg_K": 5.175402982299071,
+        "density_kg_per_m3": 184.1801687597407,
+        "internal_energy_kJ_per_kg": 2468.6107590062757,
+        "source": "IAPWS library verification"
+      }
+    ],
+    "region3": [
+      {
+        "point_id": "R3_001",
+        "pressure_Pa": 25000000.0,
+        "temperature_K": 650,
+        "enthalpy_kJ_per_kg": 1876.3591225169687,
+        "entropy_kJ_per_kg_K": 4.07597900031328,
+        "density_kg_per_m3": 488.87505207909487,
+        "internal_energy_kJ_per_kg": 1825.2213115493612,
+        "source": "IAPWS library verification"
+      },
+      {
+        "point_id": "R3_002",
+        "pressure_Pa": 40000000.0,
+        "temperature_K": 750,
+        "enthalpy_kJ_per_kg": 2754.0996583924352,
+        "entropy_kJ_per_kg_K": 5.274116853732076,
+        "density_kg_per_m3": 206.91460165080255,
+        "internal_energy_kJ_per_kg": 2560.7831902414555,
+        "source": "IAPWS library verification"
+      }
+    ],
+    "saturation": [
+      {
+        "point_id": "SAT_001",
+        "pressure_Pa": 100000.0,
+        "temperature_K": 372.7559186113376,
+        "enthalpy_liquid_kJ_per_kg": 417.4364858162317,
+        "enthalpy_vapor_kJ_per_kg": 2674.9496408321465,
+        "entropy_liquid_kJ_per_kg_K": 1.3025601737745953,
+        "entropy_vapor_kJ_per_kg_K": 7.3588066410693544,
+        "density_liquid_kg_per_m3": 958.6368896760326,
+        "density_vapor_kg_per_m3": 0.5903109235445779,
+        "source": "IAPWS library verification"
+      },
+      {
+        "point_id": "SAT_002",
+        "pressure_Pa": 1000000.0,
+        "temperature_K": 453.0356323914666,
+        "enthalpy_liquid_kJ_per_kg": 762.6828443354104,
+        "enthalpy_vapor_kJ_per_kg": 2777.119537684662,
+        "entropy_liquid_kJ_per_kg_K": 2.138431350899127,
+        "entropy_vapor_kJ_per_kg_K": 6.584978996352171,
+        "density_liquid_kg_per_m3": 887.1274516747791,
+        "density_vapor_kg_per_m3": 5.145385853182684,
+        "source": "IAPWS library verification"
+      },
+      {
+        "point_id": "SAT_003",
+        "pressure_Pa": 10000000.0,
+        "temperature_K": 584.1494879985282,
+        "enthalpy_liquid_kJ_per_kg": 1407.8675005682433,
+        "enthalpy_vapor_kJ_per_kg": 2725.472566438741,
+        "entropy_liquid_kJ_per_kg_K": 3.3602906852869032,
+        "entropy_vapor_kJ_per_kg_K": 5.615889873665329,
+        "density_liquid_kg_per_m3": 688.4113330921649,
+        "density_vapor_kg_per_m3": 55.452121343164634,
+        "source": "IAPWS library verification"
+      }
+    ]
+  }
+}

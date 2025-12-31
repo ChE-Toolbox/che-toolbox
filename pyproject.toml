@@ -1,28 +1,24 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "chemeng-toolbox"
-version = "0.1.0"
-description = "ChemEng Toolbox - Open source chemical engineering calculations"
+name = "iapws-if97"
+version = "1.0.0"
+description = "IAPWS-IF97 steam property calculations library with Python API and CLI"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
-authors = [
-    {name = "ChE-Toolbox Contributors"}
-]
-keywords = ["chemical-engineering", "thermodynamics", "calculations"]
+authors = [{name = "ChemEng Toolbox", email = "info@chemeng.example"}]
+keywords = ["thermodynamics", "steam", "water", "IAPWS", "properties"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "Intended Audience :: Education",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Chemistry",
-    "Typing :: Typed",
 ]
 
 dependencies = [
@@ -33,13 +29,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+cli = ["click>=8.1.0"]
 dev = [
-    "pytest>=7.0.0",
+    "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
-    "pytest-xdist>=3.3.0",
-    "mypy>=1.0.0",
-    "ruff>=0.8.0",
-    "pre-commit>=3.5.0",
+    "ruff>=0.1.0",
+    "mypy>=1.4.0",
 ]
 
 [project.scripts]
@@ -47,56 +42,42 @@ pr-calc = "src.cli.pr_calc:main"
 vdw-calc = "src.cli.vdw_calc:main"
 ideal-calc = "src.cli.ideal_calc:main"
 flash-calc = "src.cli.flash_calc:main"
+steam-table = "iapws_if97_cli.cli:main"
 
-[project.urls]
-Homepage = "https://github.com/ChE-Toolbox/che-toolbox"
-Documentation = "https://che-toolbox.github.io/che-toolbox"
-Repository = "https://github.com/ChE-Toolbox/che-toolbox"
-"Bug Tracker" = "https://github.com/ChE-Toolbox/che-toolbox/issues"
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["iapws_if97", "iapws_if97.regions", "iapws_if97_cli"]
+package-data = {iapws_if97 = ["validation/*.json"]}
 
 [tool.ruff]
-target-version = "py311"
 line-length = 100
-indent-width = 4
+target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "W", "F", "I", "B", "C4", "UP", "ARG", "SIM", "TCH", "PTH", "N", "RUF"]
-ignore = ["E501", "B008", "B905"]
-
-[tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]
-"tests/**/*" = ["ARG", "S101"]
+select = ["E", "F", "W", "I", "N", "UP", "YTT", "S", "B", "A", "C4", "T10", "T20", "SIM", "PIE", "PT", "Q"]
+ignore = ["S101"]  # Allow assert statements (common in tests)
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
 
-[tool.bandit]
-exclude_dirs = ["tests", ".venv", "venv"]
-skips = ["B101"]
-
 [tool.mypy]
 python_version = "3.11"
-strict = true
-disallow_untyped_defs = true
-disallow_untyped_calls = true
-disallow_incomplete_defs = true
 warn_return_any = true
 warn_unused_configs = true
-plugins = ["pydantic.mypy"]
+disallow_untyped_defs = true
+disallow_any_generics = true
+check_untyped_defs = true
+strict = true
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "--strict-markers -ra"
 testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
+python_files = ["test_*.py", "*_test.py"]
+addopts = "-v --strict-markers"
 markers = [
     "unit: Unit tests",
     "integration: Integration tests",
-    "validation: NIST validation tests",
+    "validation: IAPWS reference validation tests",
+    "slow: Slow running tests",
 ]
-
-[tool.hatch.build.targets.wheel]
-packages = ["src"]

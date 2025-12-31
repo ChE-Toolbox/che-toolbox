@@ -1,324 +1,171 @@
-# API Reference: Peng-Robinson EOS Thermodynamic Engine
+# API Reference: IAPWS-IF97 Steam Properties
 
-## Overview
+**Project**: 002-steam-properties | **Version**: 1.0.0 | **Date**: 2025-12-30
 
-The Peng-Robinson EOS implementation provides a complete thermodynamic calculation engine for determining compressibility factors, fugacity coefficients, and vapor pressures for pure components and mixtures.
+Complete reference for Python API and exception types.
 
-## Core Classes
+---
 
-### PengRobinsonEOS
+## Module: `iapws_if97`
 
-Main class for all Peng-Robinson EOS calculations.
+### Main Class: `SteamTable`
 
-```python
-from src.eos.peng_robinson import PengRobinsonEOS
-from src.compounds.database import CompoundDatabase
-
-db = CompoundDatabase()
-methane = db.get("methane")
-eos = PengRobinsonEOS()
-```
-
-#### Methods
-
-##### `calculate_a(tc, pc, omega, temperature) -> float`
-
-Calculate the 'a' parameter in Peng-Robinson EOS.
-
-**Parameters:**
-- `tc` (float): Critical temperature in K
-- `pc` (float): Critical pressure in Pa
-- `omega` (float): Acentric factor
-- `temperature` (float): Temperature in K
-
-**Returns:** Parameter 'a' in Pa·m⁶·mol⁻²
-
-**Raises:** `ValueError` if temperature, tc, or pc is non-positive
-
-**Example:**
-```python
-a = eos.calculate_a(190.564, 4599200.0, 0.011, 300.0)
-```
-
-##### `calculate_b(tc, pc) -> float`
-
-Calculate the 'b' parameter in Peng-Robinson EOS.
-
-**Parameters:**
-- `tc` (float): Critical temperature in K
-- `pc` (float): Critical pressure in Pa
-
-**Returns:** Parameter 'b' in m³·mol⁻¹
-
-**Example:**
-```python
-b = eos.calculate_b(190.564, 4599200.0)
-```
-
-##### `calculate_z_factor(temperature, pressure, compound) -> tuple[float, ...]`
-
-Calculate compressibility factor(s) for a pure component or mixture.
-
-**Parameters:**
-- `temperature` (float): Temperature in K
-- `pressure` (float): Pressure in Pa
-- `compound` (Compound): Compound object with critical properties
-
-**Returns:** Sorted Z factors (smallest=liquid, largest=vapor)
-
-**Raises:** `ValueError` if temperature or pressure is invalid
-
-**Example:**
-```python
-z_factors = eos.calculate_z_factor(300.0, 5000000.0, methane)
-```
-
-##### `calculate_fugacity_coefficient(temperature, pressure, compound, phase=None) -> float`
-
-Calculate fugacity coefficient for a pure component or mixture.
-
-**Parameters:**
-- `temperature` (float): Temperature in K
-- `pressure` (float): Pressure in Pa
-- `compound` (Compound or Mixture): Compound or mixture object
-- `phase` (PhaseType, optional): Phase to use (VAPOR or LIQUID)
-
-**Returns:** Fugacity coefficient (dimensionless)
-
-**Example:**
-```python
-phi = eos.calculate_fugacity_coefficient(300.0, 5000000.0, methane, PhaseType.VAPOR)
-```
-
-##### `calculate_vapor_pressure(temperature, compound) -> float`
-
-Calculate saturation pressure for a pure component.
-
-**Parameters:**
-- `temperature` (float): Temperature in K
-- `compound` (Compound): Pure compound object
-
-**Returns:** Vapor pressure in Pa
-
-**Raises:** `ValueError` if temperature >= critical temperature
-
-**Example:**
-```python
-psat = eos.calculate_vapor_pressure(373.15, water)
-```
-
-##### `calculate_state(temperature, pressure, compound) -> ThermodynamicState`
-
-Calculate complete thermodynamic state.
-
-**Parameters:**
-- `temperature` (float): Temperature in K
-- `pressure` (float): Pressure in Pa
-- `compound` (Compound or Mixture): Compound or mixture object
-
-**Returns:** ThermodynamicState object with Z, fugacity, and phase
-
-**Example:**
-```python
-state = eos.calculate_state(300.0, 5000000.0, methane)
-print(f"Z = {state.z_factor}, Phase = {state.phase}")
-```
-
-## Data Models
-
-### Compound
-
-Represents a pure chemical compound with critical properties.
+Main API for thermodynamic property calculations.
 
 ```python
-from src.compounds.models import Compound
+from iapws_if97 import SteamTable, ureg
 
-methane = Compound(
-    name="methane",
-    cas_number="74-82-8",
-    molecular_weight=16.043,
-    tc=190.564,
-    pc=4599200.0,
-    acentric_factor=0.011
-)
+steam = SteamTable()
 ```
 
-**Fields:**
-- `name` (str): Compound name
-- `cas_number` (str): CAS registry number
-- `molecular_weight` (float): Molecular weight in g/mol
-- `tc` (float): Critical temperature in K
-- `pc` (float): Critical pressure in Pa
-- `acentric_factor` (float): Acentric factor (-1 < ω < 2)
+#### Method: `h_pt(pressure, temperature) -> Quantity`
 
-### Mixture
+Calculate enthalpy at given pressure and temperature.
 
-Represents a multi-component mixture.
+**Parameters**:
+- `pressure` (Quantity): Pressure in any Pint-compatible unit
+- `temperature` (Quantity): Temperature in any Pint-compatible unit
 
+**Returns**:
+- `Quantity`: Enthalpy in kJ/kg (SI units)
+
+**Raises**:
+- `InputRangeError`: If P or T outside valid range
+- `NumericalInstabilityError`: If Region 3 and too close to critical point
+
+**Example**:
 ```python
-from src.eos.models import Mixture
-
-mixture = Mixture(
-    compounds=[methane, ethane],
-    mole_fractions=[0.85, 0.15]
-)
+h = steam.h_pt(10 * ureg.MPa, 500 * ureg.K)  # 3373.7 kJ/kg ± 0.03%
 ```
 
-**Fields:**
-- `compounds` (list[Compound]): List of pure compound objects
-- `mole_fractions` (list[float]): Mole fractions (must sum to 1.0)
-- `binary_interaction_params` (list[list[float]], optional): kij matrix
+---
 
-### ThermodynamicState
+#### Method: `s_pt(pressure, temperature) -> Quantity`
 
-Result of a complete state calculation.
+Calculate entropy at given pressure and temperature.
 
+**Example**:
 ```python
-state = eos.calculate_state(temperature, pressure, compound)
-print(f"Z = {state.z_factor}")
-print(f"Phase = {state.phase}")
+s = steam.s_pt(10 * ureg.MPa, 500 * ureg.K)  # 6.5807 kJ/(kg·K)
 ```
 
-**Fields:**
-- `temperature` (float): Temperature in K
-- `pressure` (float): Pressure in Pa
-- `z_factor` (float): Compressibility factor
-- `fugacity_coefficient` (float): Fugacity coefficient
-- `phase` (PhaseType): Identified phase (VAPOR, LIQUID, SUPERCRITICAL, TWO_PHASE)
+---
 
-### PhaseType
+#### Method: `u_pt(pressure, temperature) -> Quantity`
 
-Enumeration of thermodynamic phases.
+Calculate internal energy at given pressure and temperature.
 
+**Example**:
 ```python
-from src.eos.models import PhaseType
-
-phase = PhaseType.VAPOR
-phase = PhaseType.LIQUID
-phase = PhaseType.SUPERCRITICAL
-phase = PhaseType.TWO_PHASE
+u = steam.u_pt(10 * ureg.MPa, 500 * ureg.K)  # 3106.5 kJ/kg
 ```
 
-## Database
+---
 
-### CompoundDatabase
+#### Method: `rho_pt(pressure, temperature) -> Quantity`
 
-Access and manage compound data.
+Calculate density at given pressure and temperature.
 
+**Example**:
 ```python
-from src.compounds.database import CompoundDatabase
-
-db = CompoundDatabase()  # Loads from data/compounds.json
+rho = steam.rho_pt(10 * ureg.MPa, 500 * ureg.K)  # 55.783 kg/m³
 ```
 
-**Methods:**
+---
 
-- `get(name: str) -> Compound`: Get compound by name (case-insensitive)
-- `get_by_cas(cas_number: str) -> Compound`: Get compound by CAS number
-- `list_compounds() -> list[str]`: List all available compound names
-- `add_compound(compound: Compound)`: Add compound to database
-- `save()`: Save database to JSON file
+#### Method: `T_sat(pressure) -> SaturationProperties`
 
-**Example:**
+Calculate saturation temperature and properties for given pressure.
+
+**Example**:
 ```python
-db = CompoundDatabase()
-methane = db.get("methane")
-compounds = db.list_compounds()  # ['ethane', 'methane', 'propane', ...]
+sat = steam.T_sat(1 * ureg.MPa)
+print(sat.saturation_temperature)  # 453.04 K
+print(sat.enthalpy_vapor)          # 2675.5 kJ/kg
 ```
 
-## Mixing Rules
+---
 
-### calculate_a_mix
+#### Method: `P_sat(temperature) -> SaturationProperties`
 
-Calculate 'a' parameter for mixture using van der Waals mixing rules.
+Calculate saturation pressure and properties for given temperature.
 
+**Example**:
 ```python
-from src.eos.mixing_rules import calculate_a_mix
-
-a_mix = calculate_a_mix(a_values, mole_fractions, kij_matrix)
+sat = steam.P_sat(373.15 * ureg.K)  # 100°C
+print(sat.saturation_pressure)     # 0.101325 MPa
 ```
 
-**Parameters:**
-- `a_values` (list[float]): Pure component 'a' values
-- `mole_fractions` (list[float]): Mole fractions
-- `kij_matrix` (list[list[float]]): Binary interaction parameters
+---
 
-**Returns:** Mixed 'a' parameter
+## Data Classes
 
-### calculate_b_mix
+### `SaturationProperties`
 
-Calculate 'b' parameter for mixture.
+Properties at saturation line with liquid and vapor phase properties.
 
-```python
-from src.eos.mixing_rules import calculate_b_mix
+**Attributes**:
+- `saturation_temperature`: T_sat in K
+- `saturation_pressure`: P_sat in Pa
+- `enthalpy_liquid`: h_f in kJ/kg
+- `enthalpy_vapor`: h_g in kJ/kg
+- `entropy_liquid`: s_f in kJ/(kg·K)
+- `entropy_vapor`: s_g in kJ/(kg·K)
+- `density_liquid`: ρ_f in kg/m³
+- `density_vapor`: ρ_g in kg/m³
+- `heat_of_vaporization`: h_g - h_f (latent heat)
 
-b_mix = calculate_b_mix(b_values, mole_fractions)
-```
-
-**Parameters:**
-- `b_values` (list[float]): Pure component 'b' values
-- `mole_fractions` (list[float]): Mole fractions
-
-**Returns:** Mixed 'b' parameter
+---
 
 ## Exceptions
 
-### ConvergenceWarning
+### `InputRangeError`
 
-Warning raised when vapor pressure calculation doesn't converge.
+Raised when input pressure or temperature is outside valid range.
+
+**Valid Ranges**:
+- Pressure: 0.611657 Pa to 863.91 MPa
+- Temperature: 273.15 K to 863.15 K
+
+---
+
+### `NumericalInstabilityError`
+
+Raised when calculation is too close to singularity or convergence fails.
+
+**Common Causes**:
+- Region 3 conditions within 5% of critical point (22.064 MPa, 373.946 K)
+- Root-finding iteration failed
+
+---
+
+### `InvalidStateError`
+
+Raised when attempting single-phase calculation on saturation line.
+
+**Solution**: Use `T_sat()` or `P_sat()` methods to query saturation properties.
+
+---
+
+## Unit Registry
 
 ```python
-from src.eos.exceptions import ConvergenceWarning
+from iapws_if97 import ureg
+
+p = 10 * ureg.MPa
+t = 500 * ureg.K
+p_pa = p.to('Pa')  # Convert to pascal
 ```
 
-**Attributes:**
-- `best_estimate` (float): Best estimate of vapor pressure
-- `residual` (float): Final residual value
-- `message` (str): Warning message
+**Supported Units**:
+- Pressure: Pa, kPa, MPa, bar, atm, psi
+- Temperature: K, °C, °F
+- Energy: J, kJ, MJ, Btu
 
-## Command-Line Interface
+---
 
-See [CLI Interface](../specs/001-peng-robinson/contracts/cli_interface.md) for detailed CLI documentation.
+## Version Stability
 
-Quick reference:
+**MVP (v1.0.0)**: Core methods are stable and will not change.
 
-```bash
-# Calculate Z factor
-pr-calc z-factor methane -T 300 -P 50
-
-# Calculate fugacity
-pr-calc fugacity ethane -T 350 -P 30
-
-# Calculate vapor pressure
-pr-calc vapor-pressure water -T 373.15
-
-# Get complete state
-pr-calc state methane -T 200 -P 50
-
-# List available compounds
-pr-calc list-compounds
-
-# Run validation
-pr-calc validate methane
-```
-
-## Constants
-
-The gas constant R = 8.314462618 J/(mol·K) = 8.314462618 Pa·m³/(mol·K)
-
-## Numerical Methods
-
-- **Cubic equation solving:** NumPy polynomial roots with analytical fallback (Cardano's method)
-- **Vapor pressure iteration:** SciPy Brent's method (brentq) with max 100 iterations
-- **Root selection:** Physically meaningful roots only (Z > 0)
-- **Phase identification:** Based on reduced conditions and number of real roots
-
-## Units Convention
-
-All internal calculations use SI units:
-- Temperature: Kelvin (K)
-- Pressure: Pascal (Pa)
-- Volume: cubic meter per mole (m³/mol)
-- Fugacity: Pascal (Pa)
-
-The CLI accepts inputs in bar and converts automatically.
+Core methods: `h_pt`, `s_pt`, `u_pt`, `rho_pt`, `T_sat`, `P_sat`
