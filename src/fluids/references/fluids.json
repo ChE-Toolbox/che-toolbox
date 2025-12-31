@@ -1,0 +1,195 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "date_created": "2025-12-30",
+    "description": "Reference database of common fluid properties used in pipe flow and pump sizing calculations",
+    "units": "SI (kg/m³ for density, Pa·s for viscosity, Pa for pressures) at standard conditions unless noted",
+    "sources": ["NIST data", "Engineering handbooks", "Material datasheets"],
+    "note": "Properties are temperature-dependent. Values shown are at reference temperature."
+  },
+  "fluids": {
+    "water_20c": {
+      "name": "Water at 20°C (68°F)",
+      "common_name": "Distilled Water",
+      "temperature_c": 20,
+      "temperature_f": 68,
+      "density_kg_m3": 998.2,
+      "density_lb_ft3": 62.3,
+      "dynamic_viscosity_pa_s": 0.001002,
+      "dynamic_viscosity_cp": 1.002,
+      "kinematic_viscosity_m2_s": 0.000001004,
+      "kinematic_viscosity_cSt": 1.004,
+      "specific_gravity": 1.0,
+      "vapor_pressure_pa": 2340,
+      "vapor_pressure_psi": 0.34,
+      "bulk_modulus_pa": 2200000000,
+      "surface_tension_n_m": 0.0728,
+      "typical_applications": ["HVAC systems", "Process water", "Cooling loops", "Hydraulics (water-glycol)"],
+      "notes": "Standard reference fluid. Viscosity highly temperature dependent."
+    },
+    "water_hot_60c": {
+      "name": "Water at 60°C (140°F)",
+      "common_name": "Hot Water",
+      "temperature_c": 60,
+      "temperature_f": 140,
+      "density_kg_m3": 983.2,
+      "dynamic_viscosity_pa_s": 0.000469,
+      "dynamic_viscosity_cp": 0.469,
+      "specific_gravity": 0.983,
+      "vapor_pressure_pa": 19932,
+      "vapor_pressure_psi": 2.89,
+      "typical_applications": ["Hot water heating systems", "Process heating"]
+    },
+    "water_cold_5c": {
+      "name": "Water at 5°C (41°F)",
+      "common_name": "Cold Water",
+      "temperature_c": 5,
+      "temperature_f": 41,
+      "density_kg_m3": 1000.0,
+      "dynamic_viscosity_pa_s": 0.001519,
+      "dynamic_viscosity_cp": 1.519,
+      "specific_gravity": 1.0,
+      "vapor_pressure_pa": 872,
+      "vapor_pressure_psi": 0.126,
+      "typical_applications": ["Cold water supply", "Chilled water systems", "Winter operation"]
+    },
+    "mineral_oil_iso_32": {
+      "name": "Mineral Oil ISO VG 32",
+      "common_name": "Machine Oil (Light)",
+      "density_kg_m3": 860,
+      "density_lb_ft3": 53.7,
+      "dynamic_viscosity_pa_s": 0.032,
+      "dynamic_viscosity_cp": 32,
+      "kinematic_viscosity_m2_s": 0.0000372,
+      "kinematic_viscosity_cSt": 37.2,
+      "specific_gravity": 0.86,
+      "bulk_modulus_pa": 1600000000,
+      "temperature_range_c": [-5, 40],
+      "typical_applications": ["Hydraulic systems", "Bearing lubrication", "Machine circulation"],
+      "notes": "ISO VG 32 = 32 cSt at 40°C. Viscosity varies significantly with temperature."
+    },
+    "mineral_oil_iso_46": {
+      "name": "Mineral Oil ISO VG 46",
+      "common_name": "Hydraulic Oil (Medium)",
+      "density_kg_m3": 870,
+      "dynamic_viscosity_pa_s": 0.046,
+      "dynamic_viscosity_cp": 46,
+      "kinematic_viscosity_m2_s": 0.0000529,
+      "kinematic_viscosity_cSt": 52.9,
+      "specific_gravity": 0.87,
+      "temperature_range_c": [-5, 45],
+      "typical_applications": ["Industrial hydraulics", "Pump circulation", "Power transmission"],
+      "notes": "Most common industrial hydraulic oil. Good balance of viscosity and fluidity."
+    },
+    "mineral_oil_iso_68": {
+      "name": "Mineral Oil ISO VG 68",
+      "common_name": "Hydraulic Oil (Heavy)",
+      "density_kg_m3": 875,
+      "dynamic_viscosity_pa_s": 0.068,
+      "dynamic_viscosity_cp": 68,
+      "kinematic_viscosity_m2_s": 0.0000777,
+      "kinematic_viscosity_cSt": 77.7,
+      "specific_gravity": 0.875,
+      "temperature_range_c": [0, 50],
+      "typical_applications": ["Heavy duty hydraulics", "Slow speed pumps", "High pressure systems"]
+    },
+    "glycol_mixture_50": {
+      "name": "50/50 Glycol-Water Mixture",
+      "common_name": "Coolant/Anti-freeze",
+      "density_kg_m3": 1055,
+      "dynamic_viscosity_pa_s": 0.00345,
+      "dynamic_viscosity_cp": 3.45,
+      "specific_gravity": 1.055,
+      "freeze_point_c": -37,
+      "boil_point_c": 107,
+      "temperature_range_c": [-37, 107],
+      "typical_applications": ["Vehicle cooling", "Industrial coolant loops", "Anti-freeze systems"],
+      "notes": "Less water than other coolants. Higher boiling point."
+    },
+    "air_at_sea_level": {
+      "name": "Air at Sea Level (20°C)",
+      "common_name": "Standard Air",
+      "density_kg_m3": 1.204,
+      "density_lb_ft3": 0.0752,
+      "dynamic_viscosity_pa_s": 0.0000182,
+      "dynamic_viscosity_cp": 0.0182,
+      "kinematic_viscosity_m2_s": 0.0000151,
+      "kinematic_viscosity_cSt": 15.1,
+      "specific_gravity": 0.0012,
+      "bulk_modulus_pa": 101325,
+      "typical_applications": ["Air systems", "Pneumatic circuits", "Gas flow"],
+      "notes": "Compressible gas. Properties change with pressure and temperature."
+    },
+    "methanol": {
+      "name": "Methanol (Pure)",
+      "density_kg_m3": 791,
+      "dynamic_viscosity_pa_s": 0.000544,
+      "dynamic_viscosity_cp": 0.544,
+      "specific_gravity": 0.791,
+      "vapor_pressure_pa": 16940,
+      "typical_applications": ["Chemical processing", "Anti-freeze (industrial)"],
+      "hazard_warning": "Highly toxic. Absorbs through skin."
+    },
+    "ethylene_glycol": {
+      "name": "Ethylene Glycol (Pure)",
+      "density_kg_m3": 1113,
+      "dynamic_viscosity_pa_s": 0.016,
+      "dynamic_viscosity_cp": 16,
+      "specific_gravity": 1.113,
+      "freeze_point_c": -12.3,
+      "boil_point_c": 198,
+      "typical_applications": ["Vehicle coolant", "Industrial coolant"],
+      "notes": "Used in 50/50 mixtures with water for automotive cooling."
+    },
+    "seawater_20c": {
+      "name": "Seawater at 20°C",
+      "density_kg_m3": 1025,
+      "dynamic_viscosity_pa_s": 0.001002,
+      "dynamic_viscosity_cp": 1.002,
+      "specific_gravity": 1.025,
+      "salt_content_percent": 3.5,
+      "typical_applications": ["Desalination", "Marine systems", "Cooling water"],
+      "corrosion_note": "Highly corrosive. Requires stainless steel or special coatings."
+    }
+  },
+  "viscosity_temperature_relationships": {
+    "note": "Viscosity decreases with temperature. Use viscosity-temperature charts for non-listed temperatures.",
+    "mineral_oil_typical": {
+      "at_0c": "~100-150 cSt",
+      "at_20c": "~32-68 cSt (depends on ISO grade)",
+      "at_40c": "~32-68 cSt (by definition)",
+      "at_60c": "~10-20 cSt",
+      "at_100c": "~4-8 cSt"
+    },
+    "water_typical": {
+      "at_0c": "1.79 cSt",
+      "at_10c": "1.31 cSt",
+      "at_20c": "1.00 cSt",
+      "at_30c": "0.80 cSt",
+      "at_40c": "0.66 cSt",
+      "at_50c": "0.55 cSt",
+      "at_60c": "0.47 cSt"
+    }
+  },
+  "property_conversion_factors": {
+    "density": {
+      "kg_m3_to_lb_ft3": 0.062428,
+      "specific_gravity_to_kg_m3": 1000
+    },
+    "viscosity": {
+      "pa_s_to_centipoise": 1000,
+      "centipoise_to_pa_s": 0.001
+    },
+    "pressure": {
+      "pa_to_psi": 0.000145038,
+      "psi_to_pa": 6894.76
+    }
+  },
+  "physical_property_importance": {
+    "Reynolds_number": "Density and viscosity are critical - determine flow regime (laminar vs turbulent)",
+    "friction_factor": "Density affects Reynolds number, which affects friction factor in turbulent flow",
+    "pressure_drop": "Density directly affects pressure drop calculation (ΔP ∝ ρ)",
+    "pump_sizing": "Density affects power requirement (P ∝ ρ). Viscosity affects NPSH and cavitation.",
+    "cavitation_risk": "Vapor pressure is critical - lower vapor pressure (higher margin) reduces cavitation risk"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "date_created": "2025-12-30",
+    "description": "Reference database of common pump types with typical performance characteristics",
+    "units": "SI (m³/h for flow, m for head, kW for power, dimensionless for efficiency)",
+    "sources": ["Pump manufacturer datasheets", "Engineering handbooks"]
+  },
+  "pump_types": {
+    "centrifugal_small": {
+      "name": "Small Centrifugal Pump",
+      "type": "Centrifugal",
+      "description": "Typical small centrifugal pump for HVAC/small industrial applications",
+      "design_point": {
+        "flow_rate_m3_h": 50,
+        "head_m": 20,
+        "power_kw": 3.5
+      },
+      "efficiency_curve": [
+        {"flow_percent": 50, "efficiency_percent": 65},
+        {"flow_percent": 75, "efficiency_percent": 80},
+        {"flow_percent": 100, "efficiency_percent": 82},
+        {"flow_percent": 125, "efficiency_percent": 78}
+      ],
+      "npsh_required_m": 0.8,
+      "typical_applications": ["HVAC systems", "Small cooling loops", "Light duty applications"]
+    },
+    "centrifugal_medium": {
+      "name": "Medium Centrifugal Pump",
+      "type": "Centrifugal",
+      "description": "Standard medium centrifugal pump for industrial applications",
+      "design_point": {
+        "flow_rate_m3_h": 200,
+        "head_m": 35,
+        "power_kw": 25
+      },
+      "efficiency_curve": [
+        {"flow_percent": 50, "efficiency_percent": 70},
+        {"flow_percent": 75, "efficiency_percent": 82},
+        {"flow_percent": 100, "efficiency_percent": 85},
+        {"flow_percent": 125, "efficiency_percent": 80}
+      ],
+      "npsh_required_m": 1.2,
+      "typical_applications": ["Industrial water supply", "Process loops", "Building systems"]
+    },
+    "centrifugal_large": {
+      "name": "Large Centrifugal Pump",
+      "type": "Centrifugal",
+      "description": "Large centrifugal pump for high flow industrial applications",
+      "design_point": {
+        "flow_rate_m3_h": 500,
+        "head_m": 50,
+        "power_kw": 100
+      },
+      "efficiency_curve": [
+        {"flow_percent": 50, "efficiency_percent": 72},
+        {"flow_percent": 75, "efficiency_percent": 83},
+        {"flow_percent": 100, "efficiency_percent": 86},
+        {"flow_percent": 125, "efficiency_percent": 82}
+      ],
+      "npsh_required_m": 1.5,
+      "typical_applications": ["Large industrial systems", "Municipal water supply", "Heavy process streams"]
+    },
+    "positive_displacement_gear": {
+      "name": "Positive Displacement Gear Pump",
+      "type": "Positive Displacement (Gear)",
+      "description": "Gear pump for high viscosity fluids and consistent flow",
+      "design_point": {
+        "flow_rate_m3_h": 30,
+        "head_m": 80,
+        "power_kw": 12
+      },
+      "efficiency_curve": [
+        {"flow_percent": 50, "efficiency_percent": 75},
+        {"flow_percent": 75, "efficiency_percent": 85},
+        {"flow_percent": 100, "efficiency_percent": 88},
+        {"flow_percent": 125, "efficiency_percent": 85}
+      ],
+      "npsh_required_m": 0.5,
+      "typical_applications": ["Oil circulation", "Hydraulic systems", "Viscous fluid handling"]
+    },
+    "submersible": {
+      "name": "Submersible Pump",
+      "type": "Submersible",
+      "description": "Submersible pump for wells and sumps",
+      "design_point": {
+        "flow_rate_m3_h": 40,
+        "head_m": 60,
+        "power_kw": 15
+      },
+      "efficiency_curve": [
+        {"flow_percent": 50, "efficiency_percent": 60},
+        {"flow_percent": 75, "efficiency_percent": 75},
+        {"flow_percent": 100, "efficiency_percent": 78},
+        {"flow_percent": 125, "efficiency_percent": 72}
+      ],
+      "npsh_required_m": 0.0,
+      "notes": "Submerged inlet eliminates cavitation risk",
+      "typical_applications": ["Well pumping", "Sump applications", "Groundwater extraction"]
+    }
+  },
+  "efficiency_ranges": {
+    "small_centrifugal": "60-85%",
+    "medium_centrifugal": "75-87%",
+    "large_centrifugal": "80-90%",
+    "positive_displacement": "80-92%",
+    "submersible": "50-80%"
+  },
+  "motor_sizes": {
+    "standard_frame_power_kw": [0.75, 1.5, 3.0, 5.5, 7.5, 11, 15, 22, 30, 37, 45, 55, 75, 90, 110, 132, 160, 200]
+  }
+}

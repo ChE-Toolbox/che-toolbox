@@ -6,7 +6,6 @@ figures of precision as required by the specification.
 Success Criterion SC-007: All properties stored with ≥6 significant figures.
 """
 
-
 import pytest
 
 from chemeng_core.compounds import create_registry

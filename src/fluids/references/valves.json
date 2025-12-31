@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "date_created": "2025-12-30",
+    "description": "Reference database of common valve types with Cv ratings and performance characteristics",
+    "units": "US (Cv in gpm/√psi, flow in gpm, pressure in psi)",
+    "sources": ["Valve manufacturer datasheets", "IEC 60534 standards"],
+    "note": "Cv values are typical for new, clean valves. Actual values may vary by manufacturer."
+  },
+  "valve_types": {
+    "ball_valve": {
+      "name": "Ball Valve",
+      "type": "Ball",
+      "description": "Full port ball valve with linear flow characteristic",
+      "flow_characteristic": "linear",
+      "typical_rangeability": "50:1 to 100:1",
+      "typical_pressure_rating_psi": [150, 300, 600, 1500],
+      "sizes": [
+        {"nominal_size_inch": 0.5, "cv_full_open": 3.5, "cv_5_percent": 0.1, "cv_25_percent": 0.9, "cv_50_percent": 1.8, "cv_75_percent": 2.6},
+        {"nominal_size_inch": 0.75, "cv_full_open": 8.0, "cv_5_percent": 0.2, "cv_25_percent": 2.0, "cv_50_percent": 4.0, "cv_75_percent": 6.0},
+        {"nominal_size_inch": 1.0, "cv_full_open": 14.0, "cv_5_percent": 0.3, "cv_25_percent": 3.5, "cv_50_percent": 7.0, "cv_75_percent": 10.5},
+        {"nominal_size_inch": 1.5, "cv_full_open": 32.0, "cv_5_percent": 0.7, "cv_25_percent": 8.0, "cv_50_percent": 16.0, "cv_75_percent": 24.0},
+        {"nominal_size_inch": 2.0, "cv_full_open": 57.0, "cv_5_percent": 1.2, "cv_25_percent": 14.0, "cv_50_percent": 28.5, "cv_75_percent": 42.5}
+      ],
+      "temperature_range_f": [-40, 212],
+      "typical_applications": ["General service", "On/off service", "Isolation", "Minimal pressure drop needed"]
+    },
+    "globe_valve": {
+      "name": "Globe Valve",
+      "type": "Globe",
+      "description": "Linear globe valve for modulating flow control",
+      "flow_characteristic": "linear",
+      "typical_rangeability": "20:1 to 50:1",
+      "typical_pressure_rating_psi": [150, 300, 600],
+      "sizes": [
+        {"nominal_size_inch": 0.5, "cv_full_open": 2.0, "cv_5_percent": 0.05, "cv_25_percent": 0.5, "cv_50_percent": 1.0, "cv_75_percent": 1.5},
+        {"nominal_size_inch": 0.75, "cv_full_open": 4.5, "cv_5_percent": 0.1, "cv_25_percent": 1.1, "cv_50_percent": 2.2, "cv_75_percent": 3.4},
+        {"nominal_size_inch": 1.0, "cv_full_open": 8.0, "cv_5_percent": 0.2, "cv_25_percent": 2.0, "cv_50_percent": 4.0, "cv_75_percent": 6.0},
+        {"nominal_size_inch": 1.5, "cv_full_open": 18.0, "cv_5_percent": 0.4, "cv_25_percent": 4.5, "cv_50_percent": 9.0, "cv_75_percent": 13.5},
+        {"nominal_size_inch": 2.0, "cv_full_open": 32.0, "cv_5_percent": 0.8, "cv_25_percent": 8.0, "cv_50_percent": 16.0, "cv_75_percent": 24.0}
+      ],
+      "temperature_range_f": [-40, 400],
+      "typical_applications": ["Flow control", "Pressure drop", "Modulating service", "Temperature control loops"]
+    },
+    "butterfly_valve": {
+      "name": "Butterfly Valve",
+      "type": "Butterfly",
+      "description": "Butterfly valve for large flows with low pressure drop",
+      "flow_characteristic": "equal_percentage",
+      "typical_rangeability": "3:1 to 10:1",
+      "typical_pressure_rating_psi": [50, 150, 300],
+      "sizes": [
+        {"nominal_size_inch": 2, "cv_full_open": 200, "cv_25_percent": 5, "cv_50_percent": 50, "cv_75_percent": 120},
+        {"nominal_size_inch": 3, "cv_full_open": 450, "cv_25_percent": 15, "cv_50_percent": 120, "cv_75_percent": 280},
+        {"nominal_size_inch": 4, "cv_full_open": 800, "cv_25_percent": 30, "cv_50_percent": 200, "cv_75_percent": 500},
+        {"nominal_size_inch": 6, "cv_full_open": 1800, "cv_25_percent": 80, "cv_50_percent": 500, "cv_75_percent": 1200},
+        {"nominal_size_inch": 8, "cv_full_open": 3200, "cv_25_percent": 150, "cv_50_percent": 900, "cv_75_percent": 2100}
+      ],
+      "temperature_range_f": [-40, 400],
+      "typical_applications": ["Large flow applications", "HVAC systems", "Water systems", "Low pressure drop needed"]
+    },
+    "needle_valve": {
+      "name": "Needle Valve",
+      "type": "Needle",
+      "description": "Needle valve for fine flow control and measurement",
+      "flow_characteristic": "linear",
+      "typical_rangeability": "100:1 or higher",
+      "typical_pressure_rating_psi": [150, 300, 600, 1500],
+      "sizes": [
+        {"nominal_size_inch": 0.25, "cv_full_open": 0.5, "cv_5_percent": 0.002, "cv_25_percent": 0.05, "cv_50_percent": 0.1, "cv_75_percent": 0.2},
+        {"nominal_size_inch": 0.5, "cv_full_open": 1.5, "cv_5_percent": 0.005, "cv_25_percent": 0.15, "cv_50_percent": 0.3, "cv_75_percent": 0.6},
+        {"nominal_size_inch": 0.75, "cv_full_open": 3.0, "cv_5_percent": 0.01, "cv_25_percent": 0.3, "cv_50_percent": 0.6, "cv_75_percent": 1.2},
+        {"nominal_size_inch": 1.0, "cv_full_open": 5.0, "cv_5_percent": 0.02, "cv_25_percent": 0.5, "cv_50_percent": 1.0, "cv_75_percent": 2.0}
+      ],
+      "temperature_range_f": [-40, 400],
+      "typical_applications": ["Fine control", "Instrumentation", "Sample taps", "Precision applications"]
+    },
+    "check_valve": {
+      "name": "Check Valve (Non-Return)",
+      "type": "Check",
+      "description": "Check valve to prevent backflow",
+      "flow_characteristic": "linear",
+      "typical_pressure_loss_psi_at_design": 1.0,
+      "typical_rangeability": "Not applicable (on/off)",
+      "sizes": [
+        {"nominal_size_inch": 0.5, "cv_full_open": 5.0},
+        {"nominal_size_inch": 1.0, "cv_full_open": 11.0},
+        {"nominal_size_inch": 1.5, "cv_full_open": 24.0},
+        {"nominal_size_inch": 2.0, "cv_full_open": 43.0},
+        {"nominal_size_inch": 3.0, "cv_full_open": 96.0}
+      ],
+      "temperature_range_f": [-40, 400],
+      "typical_applications": ["System protection", "Pump discharge", "Preventing backflow"]
+    }
+  },
+  "sizing_guidance": {
+    "preferred_authority_range": "0.30 to 0.50",
+    "minimum_recommended_opening": "10%",
+    "maximum_recommended_opening": "90%",
+    "oversizing_penalty": "Reduced control resolution, higher cost, more energy loss",
+    "undersizing_penalty": "Valve cannot deliver required flow or becomes fully open",
+    "typical_system_pressure_drop_psi": {
+      "small_system": 5,
+      "medium_system": 10,
+      "large_system": 20
+    }
+  },
+  "material_compatibility": {
+    "water": ["Stainless steel", "Carbon steel", "Bronze", "PVC", "CPVC"],
+    "oil": ["Stainless steel", "Carbon steel", "Bronze"],
+    "glycol": ["Stainless steel", "Carbon steel"],
+    "high_temperature": ["Stainless steel", "Carbon steel"],
+    "corrosive": ["Stainless steel", "PTFE lining"]
+  }
+}

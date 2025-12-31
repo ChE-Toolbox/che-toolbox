@@ -1,0 +1,161 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "date_created": "2025-12-30",
+    "description": "Reference database of pipe materials and their absolute roughness values",
+    "units": "SI (roughness in meters); US equivalent values also provided",
+    "sources": ["ASHRAE Handbook", "Crane TP-410", "Pipe manufacturer data"],
+    "note": "Roughness values are for new pipe. Values increase with age and corrosion."
+  },
+  "pipe_materials": {
+    "commercial_steel": {
+      "material_name": "Commercial Steel",
+      "absolute_roughness_m": 0.000045,
+      "absolute_roughness_ft": 0.00015,
+      "typical_pipe_schedule": ["40", "80"],
+      "temperature_range_f": [-40, 400],
+      "pressure_range_psi": [50, 3000],
+      "common_applications": ["Water supply", "Industrial piping", "General service"],
+      "typical_cost_relative": 1.0,
+      "corrosion_notes": "Subject to internal corrosion in water systems. Lifespan 50-75 years for water."
+    },
+    "cast_iron": {
+      "material_name": "Cast Iron (New)",
+      "absolute_roughness_m": 0.00025,
+      "absolute_roughness_ft": 0.00085,
+      "typical_pipe_schedule": ["Standard"],
+      "temperature_range_f": [-40, 350],
+      "pressure_range_psi": [50, 150],
+      "common_applications": ["Water mains", "Drainage", "Low pressure systems"],
+      "typical_cost_relative": 0.9,
+      "corrosion_notes": "Develops tubercles and increases roughness over time. Effective roughness can be 10x new value."
+    },
+    "cast_iron_old": {
+      "material_name": "Cast Iron (10+ years, with deposits)",
+      "absolute_roughness_m": 0.0025,
+      "absolute_roughness_ft": 0.0085,
+      "note": "Roughness increases significantly with age and corrosion"
+    },
+    "galvanized_steel": {
+      "material_name": "Galvanized Steel",
+      "absolute_roughness_m": 0.00015,
+      "absolute_roughness_ft": 0.0005,
+      "typical_pipe_schedule": ["Standard"],
+      "temperature_range_f": [-40, 130],
+      "pressure_range_psi": [50, 600],
+      "common_applications": ["Water supply", "HVAC", "Building systems"],
+      "typical_cost_relative": 1.2,
+      "corrosion_notes": "Good corrosion resistance. Zinc coating wears off in hot water (>130°F). Roughness increases over time."
+    },
+    "copper": {
+      "material_name": "Copper",
+      "absolute_roughness_m": 0.0000015,
+      "absolute_roughness_ft": 0.000005,
+      "typical_pipe_schedule": ["Type K", "Type L", "Type M"],
+      "temperature_range_f": [-40, 250],
+      "pressure_range_psi": [50, 1000],
+      "common_applications": ["Potable water", "Medical gas", "High temp systems", "Refrigeration"],
+      "typical_cost_relative": 3.0,
+      "corrosion_notes": "Excellent corrosion resistance. Very smooth surface reduces pressure drop. Very long lifespan (>50 years)."
+    },
+    "pvc": {
+      "material_name": "PVC (Polyvinyl Chloride)",
+      "absolute_roughness_m": 0.0000015,
+      "absolute_roughness_ft": 0.000005,
+      "typical_pipe_schedule": ["40", "80"],
+      "temperature_range_f": [-40, 140],
+      "pressure_range_psi": [50, 315],
+      "common_applications": ["Cold water", "Drainage", "Irrigation", "Chemical resistant"],
+      "typical_cost_relative": 0.5,
+      "corrosion_notes": "Excellent chemical resistance. Not suitable for hot water. UV degradation outdoors. Very smooth surface."
+    },
+    "cpvc": {
+      "material_name": "CPVC (Chlorinated PVC)",
+      "absolute_roughness_m": 0.0000015,
+      "absolute_roughness_ft": 0.000005,
+      "typical_pipe_schedule": ["40", "80"],
+      "temperature_range_f": [-40, 200],
+      "pressure_range_psi": [50, 400],
+      "common_applications": ["Hot water", "Industrial", "Chemical resistant"],
+      "typical_cost_relative": 0.7,
+      "corrosion_notes": "Suitable for hot water. Better chemical resistance than PVC. Smooth surface. Lifespan 50+ years."
+    },
+    "ductile_iron": {
+      "material_name": "Ductile Iron",
+      "absolute_roughness_m": 0.00025,
+      "absolute_roughness_ft": 0.00085,
+      "typical_pipe_schedule": ["Standard"],
+      "temperature_range_f": [-40, 250],
+      "pressure_range_psi": [50, 350],
+      "common_applications": ["Water mains", "Sewers", "Buried service"],
+      "typical_cost_relative": 1.1,
+      "corrosion_notes": "Better impact resistance than cast iron. Tuberculation increases roughness over time."
+    },
+    "asbestos_cement": {
+      "material_name": "Asbestos Cement (AC)",
+      "absolute_roughness_m": 0.00025,
+      "absolute_roughness_ft": 0.00085,
+      "note": "Largely phased out due to health concerns. Used in older installations.",
+      "typical_applications": ["Old water mains (pre-1980)"]
+    },
+    "high_density_polyethylene": {
+      "material_name": "HDPE (High Density Polyethylene)",
+      "absolute_roughness_m": 0.0000015,
+      "absolute_roughness_ft": 0.000005,
+      "typical_pipe_schedule": ["IPS", "CTS"],
+      "temperature_range_f": [-40, 120],
+      "pressure_range_psi": [50, 200],
+      "common_applications": ["Water service", "Irrigation", "Low pressure gas"],
+      "typical_cost_relative": 0.6,
+      "corrosion_notes": "Excellent corrosion resistance. Flexible. Smooth interior. Not suitable for hot water."
+    }
+  },
+  "engineering_notes": {
+    "roughness_increase_with_age": [
+      "New steel: 0.000045 m",
+      "5-10 years: 0.00007-0.0001 m",
+      "10+ years: 0.0001-0.0002 m (deposits/scaling)",
+      "Very old systems: 0.001+ m (severe buildup)"
+    ],
+    "friction_factor_impact": "Even small increases in roughness significantly increase friction factor and pressure drop, especially in turbulent flow.",
+    "design_recommendation": "For new systems, use actual new pipe roughness. For existing systems, increase roughness estimate to account for age.",
+    "relative_roughness": "ε/D ratio is more important than absolute roughness. Larger diameter pipes appear smoother (lower ε/D)."
+  },
+  "common_pipe_sizes_us": {
+    "nominal_1_2_inch": {
+      "nominal_diameter_inch": 0.5,
+      "actual_id_inch": 0.622,
+      "actual_od_inch": 0.840,
+      "schedule_40_id_mm": 15.8,
+      "typical_uses": "Small branch lines, instrumentation"
+    },
+    "nominal_3_4_inch": {
+      "nominal_diameter_inch": 0.75,
+      "actual_id_inch": 0.824,
+      "actual_od_inch": 1.050,
+      "schedule_40_id_mm": 20.9,
+      "typical_uses": "Branch lines, small systems"
+    },
+    "nominal_1_inch": {
+      "nominal_diameter_inch": 1.0,
+      "actual_id_inch": 1.049,
+      "actual_od_inch": 1.315,
+      "schedule_40_id_mm": 26.6,
+      "typical_uses": "General purpose, common size"
+    },
+    "nominal_1_5_inch": {
+      "nominal_diameter_inch": 1.5,
+      "actual_id_inch": 1.610,
+      "actual_od_inch": 1.900,
+      "schedule_40_id_mm": 40.9,
+      "typical_uses": "Mains, large systems"
+    },
+    "nominal_2_inch": {
+      "nominal_diameter_inch": 2.0,
+      "actual_id_inch": 2.067,
+      "actual_od_inch": 2.375,
+      "schedule_40_id_mm": 52.5,
+      "typical_uses": "Mains, large systems"
+    }
+  }
+}
