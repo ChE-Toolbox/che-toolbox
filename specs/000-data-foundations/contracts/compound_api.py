@@ -29,12 +29,10 @@ class QuantityDTO(BaseModel):
 
     def to_pint(self, ureg: UnitRegistry) -> Quantity:
         """Convert to Pint Quantity."""
-        ...
 
     @classmethod
     def from_pint(cls, q: Quantity) -> "QuantityDTO":
         """Create from Pint Quantity."""
-        ...
 
 
 class CriticalPropertiesDTO(BaseModel):
@@ -338,7 +336,6 @@ def create_registry() -> CompoundRegistry:
     Raises:
         FileNotFoundError: If compound data file not found
     """
-    ...
 
 
 def create_unit_handler() -> UnitHandler:
@@ -348,7 +345,6 @@ def create_unit_handler() -> UnitHandler:
     Returns:
         Initialized UnitHandler with chemical engineering units
     """
-    ...
 
 
 def get_compound(identifier: str) -> CompoundDTO:
@@ -366,4 +362,3 @@ def get_compound(identifier: str) -> CompoundDTO:
     Raises:
         CompoundNotFoundError: If no compound matches
     """
-    ...
