@@ -277,10 +277,10 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 - [x] T105 [US4] [P] Implement economic optimization (minimize: insulation_cost + energy_loss_cost)
 - [x] T106 [US4] [P] Implement temperature constraint mode
 - [x] T107 [US4] Implement payback period calculation
-- [ ] T108 [US4] Create unit and validation tests
+- [x] T108 [US4] Create unit and validation tests
 - [x] T109 [US4] Implement `calculate-insulation` CLI command
 
-**US4 Subtotal**: ~20 tasks | **Status**: ✅ COMPLETE (except tests - T108)
+**US4 Subtotal**: ~20 tasks | **Status**: ✅ COMPLETE
 
 ---
 
