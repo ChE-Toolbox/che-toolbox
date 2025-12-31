@@ -109,7 +109,7 @@ class TestCvValidation:
 
         # Verify square root relationship
         ratio_5_10 = cv_5psi["value"] / cv_10psi["value"]
-        ratio_10_20 = cv_10psi["value"] / cv_20psi["value"]
+        _ratio_10_20 = cv_10psi["value"] / cv_20psi["value"]
 
         expected_ratio = math.sqrt(10.0 / 5.0)
         assert math.isclose(ratio_5_10, expected_ratio, rel_tol=0.05)
@@ -406,7 +406,7 @@ class TestIntegrationValveSizing:
         available_sizes = [25, 50, 75, 100]
 
         # Current setup
-        result = calculate_valve_sizing(
+        _result = calculate_valve_sizing(
             flow, valve_pressure_drop, available_sizes, unit_system="US"
         )
 

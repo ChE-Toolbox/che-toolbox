@@ -244,7 +244,7 @@ class TestNPSHValidation:
         npshr_design = 1.0
 
         # At design flow
-        at_design = calculate_npsh_required(
+        _at_design = calculate_npsh_required(
             pump_design_point_flow=design_flow,
             actual_flow=design_flow,
             npsh_required_at_design=npshr_design,

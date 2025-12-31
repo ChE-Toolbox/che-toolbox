@@ -18,7 +18,7 @@ def calculate_reynolds(
     velocity: float,
     diameter: float,
     viscosity: float,
-    unit_system: str = "SI",
+    _unit_system: str = "SI",
 ) -> dict[str, Any]:
     """
     Calculate Reynolds number for pipe flow.
@@ -33,7 +33,7 @@ def calculate_reynolds(
         velocity: Flow velocity in m/s (SI) or ft/s (US)
         diameter: Pipe diameter in m (SI) or ft (US)
         viscosity: Dynamic viscosity in Pa·s (SI) or lb/(ft·s) (US)
-        unit_system: 'SI' or 'US'
+        _unit_system: 'SI' or 'US' (reserved for future unit support)
 
     Returns:
         Dictionary with:

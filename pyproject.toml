@@ -54,8 +54,23 @@ line-length = 100
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "N", "UP", "YTT", "S", "B", "A", "C4", "T10", "T20", "SIM", "PIE", "PT", "Q"]
-ignore = ["S101"]  # Allow assert statements (common in tests)
+select = ["E", "W", "F", "I", "B", "C4", "UP", "ARG", "SIM", "TCH", "PTH", "N", "RUF"]
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "B008",   # Do not perform function calls in argument defaults
+    "B905",   # `zip()` without explicit `strict=` parameter
+    "N806",   # Variable in function should be lowercase (scientific code uses A, B, C, Q, etc. for equations)
+    "RUF001", # Ambiguous unicode character (used for math symbols in docstrings)
+    "RUF002", # Ambiguous unicode character (used for math symbols in docstrings)
+    "RUF003", # Ambiguous unicode character (used for math symbols in docstrings)
+    "RUF012", # String contains NUL byte (false positives in docstrings)
+    "RUF022", # Unnecessary parentheses in f-string expressions
+    "RUF059", # Unnecessary parentheses in assert statements
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**/*" = ["ARG", "S101"]
 
 [tool.ruff.format]
 quote-style = "double"

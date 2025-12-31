@@ -159,7 +159,7 @@ class TestCompleteSystemDesign:
             system_pressure_drop=system_pressure_drop,
         )
 
-        performance = assess_valve_performance(
+        _performance = assess_valve_performance(
             cv_at_design=valve_selection["recommended_cv"],
             cv_max=valve_selection["recommended_cv"],
             pressure_drop_design=valve_pressure_drop,

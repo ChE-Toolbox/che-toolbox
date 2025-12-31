@@ -239,7 +239,7 @@ class TestIntegration:
         # Given conditions
         velocity = 2.0  # m/s
         flow_area = math.pi * (standard_pipe["diameter"] / 2) ** 2
-        flow_rate = velocity * flow_area
+        _flow_rate = velocity * flow_area
 
         # Calculate Reynolds
         re_result = calculate_reynolds(
