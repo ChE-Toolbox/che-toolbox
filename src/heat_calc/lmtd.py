@@ -9,11 +9,9 @@ References:
 """
 
 import math
-from typing import Dict, Tuple
 
 from heat_calc.models.lmtd_input import LMTDInput
 from heat_calc.models.lmtd_results import LMTDResult
-from heat_calc.utils.constants import PERFORMANCE_TARGET_MS
 from heat_calc.utils.validation import check_nan_inf, validate_positive_float, validate_temperature
 
 
@@ -135,7 +133,7 @@ def calculate_lmtd(input_data: LMTDInput) -> LMTDResult:
         capacity_ratio = c_min / c_max if c_max > 0 else 0.0
 
         # Build intermediate values dict
-        intermediate_values: Dict[str, float] = {
+        intermediate_values: dict[str, float] = {
             "delta_t_hot_k": delta_t_hot,
             "delta_t_cold_k": delta_t_cold,
             "lmtd_arithmetic_k": lmtd_arith,

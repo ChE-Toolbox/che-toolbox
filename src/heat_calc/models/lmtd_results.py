@@ -4,9 +4,9 @@ Defines Pydantic models for LMTD calculation results with comprehensive
 validation and traceability.
 """
 
-from typing import Any, Dict
+from typing import Any
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import Field, field_validator
 
 from heat_calc.models.base import BaseCalculationResult
 

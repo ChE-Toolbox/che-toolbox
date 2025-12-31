@@ -4,7 +4,7 @@ Defines Pydantic models for calculating convection coefficients for various
 geometries and flow regimes.
 """
 
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -59,7 +59,7 @@ class FluidProperties(BaseModel):
         json_schema_extra={"unit": "J/(kg·K)", "example": 1005.0},
     )
 
-    thermal_expansion_coefficient: Optional[float] = Field(
+    thermal_expansion_coefficient: float | None = Field(
         default=None,
         description="Volumetric thermal expansion coefficient in 1/K (for natural convection)",
         gt=0,

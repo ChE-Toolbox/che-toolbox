@@ -1,6 +1,6 @@
 """Base classes for all heat exchanger calculation models."""
 
-from typing import Any, Dict
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -58,7 +58,7 @@ class BaseCalculationResult(BaseModel):
         description="Error message if calculation failed",
     )
 
-    intermediate_values: Dict[str, Any] = Field(
+    intermediate_values: dict[str, Any] = Field(
         default_factory=dict,
         description="Intermediate calculation values for verification and debugging",
     )

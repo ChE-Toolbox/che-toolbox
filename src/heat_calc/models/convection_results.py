@@ -4,7 +4,6 @@ Defines Pydantic models for convection calculation outputs including heat
 transfer coefficient, dimensionless numbers, and flow regime identification.
 """
 
-from typing import Any, Dict, Optional, Tuple
 
 from pydantic import Field, field_validator
 
@@ -83,14 +82,14 @@ class ConvectionResult(BaseCalculationResult):
         json_schema_extra={"unit": "-"},
     )
 
-    Grashof: Optional[float] = Field(
+    Grashof: float | None = Field(
         default=None,
         description="Grashof number (dimensionless) - for natural convection only",
         ge=0,
         json_schema_extra={"unit": "-"},
     )
 
-    Rayleigh: Optional[float] = Field(
+    Rayleigh: float | None = Field(
         default=None,
         description="Rayleigh number (dimensionless) - for natural convection only",
         ge=0,
@@ -114,7 +113,7 @@ class ConvectionResult(BaseCalculationResult):
         description="True if parameters are within correlation validity bounds",
     )
 
-    applicable_range: Dict[str, Tuple[float, float]] = Field(
+    applicable_range: dict[str, tuple[float, float]] = Field(
         ...,
         description="Parameter validity ranges {parameter_name: (min, max)}",
         json_schema_extra={"example": {"Re": (2300, 1000000), "Pr": (0.7, 160)}},
@@ -144,7 +143,7 @@ class ConvectionResult(BaseCalculationResult):
 
     @field_validator("applicable_range")
     @classmethod
-    def validate_applicable_range(cls, v: Dict[str, Tuple[float, float]]) -> Dict[str, Tuple[float, float]]:
+    def validate_applicable_range(cls, v: dict[str, tuple[float, float]]) -> dict[str, tuple[float, float]]:
         """Validate that range tuples are properly ordered (min, max)."""
         for param, (min_val, max_val) in v.items():
             if min_val > max_val:

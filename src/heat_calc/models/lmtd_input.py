@@ -4,9 +4,8 @@ Defines Pydantic models for specifying heat exchanger configurations,
 fluid stream states, and complete LMTD calculation inputs.
 """
 
-from typing import Literal, Optional
+from typing import Literal
 
-from pint import Quantity
 from pydantic import BaseModel, Field
 
 from heat_calc.models.base import BaseCalculationInput
@@ -43,7 +42,7 @@ class FluidState(BaseModel):
         json_schema_extra={"unit": "kg/s", "example": 10.0},
     )
 
-    specific_heat: Optional[float] = Field(
+    specific_heat: float | None = Field(
         default=None,
         description="Specific heat capacity in J/(kg·K). Required for energy balance validation.",
         json_schema_extra={"unit": "J/(kg·K)", "example": 4180.0},
@@ -98,7 +97,7 @@ class HeatExchangerConfiguration(BaseModel):
         json_schema_extra={"unit": "m^2", "example": 100.0},
     )
 
-    correction_factor: Optional[float] = Field(
+    correction_factor: float | None = Field(
         default=None,
         description="LMTD correction factor F [0, 1]. Auto-calculated if not provided.",
         ge=0.0,
@@ -106,7 +105,7 @@ class HeatExchangerConfiguration(BaseModel):
         json_schema_extra={"example": 0.95},
     )
 
-    overall_heat_transfer_coefficient: Optional[float] = Field(
+    overall_heat_transfer_coefficient: float | None = Field(
         default=None,
         description="Overall heat transfer coefficient U in W/(m^2·K). Overrides area-only calculation.",
         gt=0,
@@ -185,7 +184,7 @@ class LMTDInput(BaseCalculationInput):
         description="Heat exchanger configuration and geometry",
     )
 
-    overall_ua: Optional[float] = Field(
+    overall_ua: float | None = Field(
         default=None,
         description="Overall heat transfer coefficient × area product (W/K). Overrides area-based calculation.",
         gt=0,

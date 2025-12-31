@@ -4,7 +4,7 @@ Defines Pydantic models for insulation sizing inputs, including pipe geometry,
 thermal conditions, material properties, and economic parameters.
 """
 
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import Field, field_validator
 
@@ -191,7 +191,7 @@ class InsulationInput(BaseCalculationInput):
     )
 
     # Constraints
-    surface_temp_limit: Optional[float] = Field(
+    surface_temp_limit: float | None = Field(
         default=None,
         description="Maximum allowable surface temperature (K). Overrides economic optimization if provided.",
         gt=0,
@@ -220,7 +220,7 @@ class InsulationInput(BaseCalculationInput):
         json_schema_extra={"example": 10},
     )
 
-    optimization_mode: Optional[Literal["economic_payback", "temperature_constraint"]] = Field(
+    optimization_mode: Literal["economic_payback", "temperature_constraint"] | None = Field(
         default=None,
         description="Optimization strategy. Auto-detected from surface_temp_limit if not specified.",
     )
@@ -253,7 +253,7 @@ class InsulationInput(BaseCalculationInput):
 
     @field_validator("surface_temp_limit")
     @classmethod
-    def validate_temp_limit(cls, v: Optional[float], info) -> Optional[float]:
+    def validate_temp_limit(cls, v: float | None, info) -> float | None:
         """Ensure temperature limit is between ambient and uninsulated surface temp."""
         if v is not None:
             if "T_ambient" in info.data and v <= info.data["T_ambient"]:

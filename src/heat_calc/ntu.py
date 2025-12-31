@@ -30,7 +30,6 @@ References
 """
 
 import math
-from typing import cast
 
 from heat_calc.models.ntu_input import NTUInput
 from heat_calc.models.ntu_results import NTUResult
@@ -176,7 +175,7 @@ def calculate_ntu(input_data: NTUInput) -> NTUResult:
         return result
 
     except Exception as e:
-        return _create_error_result(f"NTU calculation failed: {str(e)}")
+        return _create_error_result(f"NTU calculation failed: {e!s}")
 
 
 def _calculate_effectiveness(

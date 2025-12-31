@@ -166,15 +166,13 @@ class ValidationReporter:
                 ]
             )
 
-        lines.extend(
-            [
-                "",
-                "Fugacity Validation",
-                f"  Passed:           {report.fugacity_passed}",
-                f"  Failed:           {report.fugacity_failed}",
-                f"  Pass Rate:        {report.fugacity_pass_rate:.1f}%",
-            ]
-        )
+        lines.extend([
+            "",
+            "Fugacity Validation",
+            f"  Passed:           {report.fugacity_passed}",
+            f"  Failed:           {report.fugacity_failed}",
+            f"  Pass Rate:        {report.fugacity_pass_rate:.1f}%",
+        ])
 
         if report.min_fugacity_deviation is not None:
             lines.extend(

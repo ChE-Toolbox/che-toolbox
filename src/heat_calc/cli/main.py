@@ -7,7 +7,7 @@ Supports four calculation methods: LMTD, NTU, Convection, and Insulation.
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 import click
 import yaml
@@ -53,8 +53,8 @@ def cli() -> None:
     help="Enable verbose output with intermediate values.",
 )
 def calculate_lmtd(
-    input_file: Optional[str],
-    output: Optional[str],
+    input_file: str | None,
+    output: str | None,
     format: str,
     verbose: bool,
 ) -> None:
@@ -196,8 +196,8 @@ def calculate_lmtd(
     help="Enable verbose output with intermediate values.",
 )
 def calculate_ntu(
-    input_file: Optional[str],
-    output: Optional[str],
+    input_file: str | None,
+    output: str | None,
     format: str,
     verbose: bool,
 ) -> None:
@@ -213,8 +213,8 @@ def calculate_ntu(
     """
     try:
         # Import here to avoid circular imports
-        from heat_calc.ntu import calculate_ntu as calc_ntu
         from heat_calc.models.ntu_input import NTUInput
+        from heat_calc.ntu import calculate_ntu as calc_ntu
 
         if not input_file:
             click.echo("Error: INPUT_FILE is required", err=True)
@@ -303,10 +303,10 @@ def calculate_ntu(
     help="Output format (json, yaml, or table).",
 )
 def calculate_convection(
-    input_file: Optional[str],
-    temperature: Optional[float],
-    velocity: Optional[float],
-    output: Optional[str],
+    input_file: str | None,
+    temperature: float | None,
+    velocity: float | None,
+    output: str | None,
     format: str,
 ) -> None:
     """Calculate convection heat transfer coefficients.
@@ -451,10 +451,10 @@ def calculate_convection(
     help="Enable verbose output with intermediate values.",
 )
 def calculate_insulation(
-    input_file: Optional[str],
-    heat_loss: Optional[float],
-    annual_cost: Optional[float],
-    output: Optional[str],
+    input_file: str | None,
+    heat_loss: float | None,
+    annual_cost: float | None,
+    output: str | None,
     format: str,
     verbose: bool,
 ) -> None:
@@ -556,7 +556,7 @@ def calculate_insulation(
         sys.exit(1)
 
 
-def load_input_file(file_path: str) -> Dict[str, Any]:
+def load_input_file(file_path: str) -> dict[str, Any]:
     """Load input data from JSON or YAML file.
 
     Parameters
@@ -583,10 +583,10 @@ def load_input_file(file_path: str) -> Dict[str, Any]:
 
     try:
         if path.suffix.lower() in [".json"]:
-            with open(path, "r") as f:
+            with open(path) as f:
                 return json.load(f)
         elif path.suffix.lower() in [".yaml", ".yml"]:
-            with open(path, "r") as f:
+            with open(path) as f:
                 data = yaml.safe_load(f)
                 return data if data is not None else {}
         else:
@@ -599,7 +599,7 @@ def load_input_file(file_path: str) -> Dict[str, Any]:
         raise ValueError(f"Invalid YAML in {file_path}: {e}") from e
 
 
-def save_output_file(data: Dict[str, Any], file_path: str, format: str) -> None:
+def save_output_file(data: dict[str, Any], file_path: str, format: str) -> None:
     """Save output data to file in specified format.
 
     Parameters
@@ -631,7 +631,7 @@ def save_output_file(data: Dict[str, Any], file_path: str, format: str) -> None:
         raise ValueError(f"Failed to write output file {file_path}: {e}") from e
 
 
-def format_table_output(data: Dict[str, Any]) -> str:
+def format_table_output(data: dict[str, Any]) -> str:
     """Format calculation results as ASCII table.
 
     Parameters
@@ -651,7 +651,7 @@ def format_table_output(data: Dict[str, Any]) -> str:
     if "calculation_method" in data:
         lines.append(f"Method: {data.get('calculation_method', 'N/A')}")
 
-    if "intermediate_values" in data and data["intermediate_values"]:
+    if data.get("intermediate_values"):
         lines.append("\nIntermediate Values:")
         for key, value in data["intermediate_values"].items():
             lines.append(f"  {key}: {value}")

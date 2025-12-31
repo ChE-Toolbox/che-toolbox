@@ -514,8 +514,7 @@ def handle_mixture(args: argparse.Namespace) -> int:
                 print(f"  {comp['name']:<12} ({comp['mole_fraction'] * 100:.1f}%)")
             print(f"\nTemperature: {args.temperature:.2f} K")
             print(f"Pressure: {args.pressure:.2f} bar")
-            phase_value = state.phase.value if state.phase else "unknown"
-            print(f"Phase: {phase_value}")
+            print(f"Phase: {state.phase.value}")
             print("\nMixture Properties:")
             print(f"  Z factor: {z_factor:.6g}")
 
@@ -691,7 +690,7 @@ def handle_list_compounds(args: argparse.Namespace) -> int:
         return 2
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list | None = None) -> int:
     """Main entry point for the CLI."""
     parser = create_parser()
 

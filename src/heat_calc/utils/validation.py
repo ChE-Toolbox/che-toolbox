@@ -1,12 +1,11 @@
 """Input validation helpers for heat exchanger calculations."""
 
 import math
-from typing import Any, Union
 
 from pint import Quantity
 
 
-def validate_temperature(value: Union[float, Quantity], param_name: str = "temperature") -> float:
+def validate_temperature(value: float | Quantity, param_name: str = "temperature") -> float:
     """Validate and convert temperature to Kelvin.
 
     Parameters
@@ -44,7 +43,7 @@ def validate_temperature(value: Union[float, Quantity], param_name: str = "tempe
     return temp_k
 
 
-def validate_pressure(value: Union[float, Quantity], param_name: str = "pressure") -> float:
+def validate_pressure(value: float | Quantity, param_name: str = "pressure") -> float:
     """Validate and convert pressure to Pascal.
 
     Parameters

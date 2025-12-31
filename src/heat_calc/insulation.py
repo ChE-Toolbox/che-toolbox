@@ -12,13 +12,12 @@ References:
 """
 
 import math
-from typing import Dict, Tuple
 
 from scipy.optimize import minimize_scalar
 
 from heat_calc.models.insulation_input import InsulationInput
 from heat_calc.models.insulation_results import InsulationResult
-from heat_calc.utils.validation import check_nan_inf, validate_positive_float
+from heat_calc.utils.validation import validate_positive_float
 
 
 def calculate_insulation(input_data: InsulationInput) -> InsulationResult:
@@ -389,7 +388,7 @@ def _calculate_material_quantities(
     pipe_length: float,
     insulation_thickness: float,
     density_insulation: float
-) -> Tuple[float, float]:
+) -> tuple[float, float]:
     """Calculate insulation material volume and mass.
 
     Parameters
@@ -428,7 +427,7 @@ def _calculate_economic_metrics(
     operating_hours: int,
     insulation_cost_per_thickness: float,
     analysis_period_years: int
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Calculate economic metrics for insulation investment.
 
     Parameters

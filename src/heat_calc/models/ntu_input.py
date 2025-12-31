@@ -4,9 +4,9 @@ Defines Pydantic models for specifying NTU calculation inputs with inlet conditi
 fluid properties, and heat exchanger characteristics.
 """
 
-from typing import Any, Literal, Optional
+from typing import Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import Field, model_validator
 
 from heat_calc.models.base import BaseCalculationInput
 
@@ -133,14 +133,14 @@ class NTUInput(BaseCalculationInput):
         json_schema_extra={"example": "counterflow"},
     )
 
-    T_hot_outlet: Optional[float] = Field(
+    T_hot_outlet: float | None = Field(
         default=None,
         description="Hot fluid outlet temperature (K). If provided, calculate T_cold_outlet instead.",
         gt=0,
         json_schema_extra={"unit": "K"},
     )
 
-    T_cold_outlet: Optional[float] = Field(
+    T_cold_outlet: float | None = Field(
         default=None,
         description="Cold fluid outlet temperature (K). If provided, calculate T_hot_outlet instead.",
         gt=0,

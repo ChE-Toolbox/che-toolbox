@@ -4,7 +4,7 @@ Defines Pydantic models for insulation calculation results with comprehensive
 economic analysis, heat loss reduction metrics, and validation.
 """
 
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Literal
 
 from pydantic import Field, field_validator
 
@@ -167,7 +167,7 @@ class InsulationResult(BaseCalculationResult):
         json_schema_extra={"unit": "K"},
     )
 
-    T_surface_required: Optional[float] = Field(
+    T_surface_required: float | None = Field(
         default=None,
         description="Required surface temperature constraint (K) - only for temperature_constraint mode",
         gt=0,
@@ -197,7 +197,7 @@ class InsulationResult(BaseCalculationResult):
     )
 
     # Optional sensitivity analysis
-    sensitivity: Optional[Dict[str, Any]] = Field(
+    sensitivity: dict[str, Any] | None = Field(
         default=None,
         description="Sensitivity analysis results for key parameters",
     )

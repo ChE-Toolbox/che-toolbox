@@ -9,8 +9,11 @@ This module provides a comprehensive library for heat exchanger calculations inc
 All calculations are validated against published references (Incropera, NIST).
 """
 
+from heat_calc.convection import calculate_convection
+from heat_calc.insulation import calculate_insulation
 from heat_calc.lmtd import calculate_lmtd
 from heat_calc.models import (
+    ConvectionResult,
     CylinderCrossflowConvection,
     FlatPlateConvection,
     FluidProperties,
@@ -24,11 +27,8 @@ from heat_calc.models import (
     NTUResult,
     PipeFlowConvection,
     VerticalPlateNaturalConvection,
-    ConvectionResult,
 )
 from heat_calc.ntu import calculate_ntu
-from heat_calc.convection import calculate_convection
-from heat_calc.insulation import calculate_insulation
 
 __version__ = "1.0.0"
 __author__ = "ChemEng Toolbox Contributors"
