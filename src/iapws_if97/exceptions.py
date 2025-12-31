@@ -8,7 +8,6 @@ input validation, numerical stability, and state errors.
 class SteamTableError(Exception):
     """Base exception for all IAPWS-IF97 calculations."""
 
-    pass
 
 
 class InputRangeError(ValueError, SteamTableError):

@@ -7,9 +7,8 @@ Provides:
 """
 
 import json
-import os
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 import pytest
 
@@ -32,7 +31,7 @@ def load_reference_tables() -> callable:
         Function to load JSON reference data by region
     """
 
-    def _load_tables(region: str) -> List[Dict[str, Any]]:
+    def _load_tables(region: str) -> list[dict[str, Any]]:
         """Load reference test points for given region.
 
         Args:
@@ -52,7 +51,7 @@ def load_reference_tables() -> callable:
             with open(ref_file) as f:
                 data = json.load(f)
             return data.get("regions", {}).get(region, [])
-        except (json.JSONDecodeError, IOError) as e:
+        except (OSError, json.JSONDecodeError) as e:
             pytest.skip(f"Could not load reference tables: {e}")
 
     return _load_tables
@@ -107,6 +106,7 @@ def steam_table():
     """
     try:
         from src.iapws_if97 import SteamTable
+
         return SteamTable()
     except ImportError:
         pytest.skip("SteamTable not yet implemented")
@@ -120,6 +120,7 @@ def ureg():
         UnitRegistry instance with SI units
     """
     from src.iapws_if97.units import ureg
+
     return ureg
 
 

@@ -6,7 +6,6 @@ regions, and property results.
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
 
 
 class Region(Enum):
@@ -60,9 +59,9 @@ class SteamProperties:
     entropy: object  # Pint Quantity
     internal_energy: object  # Pint Quantity
     density: object  # Pint Quantity
-    specific_heat_p: Optional[object] = None  # Pint Quantity or None
-    specific_heat_v: Optional[object] = None  # Pint Quantity or None
-    speed_of_sound: Optional[object] = None  # Pint Quantity or None
+    specific_heat_p: object | None = None  # Pint Quantity or None
+    specific_heat_v: object | None = None  # Pint Quantity or None
+    speed_of_sound: object | None = None  # Pint Quantity or None
 
     def __repr__(self) -> str:
         """Return detailed string representation of properties."""

@@ -4,8 +4,8 @@ Measures calculation time for each region and saturation properties.
 Target: <10ms per calculation.
 """
 
-import timeit
 import sys
+import timeit
 from pathlib import Path
 
 # Add src to path
@@ -35,20 +35,14 @@ def main():
 
     # Define test cases
     benchmarks = [
-        ("Region 1 (liquid) @ 10 MPa, 500 K",
-         lambda: steam.h_pt(10 * ureg.MPa, 500 * ureg.K)),
-        
-        ("Region 2 (steam) @ 0.1 MPa, 400 K",
-         lambda: steam.h_pt(0.1 * ureg.MPa, 400 * ureg.K)),
-        
-        ("Region 3 (supercritical) @ 30 MPa, 700 K",
-         lambda: steam.h_pt(30 * ureg.MPa, 700 * ureg.K)),
-        
-        ("Saturation T_sat @ 1 MPa",
-         lambda: steam.T_sat(1 * ureg.MPa)),
-        
-        ("Saturation P_sat @ 373 K",
-         lambda: steam.P_sat(373 * ureg.K)),
+        ("Region 1 (liquid) @ 10 MPa, 500 K", lambda: steam.h_pt(10 * ureg.MPa, 500 * ureg.K)),
+        ("Region 2 (steam) @ 0.1 MPa, 400 K", lambda: steam.h_pt(0.1 * ureg.MPa, 400 * ureg.K)),
+        (
+            "Region 3 (supercritical) @ 30 MPa, 700 K",
+            lambda: steam.h_pt(30 * ureg.MPa, 700 * ureg.K),
+        ),
+        ("Saturation T_sat @ 1 MPa", lambda: steam.T_sat(1 * ureg.MPa)),
+        ("Saturation P_sat @ 373 K", lambda: steam.P_sat(373 * ureg.K)),
     ]
 
     results = []

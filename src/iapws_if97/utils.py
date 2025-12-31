@@ -4,12 +4,11 @@ Provides polynomial evaluation, numerical helpers, and common mathematical
 operations used across region calculations.
 """
 
-from typing import List
 
 import numpy as np
 
 
-def horner_polynomial(coefficients: List[float], x: float) -> float:
+def horner_polynomial(coefficients: list[float], x: float) -> float:
     """Evaluate polynomial using Horner's method.
 
     Evaluates polynomial: a[0] + a[1]*x + a[2]*x^2 + ... + a[n]*x^n
@@ -49,7 +48,7 @@ def multidimensional_polynomial(
     result = 0.0
     for i, row in enumerate(coefficients):
         for j, coeff in enumerate(row):
-            result += coeff * (x ** i) * (y ** j)
+            result += coeff * (x**i) * (y**j)
     return result
 
 
@@ -118,7 +117,7 @@ def safe_power(base: float, exponent: float) -> float:
         raise ValueError("Cannot raise negative number to fractional power")
 
     try:
-        return float(base ** exponent)
+        return float(base**exponent)
     except (OverflowError, ValueError) as e:
         raise ArithmeticError(f"Error computing {base}^{exponent}: {e}")
 

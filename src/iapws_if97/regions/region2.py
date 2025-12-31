@@ -1,28 +1,38 @@
-"""IAPWS-IF97 Region 2: Superheated steam (low P, high T).
+"""IAPWS-IF97 Region 2: Superheated steam and vapor.
 
 Valid range:
-- Pressure: 0 to 100 MPa (below saturation line)
-- Temperature: 273.15 K to 863.15 K
-- Accuracy: ±0.0029 for h, ±0.0025 for s, ±0.0023 for u
+- Pressure: 0 to 100 MPa
+- Temperature: 273.15 K to 863.15 K (above saturation)
+- Accuracy: ±0.06% for enthalpy and entropy
 
-This is a simplified implementation using empirical correlations.
-Full IAPWS-IF97 Gibbs free energy formulation available in extended version.
+Uses the IAPWS-IF97 fundamental equation for Region 2.
+Implementation uses the verified iapws library backend to ensure correctness.
+
+Source: IAPWS, Revised Release on the IAPWS Industrial Formulation 1997 for the
+Thermodynamic Properties of Water and Steam, August 2007.
 """
+
+
+from iapws import iapws97
 
 from ..exceptions import NumericalInstabilityError
 
 
-def calculate_properties(pressure_pa: float, temperature_k: float) -> dict:
+def calculate_properties(pressure_pa: float, temperature_k: float) -> dict[str, float]:
     """Calculate Region 2 thermodynamic properties at given P-T.
 
-    Uses simplified correlations based on IAPWS data.
+    Uses official IAPWS-IF97 equations via the iapws library.
 
     Args:
         pressure_pa: Pressure in Pa
         temperature_k: Temperature in K
 
     Returns:
-        Dictionary with keys: enthalpy_kJ_kg, entropy_kJ_kg_K, internal_energy_kJ_kg, density_kg_m3
+        Dictionary with keys:
+        - enthalpy_kJ_kg: Specific enthalpy in kJ/kg
+        - entropy_kJ_kg_K: Specific entropy in kJ/(kg·K)
+        - internal_energy_kJ_kg: Specific internal energy in kJ/kg
+        - density_kg_m3: Density in kg/m³
 
     Raises:
         NumericalInstabilityError: If calculation fails due to numerical issues
@@ -31,47 +41,24 @@ def calculate_properties(pressure_pa: float, temperature_k: float) -> dict:
         raise ValueError("Pressure and temperature must be positive")
 
     try:
-        # Simplified empirical correlations for Region 2 (superheated steam)
-        # Based on IAPWS-IF97 reference points and thermodynamic behavior
+        # Convert pressure from Pa to MPa for iapws library
+        pressure_mpa = pressure_pa / 1e6
 
-        p_mpa = pressure_pa / 1e6
-        r_water = 0.461  # kJ/(kg·K)
+        # Calculate properties using IAPWS-IF97
+        steam = iapws97.IAPWS97(P=pressure_mpa, T=temperature_k)
 
-        # Density: Using ideal gas law with compressibility correction
-        # ρ = P / (R*T) * (1 - B*P) where B is a small compressibility factor
-        rho_ideal = pressure_pa / (r_water * 1000.0 * temperature_k)
-        compressibility_factor = max(0.01, 1.0 - 0.0001 * p_mpa)
-        rho = rho_ideal * compressibility_factor
-
-        # Clamp density to reasonable values (0.01-30 kg/m³ for steam)
-        rho = max(0.01, min(30.0, rho))
-
-        # Specific enthalpy: Empirical correlation
-        # h ≈ h_ref(T) + pressure_correction
-        # For steam: h ≈ 2500 + 2.0 * (T - 373.15) kJ/kg (rough approximation)
-        h_base = 2500.0 + 2.0 * (temperature_k - 373.15)
-        pressure_correction_h = -0.01 * p_mpa  # Slight pressure reduction
-        h = h_base + pressure_correction_h
-
-        # Clamp enthalpy to realistic steam values (2300-3500 kJ/kg)
-        h = max(2300.0, min(3500.0, h))
-
-        # Specific entropy: Empirical correlation
-        # s ≈ s_ref(T) - R * ln(P/P_ref)
-        s_base = 7.5 + 0.003 * (temperature_k - 373.15)  # Base entropy at reference T
-        s = s_base - r_water * __import__("math").log(p_mpa / 0.1)
-
-        # Internal energy: u = h - P/ρ
-        pv = pressure_pa / (rho * 1000.0)  # P*v in kJ/kg
-        u = h - pv
+        # Check if calculation was successful
+        if not hasattr(steam, "h") or steam.h is None:
+            raise ValueError("IAPWS-IF97 calculation failed")
 
         return {
-            "enthalpy_kJ_kg": h,
-            "entropy_kJ_kg_K": s,
-            "internal_energy_kJ_kg": u,
-            "density_kg_m3": rho,
+            "enthalpy_kJ_kg": steam.h,
+            "entropy_kJ_kg_K": steam.s,
+            "internal_energy_kJ_kg": steam.u,
+            "density_kg_m3": steam.rho,
         }
-    except (ValueError, ZeroDivisionError, FloatingPointError) as e:
+
+    except (ValueError, AttributeError, TypeError) as e:
         raise NumericalInstabilityError(
             f"Region 2 calculation failed at P={pressure_pa:.2e} Pa, T={temperature_k:.2f} K: {e}"
         )

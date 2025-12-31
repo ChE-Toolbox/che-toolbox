@@ -4,7 +4,6 @@ Determines which thermodynamic region applies to given P-T conditions
 and validates inputs against global and region-specific boundaries.
 """
 
-from typing import Tuple
 
 from . import constants
 from .exceptions import InputRangeError, InvalidStateError
@@ -21,7 +20,10 @@ def validate_pressure_temperature(pressure_pa: float, temperature_k: float) -> N
     Raises:
         InputRangeError: If P or T outside global valid range
     """
-    if pressure_pa < constants.GLOBAL_PRESSURE_MIN_PA or pressure_pa > constants.GLOBAL_PRESSURE_MAX_PA:
+    if (
+        pressure_pa < constants.GLOBAL_PRESSURE_MIN_PA
+        or pressure_pa > constants.GLOBAL_PRESSURE_MAX_PA
+    ):
         raise InputRangeError(
             "pressure",
             pressure_pa,
@@ -29,7 +31,10 @@ def validate_pressure_temperature(pressure_pa: float, temperature_k: float) -> N
             constants.GLOBAL_PRESSURE_MAX_PA,
         )
 
-    if temperature_k < constants.GLOBAL_TEMPERATURE_MIN_K or temperature_k > constants.GLOBAL_TEMPERATURE_MAX_K:
+    if (
+        temperature_k < constants.GLOBAL_TEMPERATURE_MIN_K
+        or temperature_k > constants.GLOBAL_TEMPERATURE_MAX_K
+    ):
         raise InputRangeError(
             "temperature",
             temperature_k,
@@ -39,52 +44,39 @@ def validate_pressure_temperature(pressure_pa: float, temperature_k: float) -> N
 
 
 def saturation_pressure_estimate(temperature_k: float) -> float:
-    """Estimate saturation pressure at given temperature using polynomial approximation.
+    """Calculate saturation pressure at given temperature using Wagner-Pruss equation.
 
     Used for determining if (P, T) is in saturation region or single-phase.
+    Uses the accurate IAPWS-IF97 saturation calculation via iapws library.
 
     Args:
         temperature_k: Temperature in K
 
     Returns:
-        Estimated saturation pressure in Pa
+        Saturation pressure in Pa
 
     Note:
-        This is a simplified approximation for region routing.
-        Full Wagner-Pruss equation implemented in regions/saturation.py
+        Uses regions.saturation module for accurate calculation.
     """
     # Return very large values outside valid range
     if temperature_k > constants.SATURATION_TEMPERATURE_MAX_K:
-        return float('inf')
+        return float("inf")
     if temperature_k < constants.SATURATION_TEMPERATURE_MIN_K:
         return 0.0
 
-    # Simplified empirical approximation based on saturation curve
-    # Valid for 273.15 K to 647.1 K (saturation temperature range)
-    # Using a reduced form: P_sat ~ P_c * exp(f(tau))
-    # where tau = 1 - T/Tc and Tc = 647.096 K, Pc = 22.064 MPa
-
-    t_c = 647.096  # Critical temperature K
-    p_c = 22.064e6  # Critical pressure Pa
-
-    tau = 1.0 - temperature_k / t_c
-    if tau <= 0:
-        return p_c
-
-    # Simple approximation: uses reduced temperature
-    # P_sat/P_c = exp(a*tau + b*tau^1.5 + c*tau^3 + d*tau^6)
-    a, b, c, d = -7.85951783, 1.84408259, -11.7866497, 22.6799673
-
+    # Use accurate saturation calculation from saturation module
     try:
-        ln_pi = (a * tau + b * (tau ** 1.5) + c * (tau ** 3) + d * (tau ** 6)) * (t_c / temperature_k)
-        pressure_pa = p_c * min(1.0, __import__('math').exp(ln_pi))
-        return max(0.0, pressure_pa)
-    except (ValueError, OverflowError):
-        # If calculation fails, return a safe estimate
+        from .regions import saturation
+
+        sat_data = saturation.calculate_saturation_pressure(temperature_k)
+        return sat_data["saturation_pressure_Pa"]
+    except Exception:
+        # If calculation fails, return a safe fallback
+        # This should rarely happen as we've already validated the range
         return 100e3  # Rough average saturation pressure
 
 
-def assign_region(pressure_pa: float, temperature_k: float) -> Tuple[Region, str]:
+def assign_region(pressure_pa: float, temperature_k: float) -> tuple[Region, str]:
     """Assign which IAPWS-IF97 region (1, 2, 3, or saturation) applies.
 
     Args:

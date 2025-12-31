@@ -4,14 +4,14 @@ Wraps SciPy optimization functions for finding saturation properties,
 region boundaries, and solving implicit equations in thermodynamic calculations.
 """
 
-from typing import Callable, Tuple
+from collections.abc import Callable
 
 from scipy.optimize import brentq
 
 
 def find_root_brent(
     func: Callable[[float], float],
-    bracket: Tuple[float, float],
+    bracket: tuple[float, float],
     tolerance: float = 1e-6,
     max_iter: int = 100,
 ) -> float:
@@ -34,7 +34,9 @@ def find_root_brent(
         RuntimeError: If convergence not achieved after max_iter iterations
     """
     try:
-        root = brentq(func, bracket[0], bracket[1], xtol=tolerance, rtol=tolerance, maxiter=max_iter)
+        root = brentq(
+            func, bracket[0], bracket[1], xtol=tolerance, rtol=tolerance, maxiter=max_iter
+        )
         return root
     except ValueError as e:
         if "f(a) and f(b) must have different signs" in str(e):
@@ -86,7 +88,7 @@ def find_root_newton(
 
 def verify_bracket(
     func: Callable[[float], float],
-    bracket: Tuple[float, float],
+    bracket: tuple[float, float],
     name: str = "bracket",
 ) -> bool:
     """Verify that bracket contains a root (function has opposite signs at endpoints).

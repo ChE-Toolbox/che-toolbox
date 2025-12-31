@@ -6,7 +6,7 @@ to property calculation and unit handling.
 
 import pytest
 
-from src.iapws_if97 import SteamTable, SteamProperties
+from src.iapws_if97 import SteamProperties
 from src.iapws_if97.exceptions import InputRangeError, InvalidStateError
 
 

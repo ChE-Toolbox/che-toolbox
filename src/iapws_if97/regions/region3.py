@@ -1,86 +1,89 @@
-"""IAPWS-IF97 Region 3: Supercritical fluid (high P, high T, near critical point).
+"""IAPWS-IF97 Region 3: Supercritical fluid.
 
 Valid range:
-- Pressure: 20 MPa to 863.91 MPa
+- Pressure: 16.6 MPa to 100 MPa
 - Temperature: 623.15 K to 863.15 K
-- Accuracy: ±0.0054 for h, ±0.0050 for s, ±0.0040 for u
+- Accuracy: ±0.2% for density
 
-This is a simplified implementation using empirical correlations.
-Full IAPWS-IF97 Helmholtz free energy formulation available in extended version.
+Uses the IAPWS-IF97 fundamental equation for Region 3.
+Implementation uses the verified iapws library backend to ensure correctness.
+Includes singularity detection near critical point.
+
+Source: IAPWS, Revised Release on the IAPWS Industrial Formulation 1997 for the
+Thermodynamic Properties of Water and Steam, August 2007.
 """
+
+import math
+
+from iapws import iapws97
 
 from ..exceptions import NumericalInstabilityError
 
+# Critical point constants
+CRITICAL_PRESSURE_MPA = 22.064
+CRITICAL_TEMPERATURE_K = 647.096
+SINGULARITY_THRESHOLD = 0.05  # 5% distance threshold
 
-def calculate_properties(pressure_pa: float, temperature_k: float) -> dict:
+
+def calculate_properties(pressure_pa: float, temperature_k: float) -> dict[str, float]:
     """Calculate Region 3 thermodynamic properties at given P-T.
 
-    Uses simplified correlations based on IAPWS data for supercritical region.
+    Uses official IAPWS-IF97 equations via the iapws library.
+    Includes singularity detection near critical point.
 
     Args:
         pressure_pa: Pressure in Pa
         temperature_k: Temperature in K
 
     Returns:
-        Dictionary with keys: enthalpy_kJ_kg, entropy_kJ_kg_K, internal_energy_kJ_kg, density_kg_m3
+        Dictionary with keys:
+        - enthalpy_kJ_kg: Specific enthalpy in kJ/kg
+        - entropy_kJ_kg_K: Specific entropy in kJ/(kg·K)
+        - internal_energy_kJ_kg: Specific internal energy in kJ/kg
+        - density_kg_m3: Density in kg/m³
 
     Raises:
-        NumericalInstabilityError: If calculation fails
+        NumericalInstabilityError: If too close to critical point or calculation fails
     """
     if pressure_pa <= 0 or temperature_k <= 0:
         raise ValueError("Pressure and temperature must be positive")
 
     try:
-        # Simplified empirical correlations for Region 3 (supercritical fluid)
-        # Region 3 is complex due to proximity to critical point
+        # Convert pressure from Pa to MPa
+        pressure_mpa = pressure_pa / 1e6
 
-        p_mpa = pressure_pa / 1e6
-        r_water = 0.461  # kJ/(kg·K)
+        # Check distance from critical point
+        p_normalized = (pressure_mpa - CRITICAL_PRESSURE_MPA) / CRITICAL_PRESSURE_MPA
+        t_normalized = (temperature_k - CRITICAL_TEMPERATURE_K) / CRITICAL_TEMPERATURE_K
+        distance = math.sqrt(p_normalized**2 + t_normalized**2)
 
-        # Critical point reference
-        t_c = 647.096  # K
-        p_c = 22.064  # MPa
-        rho_c = 322.0  # kg/m³
+        if distance < SINGULARITY_THRESHOLD:
+            raise NumericalInstabilityError(
+                f"Conditions too close to critical point "
+                f"({CRITICAL_PRESSURE_MPA} MPa, {CRITICAL_TEMPERATURE_K} K) for reliable computation. "
+                f"Distance: {distance * 100:.1f}%. "
+                f"Suggestion: Move at least 5% away (e.g., P > {CRITICAL_PRESSURE_MPA * 1.05:.1f} MPa "
+                f"or T > {CRITICAL_TEMPERATURE_K * 1.05:.1f} K)"
+            )
 
-        # Reduced properties
-        tau = t_c / temperature_k
-        pi = p_mpa / p_c
+        # Calculate properties using IAPWS-IF97
+        steam = iapws97.IAPWS97(P=pressure_mpa, T=temperature_k)
 
-        # Density: Empirical correlation for supercritical region
-        # Approaches critical density near critical point
-        reduced_distance = __import__("math").sqrt((tau - 1.0) ** 2 + (pi - 1.0) ** 2)
-        if reduced_distance < 0.1:
-            # Very close to critical point - use critical density
-            rho = rho_c
-        else:
-            # Interpolation formula for density
-            rho = rho_c * (1.0 + 0.5 * (pi - 1.0) - 0.3 * (tau - 1.0))
-            rho = max(200.0, min(900.0, rho))  # Clamp to reasonable range
-
-        # Specific enthalpy: Approximate using critical point properties
-        # h ≈ h_c + corrections
-        h_c = 2084.3  # Approximate critical enthalpy (kJ/kg)
-        h = h_c + 0.5 * (temperature_k - t_c) * 2.0  # T-dependent term
-        h += 0.01 * (p_mpa - p_c)  # P-dependent term
-        h = max(2000.0, min(3000.0, h))  # Clamp to realistic range
-
-        # Specific entropy: Approximate using critical point properties
-        # s ≈ s_c + corrections
-        s_c = 4.4069  # Critical entropy (kJ/(kg·K))
-        s = s_c + 0.003 * (temperature_k - t_c) - r_water * __import__("math").log(p_mpa / p_c)
-        s = max(3.0, min(6.0, s))  # Clamp to realistic range
-
-        # Internal energy: u = h - P*v
-        pv = pressure_pa / (rho * 1000.0)  # P*v in kJ/kg
-        u = h - pv
+        # Check if calculation was successful
+        if not hasattr(steam, "h") or steam.h is None:
+            raise ValueError("IAPWS-IF97 calculation failed")
 
         return {
-            "enthalpy_kJ_kg": h,
-            "entropy_kJ_kg_K": s,
-            "internal_energy_kJ_kg": u,
-            "density_kg_m3": rho,
+            "enthalpy_kJ_kg": steam.h,
+            "entropy_kJ_kg_K": steam.s,
+            "internal_energy_kJ_kg": steam.u,
+            "density_kg_m3": steam.rho,
         }
-    except (ValueError, ZeroDivisionError, FloatingPointError) as e:
+
+    except NumericalInstabilityError:
+        # Re-raise singularity errors
+        raise
+    except (ValueError, AttributeError, TypeError) as e:
         raise NumericalInstabilityError(
             f"Region 3 calculation failed at P={pressure_pa:.2e} Pa, T={temperature_k:.2f} K: {e}"
         )
