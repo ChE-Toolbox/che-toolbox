@@ -1,0 +1,522 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "source": "CoolProp / NIST WebBook",
+    "retrieved_date": "2025-12-29",
+    "attribution": "Data sourced from CoolProp thermophysical property library (MIT License) which uses NIST-validated reference equations of state. See individual compound source URLs for NIST WebBook references.",
+    "compound_count": 10
+  },
+  "compounds": [
+    {
+      "cas_number": "7732-18-5",
+      "name": "Water",
+      "formula": "H2O",
+      "iupac_name": "oxidane",
+      "coolprop_name": "Water",
+      "aliases": [
+        "water",
+        "H2O",
+        "dihydrogen monoxide"
+      ],
+      "molecular_weight": {
+        "magnitude": 18.01527,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 647.096,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 22064000.0,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 322.0,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.34429
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 373.1243,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 273.16,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 611.7,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Water"
+      }
+    },
+    {
+      "cas_number": "74-82-8",
+      "name": "Methane",
+      "formula": "CH4",
+      "iupac_name": "methane",
+      "coolprop_name": "Methane",
+      "aliases": [
+        "methane",
+        "CH4"
+      ],
+      "molecular_weight": {
+        "magnitude": 16.0428,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 190.564,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 4599200.5,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 162.66,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.01142
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 111.66721,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 90.6941,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 11696.1,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74828",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Methane"
+      }
+    },
+    {
+      "cas_number": "74-84-0",
+      "name": "Ethane",
+      "formula": "C2H6",
+      "iupac_name": "ethane",
+      "coolprop_name": "Ethane",
+      "aliases": [
+        "ethane",
+        "C2H6"
+      ],
+      "molecular_weight": {
+        "magnitude": 30.06904,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 305.322,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 4872200.0,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 206.18,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.099
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 184.56859,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 90.368,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 1.1,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74840",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Ethane"
+      }
+    },
+    {
+      "cas_number": "74-98-6",
+      "name": "Propane",
+      "formula": "C3H8",
+      "iupac_name": "propane",
+      "coolprop_name": "Propane",
+      "aliases": [
+        "propane",
+        "C3H8"
+      ],
+      "molecular_weight": {
+        "magnitude": 44.09562,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 369.89001,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 4251165.3,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 220.48,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.1521
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 231.03621,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 85.525,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 0.0,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C74986",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Propane"
+      }
+    },
+    {
+      "cas_number": "7664-41-7",
+      "name": "Ammonia",
+      "formula": "NH3",
+      "iupac_name": "azane",
+      "coolprop_name": "Ammonia",
+      "aliases": [
+        "ammonia",
+        "NH3"
+      ],
+      "molecular_weight": {
+        "magnitude": 17.03052,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 405.56,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 11363391.2,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 233.25,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.25569
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 239.83432,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 195.495,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 6055.8,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7664417",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Ammonia"
+      }
+    },
+    {
+      "cas_number": "124-38-9",
+      "name": "Carbon Dioxide",
+      "formula": "CO2",
+      "iupac_name": "carbon dioxide",
+      "coolprop_name": "CarbonDioxide",
+      "aliases": [
+        "carbon dioxide",
+        "CO2"
+      ],
+      "molecular_weight": {
+        "magnitude": 44.0098,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 304.1282,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 7377298.4,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 467.6,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.22394
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 185.0932,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 216.592,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 517964.3,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C124389",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Carbon Dioxide"
+      }
+    },
+    {
+      "cas_number": "7727-37-9",
+      "name": "Nitrogen",
+      "formula": "N2",
+      "iupac_name": "molecular nitrogen",
+      "coolprop_name": "Nitrogen",
+      "aliases": [
+        "nitrogen",
+        "N2"
+      ],
+      "molecular_weight": {
+        "magnitude": 28.01348,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 126.192,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 3395800.4,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 313.3,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.0372
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 77.35499,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 63.151,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 12519.8,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7727379",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Nitrogen"
+      }
+    },
+    {
+      "cas_number": "7782-44-7",
+      "name": "Oxygen",
+      "formula": "O2",
+      "iupac_name": "molecular oxygen",
+      "coolprop_name": "Oxygen",
+      "aliases": [
+        "oxygen",
+        "O2"
+      ],
+      "molecular_weight": {
+        "magnitude": 31.9988,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 154.59939,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 5046410.5,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 426.93,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": 0.0222
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 90.18781,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 54.361,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 146.3,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7782447",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Oxygen"
+      }
+    },
+    {
+      "cas_number": "1333-74-0",
+      "name": "Hydrogen",
+      "formula": "H2",
+      "iupac_name": "molecular hydrogen",
+      "coolprop_name": "Hydrogen",
+      "aliases": [
+        "hydrogen",
+        "H2"
+      ],
+      "molecular_weight": {
+        "magnitude": 2.01588,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 33.14433,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 1296357.6,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 31.25,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": -0.219
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 20.3689,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 13.957,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 7357.8,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C1333740",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Hydrogen"
+      }
+    },
+    {
+      "cas_number": "7440-59-7",
+      "name": "Helium",
+      "formula": "He",
+      "iupac_name": "helium",
+      "coolprop_name": "Helium",
+      "aliases": [
+        "helium",
+        "He"
+      ],
+      "molecular_weight": {
+        "magnitude": 4.0026,
+        "unit": "gram / mole"
+      },
+      "critical_properties": {
+        "temperature": {
+          "magnitude": 5.1953,
+          "unit": "kelvin"
+        },
+        "pressure": {
+          "magnitude": 228322.8,
+          "unit": "pascal"
+        },
+        "density": {
+          "magnitude": 69.58,
+          "unit": "kilogram / meter ** 3"
+        },
+        "acentric_factor": -0.38354
+      },
+      "phase_properties": {
+        "normal_boiling_point": {
+          "magnitude": 4.22381,
+          "unit": "kelvin"
+        },
+        "triple_point_temperature": {
+          "magnitude": 2.1768,
+          "unit": "kelvin"
+        },
+        "triple_point_pressure": {
+          "magnitude": 5039.3,
+          "unit": "pascal"
+        }
+      },
+      "source": {
+        "name": "CoolProp / NIST WebBook",
+        "url": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7440597",
+        "retrieved_date": "2025-12-29",
+        "version": "CoolProp 7.2.0",
+        "notes": "Data extracted from CoolProp for Helium"
+      }
+    }
+  ]
+}
