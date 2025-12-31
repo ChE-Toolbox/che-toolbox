@@ -1,9 +1,8 @@
 """PT (Pressure-Temperature) Flash calculation for vapor-liquid equilibrium."""
 
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
-from typing import Optional
 
 import numpy as np
 
@@ -54,7 +53,7 @@ class FlashResult:
     iterations: int
     tolerance_achieved: float
     convergence: FlashConvergence
-    material_balance_error: Optional[float] = None
+    material_balance_error: float | None = None
 
     @property
     def success(self) -> bool:
@@ -92,8 +91,8 @@ class FlashPT:
         pressure: float,
         critical_temperatures: np.ndarray,
         critical_pressures: np.ndarray,
-        tolerance: Optional[float] = None,
-        max_iterations: Optional[int] = None,
+        tolerance: float | None = None,
+        max_iterations: int | None = None,
     ) -> FlashResult:
         """Perform PT flash calculation using Rachford-Rice iteration.
 
@@ -226,7 +225,7 @@ class FlashPT:
         feed_composition: np.ndarray,
         temperature: float,
         critical_temperatures: np.ndarray,
-    ) -> Optional[FlashResult]:
+    ) -> FlashResult | None:
         """Check if system is single-phase before Rachford-Rice iteration.
 
         Single-phase conditions:

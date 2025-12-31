@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+
 from src.eos.flash_pt import FlashConvergence, FlashPT, FlashResult
 
 

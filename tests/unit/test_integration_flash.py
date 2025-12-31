@@ -6,9 +6,9 @@ and output completeness for binary mixtures.
 
 import numpy as np
 import pytest
-from src.eos.flash_pt import FlashPT, FlashResult, FlashConvergence
-from src.eos.peng_robinson import PengRobinsonEOS
 
+from src.eos.flash_pt import FlashConvergence, FlashPT
+from src.eos.peng_robinson import PengRobinsonEOS
 
 # ==============================================================================
 # Test Fixtures

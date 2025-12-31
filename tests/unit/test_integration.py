@@ -6,14 +6,14 @@ produce consistent results across various conditions.
 """
 
 import pytest
-from src.eos import (
-    compare_compressibility_factors,
-    IdealGasEOS,
-    VanDerWaalsEOS,
-    PengRobinsonEOS,
-)
-from src.compounds.models import Compound
 
+from src.compounds.models import Compound
+from src.eos import (
+    IdealGasEOS,
+    PengRobinsonEOS,
+    VanDerWaalsEOS,
+    compare_compressibility_factors,
+)
 
 # ==============================================================================
 # Test Fixtures

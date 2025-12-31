@@ -3,15 +3,13 @@
 import logging
 import math
 import warnings
-from typing import Optional
 
 from scipy.optimize import brentq
 
 from ..compounds.models import Compound
 from .cubic_solver import solve_cubic
 from .exceptions import ConvergenceWarning
-from .mixing_rules import calculate_a_mix, calculate_b_mix
-from .models import Mixture, PhaseType, ThermodynamicState
+from .models import PhaseType, ThermodynamicState
 
 logger = logging.getLogger(__name__)
 
@@ -162,7 +160,7 @@ class PengRobinsonEOS:
         temperature: float,
         pressure: float,
         compound: Compound,
-        phase: Optional[PhaseType] = None,
+        phase: PhaseType | None = None,
     ) -> float:
         """Calculate fugacity coefficient for a pure component.
 
@@ -233,7 +231,7 @@ class PengRobinsonEOS:
         temperature: float,
         pressure: float,
         compound: Compound,
-        z_factors: Optional[tuple[float, ...]] = None,
+        z_factors: tuple[float, ...] | None = None,
     ) -> PhaseType:
         """Identify the thermodynamic phase.
 
@@ -265,7 +263,7 @@ class PengRobinsonEOS:
             try:
                 z_factors = self.calculate_z_factor(temperature, pressure, compound)
             except ValueError:
-                logger.warning(f"Could not calculate Z factors for phase identification")
+                logger.warning("Could not calculate Z factors for phase identification")
                 return PhaseType.UNKNOWN
 
         # Three real roots indicate two-phase region

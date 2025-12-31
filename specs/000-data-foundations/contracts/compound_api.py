@@ -16,7 +16,6 @@ from typing import Protocol, runtime_checkable
 from pint import Quantity, UnitRegistry
 from pydantic import BaseModel, Field
 
-
 # =============================================================================
 # Pydantic Models (Data Transfer Objects)
 # =============================================================================

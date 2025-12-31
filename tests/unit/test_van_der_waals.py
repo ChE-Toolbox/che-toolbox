@@ -1,6 +1,7 @@
 """Unit tests for Van der Waals EOS implementation."""
 
 import pytest
+
 from src.compounds.models import Compound
 from src.eos.models import PhaseType
 from src.eos.van_der_waals import VanDerWaalsEOS
@@ -265,7 +266,7 @@ class TestInputValidation:
 
     def test_gas_constant_consistency(self, vdw_eos):
         """Test gas constant is correct."""
-        assert vdw_eos.R == pytest.approx(8.314462618, rel=1e-6)
+        assert pytest.approx(8.314462618, rel=1e-6) == vdw_eos.R
 
     def test_state_energy_consistency(self, vdw_eos, methane):
         """Test state calculation is consistent across multiple calls."""

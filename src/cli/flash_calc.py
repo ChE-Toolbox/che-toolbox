@@ -9,13 +9,12 @@ import argparse
 import json
 import logging
 import sys
-from typing import Any, Dict, Optional
+from typing import Any
 
 import numpy as np
 
 from src.compounds.database import CompoundDatabase
-from src.eos import FlashPT, FlashConvergence
-
+from src.eos import FlashConvergence, FlashPT
 
 # Configure logging
 logging.basicConfig(
@@ -30,7 +29,7 @@ class CLIFormatter:
     """Formats output for CLI commands."""
 
     @staticmethod
-    def format_quantity(value: float, unit: str) -> Dict[str, Any]:
+    def format_quantity(value: float, unit: str) -> dict[str, Any]:
         """Format a quantity with its unit."""
         return {"value": round(value, 6), "unit": unit}
 
@@ -369,7 +368,7 @@ def handle_validate(args: argparse.Namespace) -> int:
         return 2
 
 
-def main(argv: Optional[list] = None) -> int:
+def main(argv: list | None = None) -> int:
     """Main entry point for the CLI."""
     parser = create_parser()
 

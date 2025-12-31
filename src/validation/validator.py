@@ -1,8 +1,6 @@
 """NIST validation framework."""
 
 import logging
-from pathlib import Path
-from typing import Optional
 
 from ..compounds.database import CompoundDatabase
 from ..eos.peng_robinson import PengRobinsonEOS
@@ -17,9 +15,9 @@ class NISTValidation:
 
     def __init__(
         self,
-        eos: Optional[PengRobinsonEOS] = None,
-        db: Optional[CompoundDatabase] = None,
-        nist_loader: Optional[NISTDataLoader] = None,
+        eos: PengRobinsonEOS | None = None,
+        db: CompoundDatabase | None = None,
+        nist_loader: NISTDataLoader | None = None,
     ) -> None:
         """Initialize NIST validator.
 
@@ -45,7 +43,7 @@ class NISTValidation:
         compound_name: str,
         expected_z: float,
         tolerance: float = 0.05,
-    ) -> tuple[bool, float, Optional[str]]:
+    ) -> tuple[bool, float, str | None]:
         """Validate Z factor calculation.
 
         Parameters
@@ -95,7 +93,7 @@ class NISTValidation:
         compound_name: str,
         expected_fugacity: float,
         tolerance: float = 0.10,
-    ) -> tuple[bool, float, Optional[str]]:
+    ) -> tuple[bool, float, str | None]:
         """Validate fugacity calculation.
 
         Parameters
@@ -143,7 +141,7 @@ class NISTValidation:
         compound_name: str,
         expected_vapor_pressure: float,
         tolerance: float = 0.05,
-    ) -> tuple[bool, float, Optional[str]]:
+    ) -> tuple[bool, float, str | None]:
         """Validate vapor pressure calculation.
 
         Parameters

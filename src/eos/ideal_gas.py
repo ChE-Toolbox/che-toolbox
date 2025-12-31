@@ -1,7 +1,6 @@
 """Ideal Gas Law implementation - reference baseline for EOS comparisons."""
 
 import logging
-from typing import Optional
 
 from ..compounds.models import Compound
 from .models import PhaseType, ThermodynamicState
@@ -117,7 +116,7 @@ class IdealGasEOS:
 
     def calculate_state(
         self,
-        compound: Optional[Compound] = None,
+        compound: Compound | None = None,
         temperature: float = 298.15,
         pressure: float = 101325,
         n: float = 1.0,

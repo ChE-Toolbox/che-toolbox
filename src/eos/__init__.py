@@ -1,24 +1,25 @@
 """EOS (Equation of State) package."""
 
 from typing import Dict
+
+from ..compounds.models import Compound
 from .flash_pt import FlashConvergence, FlashPT, FlashResult
 from .ideal_gas import IdealGasEOS
 from .models import BinaryInteractionParameter, Mixture, PhaseType, ThermodynamicState
 from .peng_robinson import PengRobinsonEOS
 from .van_der_waals import VanDerWaalsEOS
-from ..compounds.models import Compound
 
 __all__ = [
-    "PengRobinsonEOS",
-    "VanDerWaalsEOS",
-    "IdealGasEOS",
+    "BinaryInteractionParameter",
+    "FlashConvergence",
     "FlashPT",
     "FlashResult",
-    "FlashConvergence",
-    "PhaseType",
+    "IdealGasEOS",
     "Mixture",
+    "PengRobinsonEOS",
+    "PhaseType",
     "ThermodynamicState",
-    "BinaryInteractionParameter",
+    "VanDerWaalsEOS",
     "compare_compressibility_factors",
 ]
 
@@ -27,7 +28,7 @@ def compare_compressibility_factors(
     compound: Compound,
     temperature: float,
     pressure: float,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Compare compressibility factors across all three EOS models.
 
     Calculates Z-factors for Ideal Gas, Van der Waals, and Peng-Robinson
@@ -83,9 +84,9 @@ def compare_compressibility_factors(
     if pressure <= 0:
         raise ValueError(f"Pressure must be positive, got {pressure}")
     if not hasattr(compound, 'tc') or compound.tc <= 0:
-        raise ValueError(f"Compound must have valid critical temperature (tc)")
+        raise ValueError("Compound must have valid critical temperature (tc)")
     if not hasattr(compound, 'pc') or compound.pc <= 0:
-        raise ValueError(f"Compound must have valid critical pressure (pc)")
+        raise ValueError("Compound must have valid critical pressure (pc)")
 
     # Initialize EOS solvers
     ideal_eos = IdealGasEOS()

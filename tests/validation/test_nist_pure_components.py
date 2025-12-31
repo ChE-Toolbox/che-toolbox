@@ -5,7 +5,6 @@ import pytest
 from src.compounds.database import CompoundDatabase
 from src.eos.peng_robinson import PengRobinsonEOS
 from src.validation.nist_data import NISTDataLoader
-from src.validation.models import ValidationTestCase
 from src.validation.validator import NISTValidation
 
 

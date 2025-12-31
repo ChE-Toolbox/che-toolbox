@@ -2,7 +2,6 @@
 
 import logging
 from dataclasses import dataclass
-from typing import Optional
 
 from .models import ValidationResult
 
@@ -20,12 +19,12 @@ class ValidationReport:
     z_factor_failed: int
     fugacity_passed: int
     fugacity_failed: int
-    min_z_deviation: Optional[float]
-    max_z_deviation: Optional[float]
-    avg_z_deviation: Optional[float]
-    min_fugacity_deviation: Optional[float]
-    max_fugacity_deviation: Optional[float]
-    avg_fugacity_deviation: Optional[float]
+    min_z_deviation: float | None
+    max_z_deviation: float | None
+    avg_z_deviation: float | None
+    min_fugacity_deviation: float | None
+    max_fugacity_deviation: float | None
+    avg_fugacity_deviation: float | None
 
     @property
     def overall_pass_rate(self) -> float:
@@ -142,13 +141,13 @@ class ValidationReporter:
             "NIST VALIDATION REPORT",
             "=" * 70,
             "",
-            f"Overall Results",
+            "Overall Results",
             f"  Total Tests:      {report.total_tests}",
             f"  Passed:           {report.passed_tests}",
             f"  Failed:           {report.failed_tests}",
             f"  Pass Rate:        {report.overall_pass_rate:.1f}%",
             "",
-            f"Z Factor Validation",
+            "Z Factor Validation",
             f"  Passed:           {report.z_factor_passed}",
             f"  Failed:           {report.z_factor_failed}",
             f"  Pass Rate:        {report.z_factor_pass_rate:.1f}%",
@@ -163,7 +162,7 @@ class ValidationReporter:
 
         lines.extend([
             "",
-            f"Fugacity Validation",
+            "Fugacity Validation",
             f"  Passed:           {report.fugacity_passed}",
             f"  Failed:           {report.fugacity_failed}",
             f"  Pass Rate:        {report.fugacity_pass_rate:.1f}%",

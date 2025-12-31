@@ -10,13 +10,12 @@ import json
 import logging
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 from src.compounds.database import CompoundDatabase
 from src.eos.models import Mixture
 from src.eos.peng_robinson import PengRobinsonEOS
 from src.validation.validator import NISTValidation
-
 
 # Configure logging
 logging.basicConfig(
@@ -31,7 +30,7 @@ class CLIFormatter:
     """Formats output for CLI commands."""
 
     @staticmethod
-    def format_quantity(value: float, unit: str) -> Dict[str, Any]:
+    def format_quantity(value: float, unit: str) -> dict[str, Any]:
         """Format a quantity with its unit."""
         return {"value": round(value, 6), "unit": unit}
 
@@ -533,7 +532,7 @@ def handle_mixture(args: argparse.Namespace) -> int:
             print(f"\nTemperature: {args.temperature:.2f} K")
             print(f"Pressure: {args.pressure:.2f} bar")
             print(f"Phase: {state.phase.value}")
-            print(f"\nMixture Properties:")
+            print("\nMixture Properties:")
             print(f"  Z factor: {z_factor:.6g}")
 
         return 0
@@ -607,7 +606,7 @@ def handle_validate(args: argparse.Namespace) -> int:
                     print(f"  Z factor: {z_passed} / {z_total} tests passed ({z_rate:.1f}%)")
                 except Exception:
                     print(f"\nCompound: {compound_name}")
-                    print(f"  Z factor: 0 / 0 tests passed (0.0%)")
+                    print("  Z factor: 0 / 0 tests passed (0.0%)")
 
             overall_rate = (
                 (total_passed / total_tests * 100) if total_tests > 0 else 0
@@ -666,7 +665,7 @@ def handle_list_compounds(args: argparse.Namespace) -> int:
         return 2
 
 
-def main(argv: Optional[list] = None) -> int:
+def main(argv: list | None = None) -> int:
     """Main entry point for the CLI."""
     parser = create_parser()
 

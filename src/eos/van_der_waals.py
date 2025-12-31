@@ -1,12 +1,10 @@
 """Van der Waals equation of state implementation."""
 
 import logging
-import math
-from typing import Optional
 
 from ..compounds.models import Compound
 from .cubic_solver import solve_cubic
-from .models import Mixture, PhaseType, ThermodynamicState
+from .models import PhaseType, ThermodynamicState
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +28,7 @@ class VanDerWaalsEOS:
         logger.debug("Initializing VanDerWaalsEOS")
 
     @staticmethod
-    def calculate_a(tc: float, pc: float, temperature: Optional[float] = None) -> float:
+    def calculate_a(tc: float, pc: float, temperature: float | None = None) -> float:
         """Calculate the 'a' parameter in Van der Waals EOS.
 
         Parameters

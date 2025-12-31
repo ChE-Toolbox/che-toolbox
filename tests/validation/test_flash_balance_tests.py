@@ -6,10 +6,12 @@ equilibrium convergence.
 """
 
 import csv
+from pathlib import Path
+
 import numpy as np
 import pytest
-from pathlib import Path
-from src.eos.flash_pt import FlashPT, FlashConvergence
+
+from src.eos.flash_pt import FlashConvergence, FlashPT
 
 
 @pytest.fixture
@@ -24,14 +26,14 @@ def flash_reference_data():
     csv_path = Path(__file__).parent / "reference_data" / "flash_nist.csv"
 
     data = []
-    with open(csv_path, 'r') as f:
+    with open(csv_path) as f:
         reader = csv.DictReader(f, skipinitialspace=True)
         for row in reader:
             # Skip comment lines
             if row.get('# PT Flash NIST Reference Data', '').startswith('#'):
                 continue
             # Parse data
-            if 'comp1' in row and row['comp1']:
+            if row.get('comp1'):
                 try:
                     data.append({
                         'comp1': row['comp1'].strip(),

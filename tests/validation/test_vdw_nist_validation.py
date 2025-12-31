@@ -5,10 +5,12 @@ with ±2% tolerance (standard for cubic EOS).
 """
 
 import csv
-import pytest
 from pathlib import Path
-from src.eos.van_der_waals import VanDerWaalsEOS
+
+import pytest
+
 from src.compounds.models import Compound
+from src.eos.van_der_waals import VanDerWaalsEOS
 
 
 @pytest.fixture
@@ -23,14 +25,14 @@ def nist_reference_data():
     csv_path = Path(__file__).parent / "reference_data" / "vdw_nist.csv"
 
     data = []
-    with open(csv_path, 'r') as f:
+    with open(csv_path) as f:
         reader = csv.DictReader(f, skipinitialspace=True)
         for row in reader:
             # Skip comment lines
             if row.get('# Van der Waals NIST Reference Data', '').startswith('#'):
                 continue
             # Parse data
-            if 'compound' in row and row['compound']:
+            if row.get('compound'):
                 try:
                     data.append({
                         'compound': row['compound'].strip(),

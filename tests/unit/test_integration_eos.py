@@ -1,10 +1,11 @@
 """Integration tests comparing multiple EOS models."""
 
 import pytest
+
 from src.compounds.models import Compound
 from src.eos.ideal_gas import IdealGasEOS
-from src.eos.van_der_waals import VanDerWaalsEOS
 from src.eos.peng_robinson import PengRobinsonEOS
+from src.eos.van_der_waals import VanDerWaalsEOS
 
 
 @pytest.fixture
@@ -240,7 +241,7 @@ class TestEOSConsistency:
         z = ideal_gas.calculate_Z(P, T, v_m)
 
         assert z == 1.0
-        assert z is not 1  # Ensure it's a value of 1.0
+        assert z != 1  # Ensure it's a value of 1.0
         assert type(z) == float
 
     def test_temperature_effect_on_z_factor(self, vdw, methane):

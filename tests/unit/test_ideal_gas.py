@@ -1,9 +1,10 @@
 """Unit tests for Ideal Gas Law implementation."""
 
 import pytest
+
 from src.compounds.models import Compound
-from src.eos.models import PhaseType
 from src.eos.ideal_gas import IdealGasEOS
+from src.eos.models import PhaseType
 
 
 @pytest.fixture
@@ -53,7 +54,7 @@ class TestIdealGasVolumeCalculation:
         """
         V = ideal_gas.calculate_volume(n=1.0, temperature=273.15, pressure=101325)
         # Should be approximately 0.022414 m^3/mol at STP
-        assert V == pytest.approx(0.022414, rel=1e-3)
+        assert pytest.approx(0.022414, rel=1e-3) == V
 
     def test_calculate_volume_room_conditions(self, ideal_gas):
         """Test volume at room conditions (25°C, 1 atm).
@@ -62,25 +63,25 @@ class TestIdealGasVolumeCalculation:
         V = 1*8.314462618*298.15/101325 ≈ 0.024465 m³
         """
         V = ideal_gas.calculate_volume(n=1.0, temperature=298.15, pressure=101325)
-        assert V == pytest.approx(0.024465, rel=1e-3)
+        assert pytest.approx(0.024465, rel=1e-3) == V
 
     def test_calculate_volume_scales_with_moles(self, ideal_gas):
         """Test volume scales linearly with number of moles."""
         V1 = ideal_gas.calculate_volume(n=1.0, temperature=300, pressure=1e5)
         V2 = ideal_gas.calculate_volume(n=2.0, temperature=300, pressure=1e5)
-        assert V2 == pytest.approx(2 * V1, rel=1e-10)
+        assert pytest.approx(2 * V1, rel=1e-10) == V2
 
     def test_calculate_volume_scales_with_temperature(self, ideal_gas):
         """Test volume scales linearly with temperature (V ∝ T at constant P)."""
         V1 = ideal_gas.calculate_volume(n=1.0, temperature=300, pressure=1e5)
         V2 = ideal_gas.calculate_volume(n=1.0, temperature=600, pressure=1e5)
-        assert V2 == pytest.approx(2 * V1, rel=1e-10)
+        assert pytest.approx(2 * V1, rel=1e-10) == V2
 
     def test_calculate_volume_inverse_with_pressure(self, ideal_gas):
         """Test volume is inversely proportional to pressure (V ∝ 1/P at constant T)."""
         V1 = ideal_gas.calculate_volume(n=1.0, temperature=300, pressure=1e5)
         V2 = ideal_gas.calculate_volume(n=1.0, temperature=300, pressure=2e5)
-        assert V2 == pytest.approx(V1 / 2, rel=1e-10)
+        assert pytest.approx(V1 / 2, rel=1e-10) == V2
 
     def test_calculate_volume_invalid_temperature(self, ideal_gas):
         """Test calculate_volume raises on non-positive temperature."""
@@ -154,7 +155,7 @@ class TestCompressibilityFactor:
     def test_calculate_z_exact_value(self, ideal_gas):
         """Test Z is exactly 1.0 (not approximate)."""
         Z = ideal_gas.calculate_Z(pressure=2.5e5, temperature=375, v_molar=1.234e-4)
-        assert Z is 1.0 or Z == 1.0  # Exact equality
+        assert Z == 1.0 or Z == 1.0  # Exact equality
         assert isinstance(Z, float)
 
 
@@ -220,7 +221,7 @@ class TestGasConstant:
 
     def test_gas_constant_value(self, ideal_gas):
         """Test gas constant R is correct."""
-        assert ideal_gas.R == pytest.approx(8.314462618, rel=1e-10)
+        assert pytest.approx(8.314462618, rel=1e-10) == ideal_gas.R
 
     def test_gas_constant_type(self, ideal_gas):
         """Test gas constant is a float."""

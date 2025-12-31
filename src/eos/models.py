@@ -1,7 +1,7 @@
 """Core data models for thermodynamic calculations."""
 
 from enum import Enum
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -85,10 +85,10 @@ class ThermodynamicState(BaseModel):
     composition: str | list[float] = Field(
         ..., description="Pure compound name or mole fractions for mixture"
     )
-    phase: Optional[PhaseType] = Field(None, description="Identified phase")
-    z_factor: Optional[float] = Field(None, description="Compressibility factor")
-    fugacity_coefficient: Optional[float] = Field(None, description="Fugacity coefficient")
-    fugacity: Optional[float] = Field(None, description="Fugacity in Pa")
+    phase: PhaseType | None = Field(None, description="Identified phase")
+    z_factor: float | None = Field(None, description="Compressibility factor")
+    fugacity_coefficient: float | None = Field(None, description="Fugacity coefficient")
+    fugacity: float | None = Field(None, description="Fugacity in Pa")
 
 
 class BinaryInteractionParameter(BaseModel):
