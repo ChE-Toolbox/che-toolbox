@@ -183,8 +183,3 @@ class LMTDResult(BaseCalculationResult):
                 f"Correction factor {v} must be in range [0, 1]"
             )
         return v
-
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders = {}

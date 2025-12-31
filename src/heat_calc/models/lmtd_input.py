@@ -49,11 +49,6 @@ class FluidState(BaseModel):
         json_schema_extra={"unit": "J/(kg·K)", "example": 4180.0},
     )
 
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders = {}
-
 
 class HeatExchangerConfiguration(BaseModel):
     """Heat exchanger geometry and flow configuration.
@@ -117,11 +112,6 @@ class HeatExchangerConfiguration(BaseModel):
         gt=0,
         json_schema_extra={"unit": "W/(m^2·K)", "example": 500.0},
     )
-
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders = {}
 
 
 class LMTDInput(BaseCalculationInput):
@@ -201,8 +191,3 @@ class LMTDInput(BaseCalculationInput):
         gt=0,
         json_schema_extra={"unit": "W/K", "example": 50000.0},
     )
-
-    class Config:
-        """Pydantic configuration."""
-
-        json_encoders = {}

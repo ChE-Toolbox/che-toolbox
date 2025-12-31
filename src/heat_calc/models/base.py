@@ -20,11 +20,6 @@ class BaseCalculationInput(BaseModel):
         json_schema_extra={"description": "Heat exchanger calculation input"},
     )
 
-    class Config:
-        """Pydantic v2 configuration."""
-
-        json_encoders: Dict[Any, Any] = {}
-
 
 class BaseCalculationResult(BaseModel):
     """Base class for all calculation result models.
