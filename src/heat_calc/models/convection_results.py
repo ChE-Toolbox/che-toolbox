@@ -115,7 +115,7 @@ class ConvectionResult(BaseCalculationResult):
     applicable_range: dict[str, tuple[float, float]] = Field(
         ...,
         description="Parameter validity ranges {parameter_name: (min, max)}",
-        json_schema_extra={"example": {"Re": (2300, 1000000), "Pr": (0.7, 160)}},
+        json_schema_extra={"example": {"Re": (2300.0, 1000000.0), "Pr": (0.7, 160.0)}},
     )
 
     geometry_type: str = Field(

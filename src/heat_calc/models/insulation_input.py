@@ -6,7 +6,7 @@ thermal conditions, material properties, and economic parameters.
 
 from typing import Literal
 
-from pydantic import Field, field_validator
+from pydantic import Field, ValidationInfo, field_validator
 
 from heat_calc.models.base import BaseCalculationInput
 
@@ -227,7 +227,7 @@ class InsulationInput(BaseCalculationInput):
 
     @field_validator("insulation_thickness_max")
     @classmethod
-    def validate_thickness_range(cls, v: float, info) -> float:
+    def validate_thickness_range(cls, v: float, info: ValidationInfo) -> float:
         """Ensure max thickness is greater than min thickness."""
         if "insulation_thickness_min" in info.data:
             min_thickness = info.data["insulation_thickness_min"]
@@ -240,7 +240,7 @@ class InsulationInput(BaseCalculationInput):
 
     @field_validator("T_surface_uninsulated")
     @classmethod
-    def validate_surface_temp(cls, v: float, info) -> float:
+    def validate_surface_temp(cls, v: float, info: ValidationInfo) -> float:
         """Ensure surface temperature is physically reasonable."""
         if "T_ambient" in info.data:
             T_amb = info.data["T_ambient"]
@@ -253,7 +253,7 @@ class InsulationInput(BaseCalculationInput):
 
     @field_validator("surface_temp_limit")
     @classmethod
-    def validate_temp_limit(cls, v: float | None, info) -> float | None:
+    def validate_temp_limit(cls, v: float | None, info: ValidationInfo) -> float | None:
         """Ensure temperature limit is between ambient and uninsulated surface temp."""
         if v is not None:
             if "T_ambient" in info.data and v <= info.data["T_ambient"]:

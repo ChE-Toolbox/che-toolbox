@@ -15,6 +15,7 @@ References
 """
 
 import math
+from typing import TypeAlias
 
 from heat_calc.models.convection_input import (
     CylinderCrossflowConvection,
@@ -25,7 +26,7 @@ from heat_calc.models.convection_input import (
 from heat_calc.models.convection_results import ConvectionResult
 
 # Type alias for any convection input
-ConvectionInput = (
+ConvectionInput: TypeAlias = (
     FlatPlateConvection
     | PipeFlowConvection
     | CylinderCrossflowConvection
@@ -127,7 +128,7 @@ def _calculate_flat_plate(input_data: FlatPlateConvection) -> ConvectionResult:
         correlation = "Blasius laminar flat plate"
         applicable_range = {
             "Re": (1e3, 5e5),
-            "Pr": (0.6, 50),
+            "Pr": (0.6, 50.0),
         }
     else:
         # Turbulent flow
@@ -136,7 +137,7 @@ def _calculate_flat_plate(input_data: FlatPlateConvection) -> ConvectionResult:
         correlation = "Turbulent flat plate (0.037 Re^0.8)"
         applicable_range = {
             "Re": (5e5, 1e8),
-            "Pr": (0.6, 60),
+            "Pr": (0.6, 60.0),
         }
 
     # Calculate heat transfer coefficient
@@ -211,8 +212,8 @@ def _calculate_pipe_flow(input_data: PipeFlowConvection) -> ConvectionResult:
         flow_regime = "laminar"
         correlation = "Fully developed laminar pipe flow"
         applicable_range = {
-            "Re": (0, 2300),
-            "Pr": (0.1, 1000),
+            "Re": (0.0, 2300.0),
+            "Pr": (0.1, 1000.0),
         }
     elif Re >= 10000:
         # Turbulent flow - use Gnielinski correlation
@@ -228,8 +229,8 @@ def _calculate_pipe_flow(input_data: PipeFlowConvection) -> ConvectionResult:
 
         flow_regime = "turbulent"
         applicable_range = {
-            "Re": (10000, 5e6),
-            "Pr": (0.5, 2000),
+            "Re": (10000.0, 5e6),
+            "Pr": (0.5, 2000.0),
         }
     else:
         # Transitional regime (2300 <= Re < 10000)
@@ -240,8 +241,8 @@ def _calculate_pipe_flow(input_data: PipeFlowConvection) -> ConvectionResult:
         flow_regime = "transitional"
         correlation = "Transitional (interpolated)"
         applicable_range = {
-            "Re": (2300, 10000),
-            "Pr": (0.5, 100),
+            "Re": (2300.0, 10000.0),
+            "Pr": (0.5, 100.0),
         }
 
     # Calculate heat transfer coefficient
@@ -424,7 +425,7 @@ def _calculate_natural_convection(input_data: VerticalPlateNaturalConvection) ->
         correlation = "Churchill-Chu (laminar)"
         applicable_range = {
             "Ra": (1e4, 1e9),
-            "Pr": (0.1, 1000),
+            "Pr": (0.1, 1000.0),
         }
     else:
         # Turbulent natural convection
@@ -433,7 +434,7 @@ def _calculate_natural_convection(input_data: VerticalPlateNaturalConvection) ->
         correlation = "Churchill-Chu (turbulent)"
         applicable_range = {
             "Ra": (1e9, 1e13),
-            "Pr": (0.1, 1000),
+            "Pr": (0.1, 1000.0),
         }
 
     # Calculate heat transfer coefficient

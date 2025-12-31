@@ -12,6 +12,7 @@ References:
 """
 
 import math
+from typing import cast
 
 from scipy.optimize import minimize_scalar
 
@@ -558,7 +559,7 @@ def _optimize_economic_thickness(input_data: InsulationInput, _q_uninsulated: fl
         method="bounded",
     )
 
-    return result.x
+    return cast(float, result.x)
 
 
 def _optimize_temperature_constrained(input_data: InsulationInput) -> float:
@@ -597,4 +598,4 @@ def _optimize_temperature_constrained(input_data: InsulationInput) -> float:
         method="bounded",
     )
 
-    return result.x
+    return cast(float, result.x)

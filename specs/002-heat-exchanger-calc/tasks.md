@@ -19,12 +19,14 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 ## Implementation Strategy
 
 **MVP Scope**: User Story 1 (LMTD Method)
+
 - Completes all setup, foundational, and US1 tasks
 - Provides functional library + CLI for LMTD calculations
 - Full validation tests against Incropera reference data
 - Deliverable in ~40 tasks; estimated 20-25 hours effort
 
 **Phase 2 (P2 Stories)**: Add US2, US3, US4 sequentially
+
 - Each adds ~20 tasks and 5-6 hours effort
 - Can be delivered independently after US1
 
@@ -38,7 +40,7 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 - [x] T002 [P] Create `pyproject.toml` with dependencies (NumPy, SciPy, Pint, Pydantic, pytest, click, mypy)
 - [x] T003 [P] Create `setup.py` for development install support
 - [x] T004 [P] Create `tox.ini` for test environment management
-- [x] T005 [P] Create `.gitignore` with Python patterns (__pycache__, *.pyc, .venv, dist, build, *.egg-info, .pytest_cache)
+- [x] T005 [P] Create `.gitignore` with Python patterns (**pycache**, *.pyc, .venv, dist, build,*.egg-info, .pytest_cache)
 - [x] T006 [P] Create `MANIFEST.in` to include data files in distribution
 
 ### Package Initialization
@@ -93,12 +95,14 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 **Goal**: Calculate heat transfer rate using Log Mean Temperature Difference method for counterflow, parallel, and crossflow configurations.
 
 **Independent Test Criteria**:
+
 - Can calculate LMTD for all 3 configurations
 - Results match Incropera reference values within 1%
 - Energy balance error < 1%
 - Edge cases (near-zero LMTD) handled without overflow
 
 **Files to Create/Modify**:
+
 - `src/heat_calc/models/lmtd_input.py` → Input models
 - `src/heat_calc/models/lmtd_results.py` → Result models
 - `src/heat_calc/lmtd.py` → Core calculation function
@@ -165,12 +169,14 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 **Goal**: Calculate heat exchanger effectiveness and outlet temperatures using Number of Transfer Units method.
 
 **Independent Test Criteria**:
+
 - Can calculate NTU for all 4 configurations
 - Effectiveness bounded to [0, 1]
 - Outlet temperatures satisfy energy balance within 2%
 - Results match published NTU correlations
 
 **Files to Create/Modify**:
+
 - `src/heat_calc/models/ntu_input.py` → Input models
 - `src/heat_calc/models/ntu_results.py` → Result models
 - `src/heat_calc/ntu.py` → Core calculation function
@@ -236,6 +242,7 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 **Goal**: Calculate convection heat transfer coefficients for various geometries and flow regimes.
 
 **Independent Test Criteria**:
+
 - Can calculate h for all 4 geometry types
 - Coefficients match published correlations within 5%
 - Dimensionless numbers (Re, Pr, Nu, Gr, Ra) computed correctly
@@ -264,6 +271,7 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 **Goal**: Calculate economic insulation thickness for cylindrical pipes.
 
 **Independent Test Criteria**:
+
 - Can calculate optimal thickness
 - Payback period computed correctly
 - Heat loss reduction quantified accurately
@@ -289,9 +297,8 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 ### Type Coverage & Linting
 
 - [ ] T110 Run mypy on entire codebase: `mypy src/ tests/ --strict` (0 errors required)
-- [ ] T111 [P] Run flake8: `flake8 src/ tests/` (0 errors)
-- [ ] T112 [P] Run black formatting check: `black --check src/ tests/` (all formatted)
-- [ ] T113 Run isort import ordering: `isort --check src/ tests/`
+- [X] T111 Run ruff
+- [X] T112 Run ruff formatting
 
 ### Test Coverage
 
@@ -330,7 +337,8 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 
 ## Execution Order & Dependencies
 
-### Critical Path (MVP - US1 only):
+### Critical Path (MVP - US1 only)
+
 1. **Phase 1 (Setup)**: T001-T016 (must complete before any implementation)
 2. **Phase 2 (Foundational)**: T017-T029 (must complete before US1)
 3. **Phase 3 (US1)**: T030-T061 (independent, can start after Phase 2)
@@ -339,14 +347,16 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 **MVP Completion Time**: ~25 hours, 61 tasks
 **Critical Path Length**: ~7-8 hours (parallelizable sections can run concurrently)
 
-### Phase 2 Additions (US2, US3, US4):
+### Phase 2 Additions (US2, US3, US4)
+
 - **Phase 4 (US2)**: T062-T092 (depends on Phase 1+2, can start after US1 if US1 passing)
 - **Phase 5 (US3)**: T093-T101 (can start after Phase 1+2)
 - **Phase 6 (US4)**: T102-T109 (can start after Phase 1+2)
 
 **Full Feature Completion**: ~130 tasks total, ~45-50 hours
 
-### Parallel Execution Groups:
+### Parallel Execution Groups
+
 - **T002-T006** (dependencies setup): Can run in parallel
 - **T008-T010** (package init): Can run in parallel after T007
 - **T035-T039** (LMTD configurations): Can run in parallel
@@ -358,18 +368,21 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 ## Success Criteria
 
 ### Phase 1 (Setup) - Must Pass
+
 - [ ] All directories created
 - [ ] `pyproject.toml` correctly specifies all dependencies
 - [ ] Package structure allows `import heat_calc`
 - [ ] All ignore files in place
 
 ### Phase 2 (Foundational) - Must Pass
+
 - [ ] Base models validate Pint Quantities correctly
 - [ ] Validation JSON loads without errors
 - [ ] CLI infrastructure accepts input files and produces output
 - [ ] mypy runs without errors on foundational code
 
 ### Phase 3 (US1) - MVP Success Criteria
+
 - **Functionality**: `calculate_lmtd()` computes correct values for all 3 configurations
 - **Accuracy**: ≥ 85% of Incropera reference cases pass (within 1% tolerance)
 - **Stability**: Edge cases handled gracefully (no crashes, warnings issued)
@@ -380,11 +393,13 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 - **Documentation**: Quickstart example works end-to-end
 
 ### Phase 4-6 (US2, US3, US4) - Similar Criteria
+
 - Each story independently passes its acceptance scenarios
 - All validation tests from reference literature pass
 - Combined coverage across all modules ≥ 80%
 
 ### Phase 7 (Polish) - Final Validation
+
 - Full test suite passes (unit + validation)
 - mypy --strict on entire codebase: 0 errors
 - Code formatting: black, isort, flake8 all pass
@@ -425,4 +440,3 @@ Each user story is independently testable and deliverable. Tasks marked `[P]` ca
 7. **Properties Module**: Heat calculations depend on `001-data-foundations` properties abstraction. Prepare stub that accepts `FluidProperties` directly (constant properties), allowing future integration with CoolProp via properties module.
 
 8. **Documentation**: See `quickstart.md` for usage examples. Docstrings use NumPy format. Include validation source (textbook page, NIST ID) in result objects and test comments.
-

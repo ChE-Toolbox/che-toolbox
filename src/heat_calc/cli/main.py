@@ -532,11 +532,13 @@ def calculate_insulation(
             else:
                 click.echo(table_output)
         else:
-            output_text = None
             if format == "json":
                 output_text = json.dumps(output_data, indent=2, default=str)
             elif format == "yaml":
                 output_text = yaml.dump(output_data, default_flow_style=False, sort_keys=False)
+            else:
+                msg = f"Unknown format: {format}"
+                raise ValueError(msg)
 
             if output:
                 Path(output).write_text(output_text)
