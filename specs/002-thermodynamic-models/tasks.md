@@ -3,7 +3,7 @@
 **Feature**: Thermodynamic Extension (002-thermodynamic-models)
 **Branch**: `002-thermodynamic-models`
 **Date**: 2025-12-30
-**Status**: Phase 2 - Task Generation
+**Status**: Phase 6 - COMPLETE (All 122 tasks 100% complete, Production Ready)
 
 ---
 
@@ -62,26 +62,26 @@ Components:
 
 ## 1.1 Project Structure & Dependencies
 
-- [ ] T001 Verify Python 3.11+ environment and dependencies in src/eos/
-- [ ] T002 [P] Create src/eos/__init__.py exports: VanDerWaalsEOS, IdealGasEOS, FlashPT
-- [ ] T003 [P] Create tests/unit/__init__.py (test package initialization)
-- [ ] T004 [P] Create tests/validation/__init__.py (validation test package)
-- [ ] T005 Create tests/validation/reference_data/ directory for NIST test data
-- [ ] T006 Review existing src/eos/models.py for base classes (ThermodynamicState, Mixture, PhaseType)
-- [ ] T007 Review existing src/eos/cubic_solver.py for reusability with Van der Waals
+- [x] T001 Verify Python 3.11+ environment and dependencies in src/eos/
+- [x] T002 [P] Create src/eos/__init__.py exports: VanDerWaalsEOS, IdealGasEOS, FlashPT
+- [x] T003 [P] Create tests/unit/__init__.py (test package initialization)
+- [x] T004 [P] Create tests/validation/__init__.py (validation test package)
+- [x] T005 Create tests/validation/reference_data/ directory for NIST test data
+- [x] T006 Review existing src/eos/models.py for base classes (ThermodynamicState, Mixture, PhaseType)
+- [x] T007 Review existing src/eos/cubic_solver.py for reusability with Van der Waals
 
 ## 1.2 Test Infrastructure
 
-- [ ] T008 [P] Verify pytest configuration (pytest.ini or pyproject.toml)
-- [ ] T009 [P] Verify mypy --strict configuration (mypy.ini or pyproject.toml)
-- [ ] T010 [P] Add validation test markers in conftest.py if needed (pytest.mark.validation)
-- [ ] T011 Create tests/conftest.py with pytest fixtures: CompoundDatabase, pytest.approx for NIST comparisons
+- [x] T008 [P] Verify pytest configuration (pytest.ini or pyproject.toml)
+- [x] T009 [P] Verify mypy --strict configuration (mypy.ini or pyproject.toml)
+- [x] T010 [P] Add validation test markers in conftest.py if needed (pytest.mark.validation)
+- [x] T011 Create tests/conftest.py with pytest fixtures: CompoundDatabase, pytest.approx for NIST comparisons
 
 ## 1.3 Documentation Setup
 
-- [ ] T012 [P] Create NIST reference data CSV: tests/validation/reference_data/vdw_nist.csv
-- [ ] T013 [P] Create NIST reference data CSV: tests/validation/reference_data/flash_nist.csv
-- [ ] T014 Document test scenarios in specs/002-thermodynamic-models/test-scenarios.md
+- [x] T012 [P] Create NIST reference data CSV: tests/validation/reference_data/vdw_nist.csv
+- [x] T013 [P] Create NIST reference data CSV: tests/validation/reference_data/flash_nist.csv
+- [x] T014 Document test scenarios in specs/002-thermodynamic-models/test-scenarios.md
 
 ---
 
@@ -91,23 +91,23 @@ Components:
 
 ## 2.1 Data Models & Extensions
 
-- [ ] T015 [P] Extend src/eos/models.py with VanDerWaalsState dataclass (if not present)
-- [ ] T016 [P] Extend src/eos/models.py with IdealGasState dataclass (if not present)
-- [ ] T017 [P] Create src/eos/flash_pt.py and define FlashResult dataclass and FlashConvergence enum
-- [ ] T018 Verify Mixture dataclass in src/eos/models.py supports composition z and optional kij
+- [x] T015 [P] Extend src/eos/models.py with VanDerWaalsState dataclass (if not present)
+- [x] T016 [P] Extend src/eos/models.py with IdealGasState dataclass (if not present)
+- [x] T017 [P] Create src/eos/flash_pt.py and define FlashResult dataclass and FlashConvergence enum
+- [x] T018 Verify Mixture dataclass in src/eos/models.py supports composition z and optional kij
 
 ## 2.2 Shared Validation & Utilities
 
-- [ ] T019 [P] Create validation function in src/eos/exceptions.py: validate_temperature(T) → raises ValueError if T <= 0
-- [ ] T020 [P] Create validation function in src/eos/exceptions.py: validate_pressure(P) → raises ValueError if P < 0
-- [ ] T021 [P] Create validation function in src/eos/exceptions.py: validate_composition(z) → raises ValueError if sum(z) != 1.0
-- [ ] T022 Add logging configuration in src/eos/__init__.py (reuse from peng_robinson pattern)
+- [x] T019 [P] Create validation function in src/eos/exceptions.py: validate_temperature(T) → raises ValueError if T <= 0
+- [x] T020 [P] Create validation function in src/eos/exceptions.py: validate_pressure(P) → raises ValueError if P < 0
+- [x] T021 [P] Create validation function in src/eos/exceptions.py: validate_composition(z) → raises ValueError if sum(z) != 1.0
+- [x] T022 Add logging configuration in src/eos/__init__.py (reuse from peng_robinson pattern)
 
 ## 2.3 Integration Verification
 
-- [ ] T023 Verify src/eos/cubic_solver.py works with arbitrary (a, b) parameters (testing with dummy values)
-- [ ] T024 Document cubic solver root selection logic in src/eos/cubic_solver.py (comment: "takes root closest to Z=1")
-- [ ] T025 Create src/eos/wilson_correlation.py for initial K-values in flash (or verify existing function)
+- [x] T023 Verify src/eos/cubic_solver.py works with arbitrary (a, b) parameters (testing with dummy values)
+- [x] T024 Document cubic solver root selection logic in src/eos/cubic_solver.py (comment: "takes root closest to Z=1")
+- [x] T025 Create src/eos/wilson_correlation.py for initial K-values in flash (or verify existing function)
 
 ---
 
@@ -124,37 +124,37 @@ Components:
 
 ## 3.1 Core Van der Waals Implementation
 
-- [ ] T026 [P] [US1] Create src/eos/van_der_waals.py module header with docstring, imports, logging
-- [ ] T027 [US1] Create VanDerWaalsEOS class in src/eos/van_der_waals.py with R constant (8.314462618)
-- [ ] T028 [P] [US1] Implement calculate_a() static method: a = 27*R²*Tc²/(64*Pc) with input validation
-- [ ] T029 [P] [US1] Implement calculate_b() static method: b = R*Tc/(8*Pc) with input validation
-- [ ] T030 [US1] Implement calculate_volume() method: solve cubic (P + a/V²)(V - b) = RT using cubic_solver.py
-- [ ] T031 [US1] Add __init__() method to VanDerWaalsEOS (logging initialization)
-- [ ] T032 [P] [US1] Add calculate_Z() method: Z = P*V/(n*R*T) for state validation
+- [x] T026 [P] [US1] Create src/eos/van_der_waals.py module header with docstring, imports, logging
+- [x] T027 [US1] Create VanDerWaalsEOS class in src/eos/van_der_waals.py with R constant (8.314462618)
+- [x] T028 [P] [US1] Implement calculate_a() static method: a = 27*R²*Tc²/(64*Pc) with input validation
+- [x] T029 [P] [US1] Implement calculate_b() static method: b = R*Tc/(8*Pc) with input validation
+- [x] T030 [US1] Implement calculate_volume() method: solve cubic (P + a/V²)(V - b) = RT using cubic_solver.py
+- [x] T031 [US1] Add __init__() method to VanDerWaalsEOS (logging initialization)
+- [x] T032 [P] [US1] Add calculate_Z() method: Z = P*V/(n*R*T) for state validation
 
 ## 3.2 Van der Waals Unit Tests
 
-- [ ] T033 [P] [US1] Create tests/unit/test_van_der_waals.py with test fixtures (methane, ethane, propane compounds)
-- [ ] T034 [US1] Test calculate_a(): positive output, raises on invalid Tc/Pc in tests/unit/test_van_der_waals.py
-- [ ] T035 [P] [US1] Test calculate_b(): positive output, raises on invalid Tc/Pc in tests/unit/test_van_der_waals.py
-- [ ] T036 [US1] Test calculate_volume(): positive molar volume, raises on T ≤ 0 or P < 0 in tests/unit/test_van_der_waals.py
-- [ ] T037 [P] [US1] Test calculate_Z(): Z in expected range [0.1, 1.5], raises on invalid inputs in tests/unit/test_van_der_waals.py
-- [ ] T038 [US1] Test input validation: temperature bounds, pressure bounds, critical property bounds in tests/unit/test_van_der_waals.py
+- [x] T033 [P] [US1] Create tests/unit/test_van_der_waals.py with test fixtures (methane, ethane, propane compounds)
+- [x] T034 [US1] Test calculate_a(): positive output, raises on invalid Tc/Pc in tests/unit/test_van_der_waals.py
+- [x] T035 [P] [US1] Test calculate_b(): positive output, raises on invalid Tc/Pc in tests/unit/test_van_der_waals.py
+- [x] T036 [US1] Test calculate_volume(): positive molar volume, raises on T ≤ 0 or P < 0 in tests/unit/test_van_der_waals.py
+- [x] T037 [P] [US1] Test calculate_Z(): Z in expected range [0.1, 1.5], raises on invalid inputs in tests/unit/test_van_der_waals.py
+- [x] T038 [US1] Test input validation: temperature bounds, pressure bounds, critical property bounds in tests/unit/test_van_der_waals.py
 
 ## 3.3 Van der Waals NIST Validation
 
-- [ ] T039 [P] [US1] Create tests/validation/vdw_nist_validation.py with NIST test data loader
-- [ ] T040 [US1] Add test_vdw_methane_literature() in tests/validation/vdw_nist_validation.py (CH4 @ 300K, 50MPa, Z ≈ 0.864)
-- [ ] T041 [P] [US1] Add test_vdw_ethane_literature() in tests/validation/vdw_nist_validation.py (C2H6 @ 350K, 20MPa)
-- [ ] T042 [US1] Add test_vdw_5compounds_nist() parametrized test in tests/validation/vdw_nist_validation.py (methane, ethane, propane, water, nitrogen)
-- [ ] T043 [US1] Verify all NIST validation tests pass with ±2% tolerance
+- [x] T039 [P] [US1] Create tests/validation/vdw_nist_validation.py with NIST test data loader
+- [x] T040 [US1] Add test_vdw_methane_literature() in tests/validation/vdw_nist_validation.py (CH4 @ 300K, 50MPa, Z ≈ 0.864)
+- [x] T041 [P] [US1] Add test_vdw_ethane_literature() in tests/validation/vdw_nist_validation.py (C2H6 @ 350K, 20MPa)
+- [x] T042 [US1] Add test_vdw_5compounds_nist() parametrized test in tests/validation/vdw_nist_validation.py (methane, ethane, propane, water, nitrogen)
+- [x] T043 [US1] Verify all NIST validation tests pass with ±2% tolerance
 
 ## 3.4 Van der Waals Integration
 
-- [ ] T044 [US1] Export VanDerWaalsEOS from src/eos/__init__.py
-- [ ] T045 [P] [US1] Add VanDerWaalsEOS to __all__ list in src/eos/__init__.py
-- [ ] T046 [US1] Verify mypy --strict passes for src/eos/van_der_waals.py (100% type coverage)
-- [ ] T047 [US1] Verify pytest tests/unit/test_van_der_waals.py + tests/validation/vdw_nist_validation.py all pass
+- [x] T044 [US1] Export VanDerWaalsEOS from src/eos/__init__.py
+- [x] T045 [P] [US1] Add VanDerWaalsEOS to __all__ list in src/eos/__init__.py
+- [x] T046 [US1] Verify mypy --strict passes for src/eos/van_der_waals.py (100% type coverage)
+- [x] T047 [US1] Verify pytest tests/unit/test_van_der_waals.py + tests/validation/vdw_nist_validation.py all pass
 
 ---
 
@@ -171,35 +171,35 @@ Components:
 
 ## 4.1 Core Ideal Gas Implementation
 
-- [ ] T048 [P] [US2] Create src/eos/ideal_gas.py module header with docstring, imports
-- [ ] T049 [US2] Create IdealGasEOS class in src/eos/ideal_gas.py with R constant (8.314462618)
-- [ ] T050 [P] [US2] Implement calculate_volume() static method: V = nRT/P with input validation (T > 0, P > 0)
-- [ ] T051 [P] [US2] Implement calculate_Z() static method: always returns 1.0 (by definition)
-- [ ] T052 [US2] Implement calculate_state() method: returns IdealGasState(T, P, n, z=1.0, phase=VAPOR)
-- [ ] T053 [US2] Add docstrings (NumPy style) for all IdealGasEOS methods
+- [x] T048 [P] [US2] Create src/eos/ideal_gas.py module header with docstring, imports
+- [x] T049 [US2] Create IdealGasEOS class in src/eos/ideal_gas.py with R constant (8.314462618)
+- [x] T050 [P] [US2] Implement calculate_volume() static method: V = nRT/P with input validation (T > 0, P > 0)
+- [x] T051 [P] [US2] Implement calculate_Z() static method: always returns 1.0 (by definition)
+- [x] T052 [US2] Implement calculate_state() method: returns IdealGasState(T, P, n, z=1.0, phase=VAPOR)
+- [x] T053 [US2] Add docstrings (NumPy style) for all IdealGasEOS methods
 
 ## 4.2 Ideal Gas Unit Tests
 
-- [ ] T054 [P] [US2] Create tests/unit/test_ideal_gas.py with test fixtures
-- [ ] T055 [US2] Test calculate_volume() at STP: V ≈ 0.02446 m³/mol in tests/unit/test_ideal_gas.py
-- [ ] T056 [P] [US2] Test calculate_volume(): raises ValueError if T ≤ 0 or P ≤ 0 in tests/unit/test_ideal_gas.py
-- [ ] T057 [US2] Test calculate_Z(): always exactly 1.0 in tests/unit/test_ideal_gas.py
-- [ ] T058 [P] [US2] Test calculate_state(): returns correct IdealGasState with phase=VAPOR in tests/unit/test_ideal_gas.py
+- [x] T054 [P] [US2] Create tests/unit/test_ideal_gas.py with test fixtures
+- [x] T055 [US2] Test calculate_volume() at STP: V ≈ 0.02446 m³/mol in tests/unit/test_ideal_gas.py
+- [x] T056 [P] [US2] Test calculate_volume(): raises ValueError if T ≤ 0 or P ≤ 0 in tests/unit/test_ideal_gas.py
+- [x] T057 [US2] Test calculate_Z(): always exactly 1.0 in tests/unit/test_ideal_gas.py
+- [x] T058 [P] [US2] Test calculate_state(): returns correct IdealGasState with phase=VAPOR in tests/unit/test_ideal_gas.py
 
 ## 4.3 Cross-Model Comparison
 
-- [ ] T059 [US2] Create tests/unit/test_integration.py with cross-EOS comparison fixtures
-- [ ] T060 [P] [US2] Implement compare_compressibility_factors() function in src/eos/__init__.py or utils module
-- [ ] T061 [US2] Function signature: compare_compressibility_factors(compound, T, P) → dict{ideal_Z, vdw_Z, pr_Z}
-- [ ] T062 [P] [US2] Test cross-model comparison: returns dict with all three Z-factors in tests/unit/test_integration.py
-- [ ] T063 [US2] Test Z-factor ordering: Z_ideal (1.0) ≥ Z_vdw, Z_pr for realistic conditions in tests/unit/test_integration.py
+- [x] T059 [US2] Create tests/unit/test_integration.py with cross-EOS comparison fixtures
+- [x] T060 [P] [US2] Implement compare_compressibility_factors() function in src/eos/__init__.py or utils module
+- [x] T061 [US2] Function signature: compare_compressibility_factors(compound, T, P) → dict{ideal_Z, vdw_Z, pr_Z}
+- [x] T062 [P] [US2] Test cross-model comparison: returns dict with all three Z-factors in tests/unit/test_integration.py
+- [x] T063 [US2] Test Z-factor ordering: Z_ideal (1.0) ≥ Z_vdw, Z_pr for realistic conditions in tests/unit/test_integration.py
 
 ## 4.4 Ideal Gas Integration
 
-- [ ] T064 [US2] Export IdealGasEOS from src/eos/__init__.py
-- [ ] T065 [P] [US2] Add IdealGasEOS to __all__ list in src/eos/__init__.py
-- [ ] T066 [US2] Verify mypy --strict passes for src/eos/ideal_gas.py
-- [ ] T067 [US2] Verify pytest tests/unit/test_ideal_gas.py + tests/unit/test_integration.py all pass
+- [x] T064 [US2] Export IdealGasEOS from src/eos/__init__.py
+- [x] T065 [P] [US2] Add IdealGasEOS to __all__ list in src/eos/__init__.py
+- [x] T066 [US2] Verify mypy --strict passes for src/eos/ideal_gas.py
+- [x] T067 [US2] Verify pytest tests/unit/test_ideal_gas.py + tests/unit/test_integration.py all pass
 
 ---
 
@@ -218,58 +218,58 @@ Components:
 
 ## 5.1 Core Flash Implementation
 
-- [ ] T068 [P] [US3] Create src/eos/flash_pt.py with FlashResult and FlashConvergence (already defined in models)
-- [ ] T069 [US3] Create FlashPT class in src/eos/flash_pt.py with __init__(self)
-- [ ] T070 [P] [US3] Implement single_phase_check() method: returns True if T > Tc or n_components == 1
-- [ ] T071 [US3] Implement single_phase_result() method: returns FlashResult with L=0/V=1 or L=1/V=0
-- [ ] T072 [P] [US3] Implement initialize_K_values() method: Wilson correlation or K_i = (P_sat_i / P)
-- [ ] T073 [US3] Implement rachford_rice_solve() method: Solve z_i = (K_i * x_i - y_i) / (1 + V*(K_i - 1))
-- [ ] T074 [P] [US3] Implement update_K_values() method: K_i = exp(ln(φ_i^v) - ln(φ_i^l)) using PR EOS
-- [ ] T075 [US3] Implement convergence_check() method: returns True if max(|f_i^v / f_i^l - 1|) < 1e-6
-- [ ] T076 [P] [US3] Implement material_balance_check() method: returns error = max(|z_i - (L*x_i + V*y_i)|)
-- [ ] T077 [US3] Implement calculate() method: orchestrates flash calculation with all steps (T078-T084)
+- [x] T068 [P] [US3] Create src/eos/flash_pt.py with FlashResult and FlashConvergence (already defined in models)
+- [x] T069 [US3] Create FlashPT class in src/eos/flash_pt.py with __init__(self)
+- [x] T070 [P] [US3] Implement single_phase_check() method: returns True if T > Tc or n_components == 1
+- [x] T071 [US3] Implement single_phase_result() method: returns FlashResult with L=0/V=1 or L=1/V=0
+- [x] T072 [P] [US3] Implement initialize_K_values() method: Wilson correlation or K_i = (P_sat_i / P)
+- [x] T073 [US3] Implement rachford_rice_solve() method: Solve z_i = (K_i * x_i - y_i) / (1 + V*(K_i - 1))
+- [x] T074 [P] [US3] Implement update_K_values() method: K_i = exp(ln(φ_i^v) - ln(φ_i^l)) using PR EOS
+- [x] T075 [US3] Implement convergence_check() method: returns True if max(|f_i^v / f_i^l - 1|) < 1e-6
+- [x] T076 [P] [US3] Implement material_balance_check() method: returns error = max(|z_i - (L*x_i - (L*x_i + V*y_i)|)
+- [x] T077 [US3] Implement calculate() method: orchestrates flash calculation with all steps (T078-T084)
 
 ## 5.2 Flash Calculation Workflow (Details)
 
-- [ ] T078 [US3] Step 1 in calculate(): Single-phase check; return early if detected
-- [ ] T079 [P] [US3] Step 2 in calculate(): Initialize K_i via Wilson correlation
-- [ ] T080 [US3] Step 3 in calculate(): Loop Rachford-Rice (max 50 iterations)
-- [ ] T081 [P] [US3] Step 4 in calculate(): Inside loop: update K_i from fugacity ratios
-- [ ] T082 [US3] Step 5 in calculate(): Inside loop: check convergence criterion
-- [ ] T083 [P] [US3] Step 6 in calculate(): Outside loop: validate material balance
-- [ ] T084 [US3] Step 7 in calculate(): Construct and return FlashResult with all fields populated
+- [x] T078 [US3] Step 1 in calculate(): Single-phase check; return early if detected
+- [x] T079 [P] [US3] Step 2 in calculate(): Initialize K_i via Wilson correlation
+- [x] T080 [US3] Step 3 in calculate(): Loop Rachford-Rice (max 50 iterations)
+- [x] T081 [P] [US3] Step 4 in calculate(): Inside loop: update K_i from fugacity ratios
+- [x] T082 [US3] Step 5 in calculate(): Inside loop: check convergence criterion
+- [x] T083 [P] [US3] Step 6 in calculate(): Outside loop: validate material balance
+- [x] T084 [US3] Step 7 in calculate(): Construct and return FlashResult with all fields populated
 
 ## 5.3 Flash Unit Tests
 
-- [ ] T085 [P] [US3] Create tests/unit/test_flash_pt.py with fixtures (binary mixtures: ethane-propane, methane-propane)
-- [ ] T086 [US3] Test single_phase_check(): True if T > Tc; True if pure component in tests/unit/test_flash_pt.py
-- [ ] T087 [P] [US3] Test single_phase_result(): returns L=0,V=1 or L=1,V=0 in tests/unit/test_flash_pt.py
-- [ ] T088 [US3] Test initialize_K_values(): K_i > 0 for all components in tests/unit/test_flash_pt.py
-- [ ] T089 [P] [US3] Test convergence_check(): correctly detects when |f_v/f_l - 1| < 1e-6 in tests/unit/test_flash_pt.py
-- [ ] T090 [US3] Test material_balance_check(): error < 1e-6 for converged result in tests/unit/test_flash_pt.py
+- [x] T085 [P] [US3] Create tests/unit/test_flash_pt.py with fixtures (binary mixtures: ethane-propane, methane-propane)
+- [x] T086 [US3] Test single_phase_check(): True if T > Tc; True if pure component in tests/unit/test_flash_pt.py
+- [x] T087 [P] [US3] Test single_phase_result(): returns L=0,V=1 or L=1,V=0 in tests/unit/test_flash_pt.py
+- [x] T088 [US3] Test initialize_K_values(): K_i > 0 for all components in tests/unit/test_flash_pt.py
+- [x] T089 [P] [US3] Test convergence_check(): correctly detects when |f_v/f_l - 1| < 1e-6 in tests/unit/test_flash_pt.py
+- [x] T090 [US3] Test material_balance_check(): error < 1e-6 for converged result in tests/unit/test_flash_pt.py
 
 ## 5.4 Flash Integration Tests
 
-- [ ] T091 [P] [US3] Create tests/unit/test_integration_flash.py (or extend test_integration.py)
-- [ ] T092 [US3] Test binary flash convergence: ethane-propane @ 300K, 2MPa, 4-6 iterations expected in tests/unit/test_integration_flash.py
-- [ ] T093 [P] [US3] Test flash output completeness: all FlashResult fields populated (L, V, x, y, K, iter, tol, success) in tests/unit/test_integration_flash.py
-- [ ] T094 [US3] Test binary flash material balance: composition error < 1e-6 in tests/unit/test_integration_flash.py
-- [ ] T095 [P] [US3] Test binary flash fugacity equilibrium: |f_v/f_l - 1| < 1e-6 for all components in tests/unit/test_integration_flash.py
+- [x] T091 [P] [US3] Create tests/unit/test_integration_flash.py (or extend test_integration.py)
+- [x] T092 [US3] Test binary flash convergence: ethane-propane @ 300K, 2MPa, 4-6 iterations expected in tests/unit/test_integration_flash.py
+- [x] T093 [P] [US3] Test flash output completeness: all FlashResult fields populated (L, V, x, y, K, iter, tol, success) in tests/unit/test_integration_flash.py
+- [x] T094 [US3] Test binary flash material balance: composition error < 1e-6 in tests/unit/test_integration_flash.py
+- [x] T095 [P] [US3] Test binary flash fugacity equilibrium: |f_v/f_l - 1| < 1e-6 for all components in tests/unit/test_integration_flash.py
 
 ## 5.5 Flash Validation Tests
 
-- [ ] T096 [US3] Create tests/validation/flash_balance_tests.py with literature test cases
-- [ ] T097 [P] [US3] Add test_binary_ethane_propane_literature() in tests/validation/flash_balance_tests.py (NIST reference values)
-- [ ] T098 [US3] Add test_binary_methane_propane_literature() in tests/validation/flash_balance_tests.py
-- [ ] T099 [P] [US3] Add parametrized test_flash_5cases_nist() for multiple pressure/temperature conditions in tests/validation/flash_balance_tests.py
-- [ ] T100 [US3] Verify all flash validation tests pass with <1e-6 material balance error
+- [x] T096 [US3] Create tests/validation/flash_balance_tests.py with literature test cases
+- [x] T097 [P] [US3] Add test_binary_ethane_propane_literature() in tests/validation/flash_balance_tests.py (NIST reference values)
+- [x] T098 [US3] Add test_binary_methane_propane_literature() in tests/validation/flash_balance_tests.py
+- [x] T099 [P] [US3] Add parametrized test_flash_5cases_nist() for multiple pressure/temperature conditions in tests/validation/flash_balance_tests.py
+- [x] T100 [US3] Verify all flash validation tests pass with <1e-6 material balance error
 
 ## 5.6 Flash Integration
 
-- [ ] T101 [US3] Export FlashPT and FlashResult from src/eos/__init__.py
-- [ ] T102 [P] [US3] Add FlashPT, FlashResult, FlashConvergence to __all__ list in src/eos/__init__.py
-- [ ] T103 [US3] Verify mypy --strict passes for src/eos/flash_pt.py
-- [ ] T104 [P] [US3] Verify pytest tests/unit/test_flash_pt.py + tests/unit/test_integration_flash.py all pass
+- [x] T101 [US3] Export FlashPT and FlashResult from src/eos/__init__.py
+- [x] T102 [P] [US3] Add FlashPT, FlashResult, FlashConvergence to __all__ list in src/eos/__init__.py
+- [x] T103 [US3] Verify mypy --strict passes for src/eos/flash_pt.py
+- [x] T104 [P] [US3] Verify pytest tests/unit/test_flash_pt.py + tests/unit/test_integration_flash.py all pass
 
 ---
 
@@ -279,33 +279,33 @@ Components:
 
 ## 6.1 CLI Wrapper Functions
 
-- [ ] T105 [P] Create src/cli/vdw_calc.py: CLI wrapper for VanDerWaalsEOS (mirroring pr_calc.py pattern)
-- [ ] T106 [P] Create src/cli/ideal_calc.py: CLI wrapper for IdealGasEOS
-- [ ] T107 Create src/cli/flash_calc.py: CLI wrapper for FlashPT
+- [x] T105 [P] Create src/cli/vdw_calc.py: CLI wrapper for VanDerWaalsEOS (mirroring pr_calc.py pattern)
+- [x] T106 [P] Create src/cli/ideal_calc.py: CLI wrapper for IdealGasEOS
+- [x] T107 Create src/cli/flash_calc.py: CLI wrapper for FlashPT
 
 ## 6.2 CLI Integration
 
-- [ ] T108 Update src/cli/__init__.py to export VDW, Ideal Gas, Flash calculators
-- [ ] T109 [P] Add CLI commands to main entry point: `python -m src.cli vdw --compound methane --temperature 300 --pressure 50e6`
-- [ ] T110 [P] Add CLI commands to main entry point: `python -m src.cli ideal --temperature 298.15 --pressure 101325`
-- [ ] T111 Add CLI commands to main entry point: `python -m src.cli flash --mixture "ethane:0.6,propane:0.4" --temperature 300 --pressure 2e6`
+- [x] T108 Update src/cli/__init__.py to export VDW, Ideal Gas, Flash calculators
+- [x] T109 [P] Add CLI commands to main entry point: `python -m src.cli vdw --compound methane --temperature 300 --pressure 50e6`
+- [x] T110 [P] Add CLI commands to main entry point: `python -m src.cli ideal --temperature 298.15 --pressure 101325`
+- [x] T111 Add CLI commands to main entry point: `python -m src.cli flash --mixture "ethane:0.6,propane:0.4" --temperature 300 --pressure 2e6`
 
 ## 6.3 Documentation
 
-- [ ] T112 [P] Create README section: "Van der Waals EOS Calculations" in documentation
-- [ ] T113 [P] Create README section: "Ideal Gas Reference Model" in documentation
-- [ ] T114 Create README section: "PT Flash Calculations" in documentation
-- [ ] T115 [P] Add examples to API reference documentation (e.g., docs/api_reference.md)
-- [ ] T116 Update CHANGELOG.md with feature summary and new modules
-- [ ] T117 [P] Create or update web calculator components (if web interface planned): React components for VDW, Ideal, Flash
+- [x] T112 [P] Create README section: "Van der Waals EOS Calculations" in documentation
+- [x] T113 [P] Create README section: "Ideal Gas Reference Model" in documentation
+- [x] T114 Create README section: "PT Flash Calculations" in documentation
+- [x] T115 [P] Add examples to API reference documentation (e.g., docs/api_reference.md)
+- [x] T116 Update CHANGELOG.md with feature summary and new modules
+- [x] T117 [P] Create or update web calculator components (if web interface planned): React components for VDW, Ideal, Flash
 
 ## 6.4 Final QA & Validation
 
-- [ ] T118 [P] Run full test suite: pytest tests/ with >80% coverage (pytest-cov)
-- [ ] T119 [P] Run mypy --strict on all new modules: src/eos/van_der_waals.py, src/eos/ideal_gas.py, src/eos/flash_pt.py
-- [ ] T120 Run code linting: ruff check . and black format on all new files
-- [ ] T121 [P] Verify all documentation is up-to-date and links work
-- [ ] T122 [P] Create summary test report: all validation tests pass, coverage >80%, no type errors
+- [x] T118 [P] Run full test suite: pytest tests/ with >80% coverage (pytest-cov)
+- [x] T119 [P] Run mypy --strict on all new modules: src/eos/van_der_waals.py, src/eos/ideal_gas.py, src/eos/flash_pt.py
+- [x] T120 Run code linting: ruff check . and black format on all new files
+- [x] T121 [P] Verify all documentation is up-to-date and links work
+- [x] T122 [P] Create summary test report: all validation tests pass, coverage >80%, no type errors
 
 ---
 
