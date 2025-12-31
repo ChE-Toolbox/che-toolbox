@@ -210,9 +210,7 @@ def add_compound_to_database(
     )
 
     # Create updated database
-    updated_database = CompoundDatabaseDTO(
-        metadata=updated_metadata, compounds=updated_compounds
-    )
+    updated_database = CompoundDatabaseDTO(metadata=updated_metadata, compounds=updated_compounds)
 
     # Write to file
     with database_path.open("w") as f:

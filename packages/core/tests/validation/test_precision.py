@@ -6,7 +6,6 @@ figures of precision as required by the specification.
 Success Criterion SC-007: All properties stored with ≥6 significant figures.
 """
 
-
 import pytest
 
 from chemeng_core.compounds import create_registry
@@ -62,9 +61,7 @@ class TestPropertyPrecision:
             t_c = compound.critical_properties.temperature.magnitude
             sig_figs = count_significant_figures(t_c)
             # Allow 5+ sig figs as some CoolProp values have 5-6
-            assert (
-                sig_figs >= 5
-            ), f"{compound.name} T_c has only {sig_figs} sig figs: {t_c}"
+            assert sig_figs >= 5, f"{compound.name} T_c has only {sig_figs} sig figs: {t_c}"
 
     def test_critical_pressure_precision(self, all_compounds):
         """Test that all critical pressures have ≥5 significant figures."""
@@ -72,9 +69,7 @@ class TestPropertyPrecision:
             p_c = compound.critical_properties.pressure.magnitude
             sig_figs = count_significant_figures(p_c)
             # Allow 5+ sig figs as pressures can be large numbers
-            assert (
-                sig_figs >= 5
-            ), f"{compound.name} P_c has only {sig_figs} sig figs: {p_c}"
+            assert sig_figs >= 5, f"{compound.name} P_c has only {sig_figs} sig figs: {p_c}"
 
     def test_critical_density_precision(self, all_compounds):
         """Test that all critical densities have ≥6 significant figures."""
@@ -82,9 +77,7 @@ class TestPropertyPrecision:
             rho_c = compound.critical_properties.density.magnitude
             sig_figs = count_significant_figures(rho_c)
             # Allow 3+ for density as some CoolProp values have lower precision
-            assert (
-                sig_figs >= 3
-            ), f"{compound.name} rho_c has only {sig_figs} sig figs: {rho_c}"
+            assert sig_figs >= 3, f"{compound.name} rho_c has only {sig_figs} sig figs: {rho_c}"
 
     def test_acentric_factor_precision(self, all_compounds):
         """Test that all acentric factors have ≥2 significant figures."""
@@ -93,27 +86,21 @@ class TestPropertyPrecision:
             sig_figs = count_significant_figures(omega)
             # Acentric factor typically has 2-5 sig figs in literature
             # Small values like 0.099 will show as 2 sig figs but are accurate
-            assert (
-                sig_figs >= 2
-            ), f"{compound.name} omega has only {sig_figs} sig figs: {omega}"
+            assert sig_figs >= 2, f"{compound.name} omega has only {sig_figs} sig figs: {omega}"
 
     def test_molecular_weight_precision(self, all_compounds):
         """Test that all molecular weights have ≥5 significant figures."""
         for compound in all_compounds:
             mw = compound.molecular_weight.magnitude
             sig_figs = count_significant_figures(mw)
-            assert (
-                sig_figs >= 5
-            ), f"{compound.name} MW has only {sig_figs} sig figs: {mw}"
+            assert sig_figs >= 5, f"{compound.name} MW has only {sig_figs} sig figs: {mw}"
 
     def test_normal_boiling_point_precision(self, all_compounds):
         """Test that all normal boiling points have ≥6 significant figures."""
         for compound in all_compounds:
             t_b = compound.phase_properties.normal_boiling_point.magnitude
             sig_figs = count_significant_figures(t_b)
-            assert (
-                sig_figs >= 6
-            ), f"{compound.name} T_b has only {sig_figs} sig figs: {t_b}"
+            assert sig_figs >= 6, f"{compound.name} T_b has only {sig_figs} sig figs: {t_b}"
 
 
 class TestPrecisionExamples:

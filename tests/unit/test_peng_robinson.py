@@ -60,9 +60,7 @@ class TestPengRobinsonEOS:
         with pytest.raises(ValueError, match="Pressure"):
             eos.calculate_z_factor(300.0, -1e5, methane)
 
-    def test_calculate_fugacity_coefficient(
-        self, eos: PengRobinsonEOS, methane: Compound
-    ) -> None:
+    def test_calculate_fugacity_coefficient(self, eos: PengRobinsonEOS, methane: Compound) -> None:
         """Test fugacity coefficient calculation."""
         phi = eos.calculate_fugacity_coefficient(300.0, 1e5, methane)
         assert 0 < phi < 2  # Fugacity coefficient should be reasonable
@@ -72,23 +70,17 @@ class TestPengRobinsonEOS:
         self, eos: PengRobinsonEOS, methane: Compound
     ) -> None:
         """Test fugacity coefficient for vapor phase."""
-        phi_vapor = eos.calculate_fugacity_coefficient(
-            300.0, 1e5, methane, phase=PhaseType.VAPOR
-        )
+        phi_vapor = eos.calculate_fugacity_coefficient(300.0, 1e5, methane, phase=PhaseType.VAPOR)
         assert phi_vapor > 0
 
     def test_fugacity_coefficient_liquid_phase(
         self, eos: PengRobinsonEOS, methane: Compound
     ) -> None:
         """Test fugacity coefficient for liquid phase."""
-        phi_liquid = eos.calculate_fugacity_coefficient(
-            300.0, 1e5, methane, phase=PhaseType.LIQUID
-        )
+        phi_liquid = eos.calculate_fugacity_coefficient(300.0, 1e5, methane, phase=PhaseType.LIQUID)
         assert phi_liquid > 0
 
-    def test_identify_phase_supercritical(
-        self, eos: PengRobinsonEOS, methane: Compound
-    ) -> None:
+    def test_identify_phase_supercritical(self, eos: PengRobinsonEOS, methane: Compound) -> None:
         """Test phase identification for supercritical conditions."""
         # Above critical temperature and pressure
         phase = eos.identify_phase(300.0, 1e7, methane)
@@ -97,7 +89,12 @@ class TestPengRobinsonEOS:
     def test_identify_phase(self, eos: PengRobinsonEOS, methane: Compound) -> None:
         """Test phase identification."""
         phase = eos.identify_phase(300.0, 1e5, methane)
-        assert phase in (PhaseType.VAPOR, PhaseType.LIQUID, PhaseType.TWO_PHASE, PhaseType.SUPERCRITICAL)
+        assert phase in (
+            PhaseType.VAPOR,
+            PhaseType.LIQUID,
+            PhaseType.TWO_PHASE,
+            PhaseType.SUPERCRITICAL,
+        )
 
     def test_calculate_state(self, eos: PengRobinsonEOS, methane: Compound) -> None:
         """Test complete state calculation."""
@@ -111,9 +108,7 @@ class TestPengRobinsonEOS:
         assert state.fugacity is not None
         assert state.phase is not None
 
-    def test_calculate_a_invalid_temperature(
-        self, eos: PengRobinsonEOS, methane: Compound
-    ) -> None:
+    def test_calculate_a_invalid_temperature(self, eos: PengRobinsonEOS, methane: Compound) -> None:
         """Test that invalid temperature raises error."""
         with pytest.raises(ValueError, match="Temperature"):
             eos.calculate_a(methane.tc, methane.pc, methane.acentric_factor, -300.0)

@@ -299,9 +299,7 @@ class TestModelPhysicality:
         T = 500
         P = 1e3  # Very low pressure
 
-        z_ideal = ideal_gas.calculate_Z(
-            P, T, ideal_gas.calculate_volume_molar(T, P)
-        )
+        z_ideal = ideal_gas.calculate_Z(P, T, ideal_gas.calculate_volume_molar(T, P))
         state_vdw = vdw.calculate_state(methane, T, P)
         state_pr = pr.calculate_state(methane, T, P)
 

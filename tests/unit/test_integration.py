@@ -19,6 +19,7 @@ from src.eos import (
 # Test Fixtures
 # ==============================================================================
 
+
 @pytest.fixture
 def methane():
     """Methane compound with full critical properties."""
@@ -98,6 +99,7 @@ class TestCompareCompressibilityFactorsFunction:
     def test_function_exists(self):
         """Verify compare_compressibility_factors is importable."""
         from src.eos import compare_compressibility_factors
+
         assert callable(compare_compressibility_factors)
 
     def test_function_signature(self, methane):
@@ -165,34 +167,34 @@ class TestCrossModelComparisonOutput:
         result = compare_compressibility_factors(methane, 300, 50e6)
 
         assert isinstance(result, dict)
-        assert 'ideal_Z' in result
-        assert 'vdw_Z' in result
-        assert 'pr_Z' in result
+        assert "ideal_Z" in result
+        assert "vdw_Z" in result
+        assert "pr_Z" in result
         assert len(result) == 3
 
     def test_all_z_factors_are_floats(self, ethane):
         """Verify all Z-factors are numeric."""
         result = compare_compressibility_factors(ethane, 350, 20e6)
 
-        assert isinstance(result['ideal_Z'], float)
-        assert isinstance(result['vdw_Z'], float)
-        assert isinstance(result['pr_Z'], float)
+        assert isinstance(result["ideal_Z"], float)
+        assert isinstance(result["vdw_Z"], float)
+        assert isinstance(result["pr_Z"], float)
 
     def test_all_z_factors_positive(self, propane):
         """Verify all Z-factors are positive."""
         result = compare_compressibility_factors(propane, 400, 15e6)
 
-        assert result['ideal_Z'] > 0
-        assert result['vdw_Z'] > 0
-        assert result['pr_Z'] > 0
+        assert result["ideal_Z"] > 0
+        assert result["vdw_Z"] > 0
+        assert result["pr_Z"] > 0
 
     def test_all_z_factors_in_physical_range(self, methane):
         """Verify all Z-factors in typical range [0.1, 1.5]."""
         result = compare_compressibility_factors(methane, 300, 30e6)
 
-        assert 0.1 <= result['ideal_Z'] <= 1.5
-        assert 0.1 <= result['vdw_Z'] <= 1.5
-        assert 0.1 <= result['pr_Z'] <= 1.5
+        assert 0.1 <= result["ideal_Z"] <= 1.5
+        assert 0.1 <= result["vdw_Z"] <= 1.5
+        assert 0.1 <= result["pr_Z"] <= 1.5
 
     def test_ideal_z_always_unity(self, methane):
         """Verify ideal_Z is always exactly 1.0."""
@@ -206,8 +208,7 @@ class TestCrossModelComparisonOutput:
 
         for T, P in conditions:
             result = compare_compressibility_factors(methane, T, P)
-            assert result['ideal_Z'] == 1.0, \
-                f"Ideal Z should be 1.0 at T={T}, P={P}"
+            assert result["ideal_Z"] == 1.0, f"Ideal Z should be 1.0 at T={T}, P={P}"
 
 
 # ==============================================================================
@@ -219,7 +220,7 @@ class TestZFactorOrdering:
     def test_z_ideal_equals_unity(self, methane):
         """Test that ideal gas Z is always 1.0 (baseline)."""
         result = compare_compressibility_factors(methane, 300, 50e6)
-        assert result['ideal_Z'] == 1.0
+        assert result["ideal_Z"] == 1.0
 
     def test_z_nonideal_less_than_ideal_at_moderate_pressure(self, methane):
         """At moderate pressure, non-ideal Z < ideal Z due to attractive forces."""
@@ -229,10 +230,10 @@ class TestZFactorOrdering:
         result = compare_compressibility_factors(methane, T, P)
 
         # At moderate pressure, attractive forces dominate → Z < 1.0
-        assert result['vdw_Z'] <= result['ideal_Z'], \
+        assert result["vdw_Z"] <= result["ideal_Z"], (
             "VDW Z should be ≤ ideal Z at moderate pressure"
-        assert result['pr_Z'] <= result['ideal_Z'], \
-            "PR Z should be ≤ ideal Z at moderate pressure"
+        )
+        assert result["pr_Z"] <= result["ideal_Z"], "PR Z should be ≤ ideal Z at moderate pressure"
 
     def test_z_ordering_ethane_high_pressure(self, ethane):
         """Test Z-factor ordering for ethane at high pressure."""
@@ -242,11 +243,11 @@ class TestZFactorOrdering:
         result = compare_compressibility_factors(ethane, T, P)
 
         # Expected: Z_ideal = 1.0 ≥ Z_pr ≈ Z_vdw (both < 1.0)
-        assert result['ideal_Z'] == 1.0
-        assert result['vdw_Z'] < 1.0, "VDW should show non-ideal behavior"
-        assert result['pr_Z'] < 1.0, "PR should show non-ideal behavior"
-        assert result['ideal_Z'] >= result['vdw_Z']
-        assert result['ideal_Z'] >= result['pr_Z']
+        assert result["ideal_Z"] == 1.0
+        assert result["vdw_Z"] < 1.0, "VDW should show non-ideal behavior"
+        assert result["pr_Z"] < 1.0, "PR should show non-ideal behavior"
+        assert result["ideal_Z"] >= result["vdw_Z"]
+        assert result["ideal_Z"] >= result["pr_Z"]
 
     def test_z_ordering_propane_moderate_pressure(self, propane):
         """Test Z-factor ordering for propane at moderate conditions."""
@@ -256,13 +257,13 @@ class TestZFactorOrdering:
         result = compare_compressibility_factors(propane, T, P)
 
         # All models should give positive Z-factors
-        assert result['ideal_Z'] == 1.0
-        assert result['vdw_Z'] > 0
-        assert result['pr_Z'] > 0
+        assert result["ideal_Z"] == 1.0
+        assert result["vdw_Z"] > 0
+        assert result["pr_Z"] > 0
 
         # Non-ideal models should show Z < 1 at these conditions
-        assert result['vdw_Z'] <= result['ideal_Z']
-        assert result['pr_Z'] <= result['ideal_Z']
+        assert result["vdw_Z"] <= result["ideal_Z"]
+        assert result["pr_Z"] <= result["ideal_Z"]
 
     def test_all_models_converge_at_low_pressure(self, methane):
         """At low pressure, all models converge to ideal gas behavior."""
@@ -272,11 +273,9 @@ class TestZFactorOrdering:
         result = compare_compressibility_factors(methane, T, P)
 
         # At low pressure, Z → 1.0 for all models
-        assert result['ideal_Z'] == 1.0
-        assert abs(result['vdw_Z'] - 1.0) < 0.05, \
-            "VDW should approach ideal at low pressure"
-        assert abs(result['pr_Z'] - 1.0) < 0.05, \
-            "PR should approach ideal at low pressure"
+        assert result["ideal_Z"] == 1.0
+        assert abs(result["vdw_Z"] - 1.0) < 0.05, "VDW should approach ideal at low pressure"
+        assert abs(result["pr_Z"] - 1.0) < 0.05, "PR should approach ideal at low pressure"
 
     def test_pr_more_accurate_than_vdw(self, ethane):
         """PR typically more accurate than VDW (accounts for acentric factor).
@@ -291,12 +290,12 @@ class TestZFactorOrdering:
         result = compare_compressibility_factors(ethane, T, P)
 
         # Both should be non-ideal
-        assert result['vdw_Z'] < 1.0
-        assert result['pr_Z'] < 1.0
+        assert result["vdw_Z"] < 1.0
+        assert result["pr_Z"] < 1.0
 
         # Both should be in reasonable range
-        assert 0.5 <= result['vdw_Z'] <= 1.0
-        assert 0.5 <= result['pr_Z'] <= 1.0
+        assert 0.5 <= result["vdw_Z"] <= 1.0
+        assert 0.5 <= result["pr_Z"] <= 1.0
 
 
 # ==============================================================================
@@ -314,12 +313,12 @@ class TestCrossModelConsistency:
         for compound in compounds:
             result = compare_compressibility_factors(compound, T, P)
 
-            assert 'ideal_Z' in result
-            assert 'vdw_Z' in result
-            assert 'pr_Z' in result
-            assert result['ideal_Z'] == 1.0
-            assert 0.1 <= result['vdw_Z'] <= 1.5
-            assert 0.1 <= result['pr_Z'] <= 1.5
+            assert "ideal_Z" in result
+            assert "vdw_Z" in result
+            assert "pr_Z" in result
+            assert result["ideal_Z"] == 1.0
+            assert 0.1 <= result["vdw_Z"] <= 1.5
+            assert 0.1 <= result["pr_Z"] <= 1.5
 
     def test_temperature_variation_consistent(self, methane):
         """Test cross-model comparison at various temperatures."""
@@ -330,9 +329,9 @@ class TestCrossModelConsistency:
             result = compare_compressibility_factors(methane, T, P)
 
             # All should return valid Z-factors
-            assert result['ideal_Z'] == 1.0
-            assert result['vdw_Z'] > 0
-            assert result['pr_Z'] > 0
+            assert result["ideal_Z"] == 1.0
+            assert result["vdw_Z"] > 0
+            assert result["pr_Z"] > 0
 
     def test_pressure_variation_consistent(self, ethane):
         """Test cross-model comparison at various pressures."""
@@ -343,9 +342,9 @@ class TestCrossModelConsistency:
             result = compare_compressibility_factors(ethane, T, P)
 
             # All should return valid Z-factors
-            assert result['ideal_Z'] == 1.0
-            assert result['vdw_Z'] > 0
-            assert result['pr_Z'] > 0
+            assert result["ideal_Z"] == 1.0
+            assert result["vdw_Z"] > 0
+            assert result["pr_Z"] > 0
 
     def test_z_decreases_with_pressure(self, methane):
         """Test that non-ideal Z-factors decrease with pressure."""
@@ -357,12 +356,12 @@ class TestCrossModelConsistency:
         result_high = compare_compressibility_factors(methane, T, P_high)
 
         # Ideal gas unchanged
-        assert result_low['ideal_Z'] == result_high['ideal_Z'] == 1.0
+        assert result_low["ideal_Z"] == result_high["ideal_Z"] == 1.0
 
         # Non-ideal models: Z should decrease with pressure (attractive forces)
         # Allow small tolerance for numerical variations
-        assert result_high['vdw_Z'] <= result_low['vdw_Z'] + 0.01
-        assert result_high['pr_Z'] <= result_low['pr_Z'] + 0.01
+        assert result_high["vdw_Z"] <= result_low["vdw_Z"] + 0.01
+        assert result_high["pr_Z"] <= result_low["pr_Z"] + 0.01
 
     def test_comparison_reproducible(self, propane):
         """Test that multiple calls give identical results."""
@@ -372,9 +371,9 @@ class TestCrossModelConsistency:
         result1 = compare_compressibility_factors(propane, T, P)
         result2 = compare_compressibility_factors(propane, T, P)
 
-        assert result1['ideal_Z'] == result2['ideal_Z']
-        assert result1['vdw_Z'] == result2['vdw_Z']
-        assert result1['pr_Z'] == result2['pr_Z']
+        assert result1["ideal_Z"] == result2["ideal_Z"]
+        assert result1["vdw_Z"] == result2["vdw_Z"]
+        assert result1["pr_Z"] == result2["pr_Z"]
 
 
 class TestAllEOSModelsRunnable:

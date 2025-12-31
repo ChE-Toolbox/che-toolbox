@@ -63,9 +63,7 @@ class VanDerWaalsEOS:
 
         a = (27 * VanDerWaalsEOS.R**2 * tc**2) / (64 * pc)
 
-        logger.debug(
-            f"Calculated a={a:.6e} Pa*m^6/mol^2 for Tc={tc}K, Pc={pc}Pa"
-        )
+        logger.debug(f"Calculated a={a:.6e} Pa*m^6/mol^2 for Tc={tc}K, Pc={pc}Pa")
         return a
 
     @staticmethod
@@ -100,9 +98,7 @@ class VanDerWaalsEOS:
 
         b = (VanDerWaalsEOS.R * tc) / (8 * pc)
 
-        logger.debug(
-            f"Calculated b={b:.6e} m^3/mol for Tc={tc}K, Pc={pc}Pa"
-        )
+        logger.debug(f"Calculated b={b:.6e} m^3/mol for Tc={tc}K, Pc={pc}Pa")
         return b
 
     def calculate_volume(
@@ -174,9 +170,7 @@ class VanDerWaalsEOS:
         v_ideal = self.R * temperature / pressure
         v_molar = min(valid_roots, key=lambda v: abs(v - v_ideal))
 
-        logger.debug(
-            f"Calculated V={v_molar:.6e} m³/mol for T={temperature}K, P={pressure}Pa"
-        )
+        logger.debug(f"Calculated V={v_molar:.6e} m³/mol for T={temperature}K, P={pressure}Pa")
         return v_molar
 
     @staticmethod

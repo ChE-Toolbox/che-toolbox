@@ -16,9 +16,7 @@ def test_hydrogen_critical_temperature() -> None:
     Tolerance: ±0.01%
     """
     hydrogen = get_compound("hydrogen")
-    assert hydrogen.critical_properties.temperature.magnitude == pytest.approx(
-        33.145, rel=1e-4
-    )
+    assert hydrogen.critical_properties.temperature.magnitude == pytest.approx(33.145, rel=1e-4)
 
 
 @pytest.mark.validation
@@ -29,9 +27,7 @@ def test_hydrogen_critical_pressure() -> None:
     Tolerance: ±0.01%
     """
     hydrogen = get_compound("hydrogen")
-    assert hydrogen.critical_properties.pressure.magnitude == pytest.approx(
-        1296400, rel=1e-4
-    )
+    assert hydrogen.critical_properties.pressure.magnitude == pytest.approx(1296400, rel=1e-4)
 
 
 @pytest.mark.validation

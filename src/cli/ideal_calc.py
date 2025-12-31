@@ -44,7 +44,7 @@ class CLIFormatter:
             f"Pressure: {pressure:.2f} bar",
             f"Moles: {n_moles:.4f} mol",
             f"Volume: {volume:.6e} m³",
-            f"Molar Volume: {volume/n_moles:.6e} m³/mol",
+            f"Molar Volume: {volume / n_moles:.6e} m³/mol",
         ]
         return "\n".join(lines)
 
@@ -78,7 +78,7 @@ class CLIFormatter:
             f"Volume: {volume:.6e} m³",
             "",
             "Properties:",
-            f"  Molar Volume: {volume/n_moles:.6e} m³/mol",
+            f"  Molar Volume: {volume / n_moles:.6e} m³/mol",
             "  Z factor: 1.000000 (ideal)",
             "  Phase: vapor",
         ]
@@ -94,9 +94,7 @@ def add_global_options(subparser: argparse.ArgumentParser) -> None:
         default="text",
         help="Output format (default: text)",
     )
-    subparser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose logging"
-    )
+    subparser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging")
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -106,17 +104,13 @@ def create_parser() -> argparse.ArgumentParser:
         description="Ideal Gas EOS calculations",
     )
 
-    parser.add_argument(
-        "--version", action="version", version="%(prog)s 1.0.0"
-    )
+    parser.add_argument("--version", action="version", version="%(prog)s 1.0.0")
 
     # Subcommands
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # volume command
-    volume_parser = subparsers.add_parser(
-        "volume", help="Calculate ideal gas volume"
-    )
+    volume_parser = subparsers.add_parser("volume", help="Calculate ideal gas volume")
     volume_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature in K"
     )
@@ -141,15 +135,11 @@ def create_parser() -> argparse.ArgumentParser:
     add_global_options(z_factor_parser)
 
     # state command
-    state_parser = subparsers.add_parser(
-        "state", help="Calculate ideal gas state"
-    )
+    state_parser = subparsers.add_parser("state", help="Calculate ideal gas state")
     state_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature in K"
     )
-    state_parser.add_argument(
-        "--pressure", "-P", type=float, required=True, help="Pressure in bar"
-    )
+    state_parser.add_argument("--pressure", "-P", type=float, required=True, help="Pressure in bar")
     state_parser.add_argument(
         "--moles", "-n", type=float, default=1.0, help="Number of moles (default: 1.0)"
     )
@@ -278,7 +268,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     # Set logging level
-    if hasattr(args, 'verbose') and args.verbose:
+    if hasattr(args, "verbose") and args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
     # Dispatch to command handler

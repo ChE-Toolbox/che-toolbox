@@ -87,9 +87,7 @@ class IdealGasEOS:
         return v_molar
 
     @staticmethod
-    def calculate_Z(
-        pressure: float, temperature: float, v_molar: float
-    ) -> float:
+    def calculate_Z(pressure: float, temperature: float, v_molar: float) -> float:
         """Calculate compressibility factor: Z = PV/(nRT).
 
         Parameters
@@ -172,7 +170,5 @@ class IdealGasEOS:
         state._n = n  # type: ignore
         state._v_molar = v_molar  # type: ignore
 
-        logger.debug(
-            f"Calculated ideal gas state: Z={z:.4f}, V_m={v_molar:.6e} m³/mol"
-        )
+        logger.debug(f"Calculated ideal gas state: Z={z:.4f}, V_m={v_molar:.6e} m³/mol")
         return state

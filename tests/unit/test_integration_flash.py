@@ -14,6 +14,7 @@ from src.eos.peng_robinson import PengRobinsonEOS
 # Test Fixtures
 # ==============================================================================
 
+
 @pytest.fixture
 def flash():
     """PT Flash calculator instance."""
@@ -30,11 +31,11 @@ def pr_eos():
 def ethane_propane_binary():
     """Binary ethane-propane mixture: 60% ethane, 40% propane."""
     return {
-        'z': np.array([0.6, 0.4]),
-        'tc': np.array([305.32, 369.83]),  # K
-        'pc': np.array([4.8722e6, 4.2512e6]),  # Pa
-        'omega': np.array([0.0995, 0.1523]),
-        'names': ['ethane', 'propane']
+        "z": np.array([0.6, 0.4]),
+        "tc": np.array([305.32, 369.83]),  # K
+        "pc": np.array([4.8722e6, 4.2512e6]),  # Pa
+        "omega": np.array([0.0995, 0.1523]),
+        "names": ["ethane", "propane"],
     }
 
 
@@ -42,11 +43,11 @@ def ethane_propane_binary():
 def methane_propane_binary():
     """Binary methane-propane mixture: 55% methane, 45% propane."""
     return {
-        'z': np.array([0.55, 0.45]),
-        'tc': np.array([190.564, 369.83]),  # K
-        'pc': np.array([4.5992e6, 4.2512e6]),  # Pa
-        'omega': np.array([0.0115, 0.1523]),
-        'names': ['methane', 'propane']
+        "z": np.array([0.55, 0.45]),
+        "tc": np.array([190.564, 369.83]),  # K
+        "pc": np.array([4.5992e6, 4.2512e6]),  # Pa
+        "omega": np.array([0.0115, 0.1523]),
+        "names": ["methane", "propane"],
     }
 
 
@@ -69,10 +70,10 @@ class TestFlashIntegrationSetup:
     def test_binary_mixture_fixtures(self, ethane_propane_binary, methane_propane_binary):
         """Test binary mixture fixtures."""
         for mixture in [ethane_propane_binary, methane_propane_binary]:
-            assert len(mixture['z']) == 2
-            assert np.allclose(np.sum(mixture['z']), 1.0)
-            assert len(mixture['tc']) == 2
-            assert len(mixture['pc']) == 2
+            assert len(mixture["z"]) == 2
+            assert np.allclose(np.sum(mixture["z"]), 1.0)
+            assert len(mixture["tc"]) == 2
+            assert len(mixture["pc"]) == 2
 
 
 # ==============================================================================
@@ -85,24 +86,24 @@ class TestBinaryFlashConvergence:
         """Test ethane-propane flash converges in 4-6 iterations @ 300K, 2MPa."""
         mixture = ethane_propane_binary
         T = 300.0  # K
-        P = 2e6    # 2 MPa
+        P = 2e6  # 2 MPa
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         # Should converge successfully
-        assert result.convergence in [FlashConvergence.SUCCESS, FlashConvergence.SINGLE_PHASE], \
+        assert result.convergence in [FlashConvergence.SUCCESS, FlashConvergence.SINGLE_PHASE], (
             f"Flash failed to converge: {result.convergence}"
+        )
 
         if result.convergence == FlashConvergence.SUCCESS:
             # Should converge in reasonable iterations (typically 4-6 for this case)
-            assert result.iterations <= 50, \
-                f"Iterations {result.iterations} exceeded maximum"
+            assert result.iterations <= 50, f"Iterations {result.iterations} exceeded maximum"
             # Most cases converge quickly
             assert result.iterations > 0, "Should require at least one iteration"
 
@@ -110,14 +111,14 @@ class TestBinaryFlashConvergence:
         """Test methane-propane flash converges."""
         mixture = methane_propane_binary
         T = 280.0  # K
-        P = 3e6    # 3 MPa
+        P = 3e6  # 3 MPa
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         # Should converge or detect single phase
@@ -133,17 +134,18 @@ class TestBinaryFlashConvergence:
         P = 2.5e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
             # Tolerance should be below threshold
-            assert result.tolerance_achieved < flash.tolerance, \
+            assert result.tolerance_achieved < flash.tolerance, (
                 f"Tolerance {result.tolerance_achieved} exceeds threshold {flash.tolerance}"
+            )
 
     def test_flash_does_not_exceed_max_iterations(self, flash, ethane_propane_binary):
         """Test flash respects max_iterations limit."""
@@ -152,11 +154,11 @@ class TestBinaryFlashConvergence:
         P = 2e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
             max_iterations=10,  # Very low limit
         )
 
@@ -179,33 +181,33 @@ class TestFlashOutputCompleteness:
         P = 2e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         # Verify all fields exist
-        assert hasattr(result, 'L')
-        assert hasattr(result, 'V')
-        assert hasattr(result, 'x')
-        assert hasattr(result, 'y')
-        assert hasattr(result, 'K_values')
-        assert hasattr(result, 'iterations')
-        assert hasattr(result, 'tolerance_achieved')
-        assert hasattr(result, 'convergence')
-        assert hasattr(result, 'material_balance_error')
+        assert hasattr(result, "L")
+        assert hasattr(result, "V")
+        assert hasattr(result, "x")
+        assert hasattr(result, "y")
+        assert hasattr(result, "K_values")
+        assert hasattr(result, "iterations")
+        assert hasattr(result, "tolerance_achieved")
+        assert hasattr(result, "convergence")
+        assert hasattr(result, "material_balance_error")
 
     def test_flash_result_l_and_v_populated(self, flash, ethane_propane_binary):
         """Test L and V fractions are populated."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         assert isinstance(result.L, (int, float))
@@ -217,11 +219,11 @@ class TestFlashOutputCompleteness:
         """Test x and y compositions are populated."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         assert isinstance(result.x, np.ndarray)
@@ -233,11 +235,11 @@ class TestFlashOutputCompleteness:
         """Test K-values are populated."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         assert isinstance(result.K_values, np.ndarray)
@@ -248,11 +250,11 @@ class TestFlashOutputCompleteness:
         """Test iteration count is populated."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         assert isinstance(result.iterations, int)
@@ -262,11 +264,11 @@ class TestFlashOutputCompleteness:
         """Test tolerance_achieved is populated."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         assert isinstance(result.tolerance_achieved, float)
@@ -275,11 +277,11 @@ class TestFlashOutputCompleteness:
         """Test convergence status is populated."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         assert isinstance(result.convergence, FlashConvergence)
@@ -288,11 +290,11 @@ class TestFlashOutputCompleteness:
         """Test success property works correctly."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         # Success property should match convergence status
@@ -315,20 +317,19 @@ class TestFlashMaterialBalance:
         P = 2e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
             # Check material balance for each component
-            for i in range(len(mixture['z'])):
+            for i in range(len(mixture["z"])):
                 z_calc = result.L * result.x[i] + result.V * result.y[i]
-                error = abs(z_calc - mixture['z'][i])
-                assert error < 1e-6, \
-                    f"Component {i}: material balance error {error} exceeds 1e-6"
+                error = abs(z_calc - mixture["z"][i])
+                assert error < 1e-6, f"Component {i}: material balance error {error} exceeds 1e-6"
 
     def test_material_balance_methane_propane(self, flash, methane_propane_binary):
         """Test material balance for methane-propane."""
@@ -337,29 +338,28 @@ class TestFlashMaterialBalance:
         P = 3e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
             # Material balance check
             material_balance = result.L * result.x + result.V * result.y
-            errors = np.abs(material_balance - mixture['z'])
-            assert np.all(errors < 1e-6), \
-                f"Material balance errors {errors} exceed 1e-6"
+            errors = np.abs(material_balance - mixture["z"])
+            assert np.all(errors < 1e-6), f"Material balance errors {errors} exceed 1e-6"
 
     def test_material_balance_error_reported(self, flash, ethane_propane_binary):
         """Test material_balance_error field is populated."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
@@ -371,33 +371,36 @@ class TestFlashMaterialBalance:
         """Test L + V = 1.0 (mole balance)."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
-            assert np.allclose(result.L + result.V, 1.0, atol=1e-10), \
+            assert np.allclose(result.L + result.V, 1.0, atol=1e-10), (
                 f"L + V = {result.L + result.V} != 1.0"
+            )
 
     def test_compositions_sum_to_one(self, flash, ethane_propane_binary):
         """Test sum(x) = 1 and sum(y) = 1."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
-            assert np.allclose(np.sum(result.x), 1.0, atol=1e-6), \
+            assert np.allclose(np.sum(result.x), 1.0, atol=1e-6), (
                 f"sum(x) = {np.sum(result.x)} != 1.0"
-            assert np.allclose(np.sum(result.y), 1.0, atol=1e-6), \
+            )
+            assert np.allclose(np.sum(result.y), 1.0, atol=1e-6), (
                 f"sum(y) = {np.sum(result.y)} != 1.0"
+            )
 
 
 # ==============================================================================
@@ -413,21 +416,20 @@ class TestFlashFugacityEquilibrium:
         P = 2e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
             # K_i should equal y_i/x_i
-            for i in range(len(mixture['z'])):
+            for i in range(len(mixture["z"])):
                 if result.x[i] > 1e-10:  # Avoid division by zero
                     K_calc = result.y[i] / result.x[i]
                     error = abs(K_calc - result.K_values[i]) / result.K_values[i]
-                    assert error < 1e-6, \
-                        f"Component {i}: K-value inconsistency {error}"
+                    assert error < 1e-6, f"Component {i}: K-value inconsistency {error}"
 
     def test_tolerance_achieved_below_threshold(self, flash, ethane_propane_binary):
         """Test tolerance_achieved < 1e-6 for converged flash."""
@@ -436,31 +438,31 @@ class TestFlashFugacityEquilibrium:
         P = 2e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
             # Fugacity equilibrium tolerance
-            assert result.tolerance_achieved < flash.tolerance, \
+            assert result.tolerance_achieved < flash.tolerance, (
                 f"Tolerance {result.tolerance_achieved} >= {flash.tolerance}"
+            )
 
     def test_k_values_positive(self, flash, ethane_propane_binary):
         """Test all K-values are positive."""
         mixture = ethane_propane_binary
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=300,
             pressure=2e6,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
-        assert np.all(result.K_values > 0), \
-            "All K-values should be positive"
+        assert np.all(result.K_values > 0), "All K-values should be positive"
 
     def test_lighter_component_higher_k(self, flash, methane_propane_binary):
         """Test lighter component (methane) has higher K-value than heavier (propane)."""
@@ -469,11 +471,11 @@ class TestFlashFugacityEquilibrium:
         P = 3e6
 
         result = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         if result.convergence == FlashConvergence.SUCCESS:
@@ -498,17 +500,17 @@ class TestFlashRobustness:
 
         for T in temperatures:
             result = flash.calculate(
-                z=mixture['z'],
+                z=mixture["z"],
                 temperature=T,
                 pressure=P,
-                critical_temperatures=mixture['tc'],
-                critical_pressures=mixture['pc'],
+                critical_temperatures=mixture["tc"],
+                critical_pressures=mixture["pc"],
             )
             # Should either converge or detect single phase
             assert result.convergence in [
                 FlashConvergence.SUCCESS,
                 FlashConvergence.SINGLE_PHASE,
-                FlashConvergence.MAX_ITERATIONS
+                FlashConvergence.MAX_ITERATIONS,
             ]
 
     def test_flash_at_various_pressures(self, flash, ethane_propane_binary):
@@ -519,16 +521,16 @@ class TestFlashRobustness:
 
         for P in pressures:
             result = flash.calculate(
-                z=mixture['z'],
+                z=mixture["z"],
                 temperature=T,
                 pressure=P,
-                critical_temperatures=mixture['tc'],
-                critical_pressures=mixture['pc'],
+                critical_temperatures=mixture["tc"],
+                critical_pressures=mixture["pc"],
             )
             assert result.convergence in [
                 FlashConvergence.SUCCESS,
                 FlashConvergence.SINGLE_PHASE,
-                FlashConvergence.MAX_ITERATIONS
+                FlashConvergence.MAX_ITERATIONS,
             ]
 
     def test_flash_reproducible(self, flash, ethane_propane_binary):
@@ -538,19 +540,19 @@ class TestFlashRobustness:
         P = 2e6
 
         result1 = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         result2 = flash.calculate(
-            z=mixture['z'],
+            z=mixture["z"],
             temperature=T,
             pressure=P,
-            critical_temperatures=mixture['tc'],
-            critical_pressures=mixture['pc'],
+            critical_temperatures=mixture["tc"],
+            critical_pressures=mixture["pc"],
         )
 
         # Results should be identical

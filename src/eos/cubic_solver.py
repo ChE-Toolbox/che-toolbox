@@ -74,7 +74,7 @@ def solve_cubic_analytical(a: float, b: float, c: float, d: float) -> tuple[floa
 
     # First root
     if abs(cbrt_arg1) > 1e-15:
-        C = cbrt_arg1 ** (1 / 3) if cbrt_arg1 > 0 else -abs(cbrt_arg1) ** (1 / 3)
+        C = cbrt_arg1 ** (1 / 3) if cbrt_arg1 > 0 else -(abs(cbrt_arg1) ** (1 / 3))
         if abs(C) > 1e-15:
             t1 = C - A / (3 * C)
         else:
@@ -136,9 +136,7 @@ def solve_cubic_numpy(a: float, b: float, c: float, d: float) -> tuple[float, ..
     roots_complex = np.roots(coefficients)
 
     # Extract real roots (imaginary part < 1e-10)
-    real_roots = [
-        float(r.real) for r in roots_complex if abs(r.imag) < 1e-10
-    ]
+    real_roots = [float(r.real) for r in roots_complex if abs(r.imag) < 1e-10]
 
     return tuple(sorted(real_roots))
 

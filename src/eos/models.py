@@ -42,9 +42,7 @@ class Mixture(BaseModel):
 
         total = sum(v)
         if abs(total - 1.0) > 1e-6:
-            raise ValueError(
-                f"mole_fractions sum to {total}, must be 1.0±1e-6"
-            )
+            raise ValueError(f"mole_fractions sum to {total}, must be 1.0±1e-6")
 
         return v
 

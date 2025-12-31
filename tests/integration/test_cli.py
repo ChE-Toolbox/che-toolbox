@@ -11,7 +11,17 @@ class TestCLIZFactor:
     def test_z_factor_text_output(self) -> None:
         """Test z-factor command with text output."""
         result = subprocess.run(
-            [sys.executable, "-m", "src.cli.pr_calc", "z-factor", "methane", "-T", "300", "-P", "50"],
+            [
+                sys.executable,
+                "-m",
+                "src.cli.pr_calc",
+                "z-factor",
+                "methane",
+                "-T",
+                "300",
+                "-P",
+                "50",
+            ],
             capture_output=True,
             text=True,
         )
@@ -53,7 +63,17 @@ class TestCLIZFactor:
     def test_z_factor_invalid_compound(self) -> None:
         """Test z-factor with invalid compound."""
         result = subprocess.run(
-            [sys.executable, "-m", "src.cli.pr_calc", "z-factor", "invalid", "-T", "300", "-P", "50"],
+            [
+                sys.executable,
+                "-m",
+                "src.cli.pr_calc",
+                "z-factor",
+                "invalid",
+                "-T",
+                "300",
+                "-P",
+                "50",
+            ],
             capture_output=True,
             text=True,
         )
@@ -68,7 +88,17 @@ class TestCLIFugacity:
     def test_fugacity_text_output(self) -> None:
         """Test fugacity command with text output."""
         result = subprocess.run(
-            [sys.executable, "-m", "src.cli.pr_calc", "fugacity", "ethane", "-T", "350", "-P", "30"],
+            [
+                sys.executable,
+                "-m",
+                "src.cli.pr_calc",
+                "fugacity",
+                "ethane",
+                "-T",
+                "350",
+                "-P",
+                "30",
+            ],
             capture_output=True,
             text=True,
         )

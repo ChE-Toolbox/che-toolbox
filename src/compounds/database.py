@@ -88,9 +88,7 @@ class CompoundDatabase:
     def save(self) -> None:
         """Save database to JSON file."""
         compounds_data = [
-            c.model_dump() for c in sorted(
-                self._compounds.values(), key=lambda c: c.name
-            )
+            c.model_dump() for c in sorted(self._compounds.values(), key=lambda c: c.name)
         ]
         with open(self.db_path, "w") as f:
             json.dump(compounds_data, f, indent=2)

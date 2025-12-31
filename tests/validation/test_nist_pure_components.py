@@ -27,7 +27,9 @@ def nist_loader() -> NISTDataLoader:
 
 
 @pytest.fixture
-def validator(eos: PengRobinsonEOS, db: CompoundDatabase, nist_loader: NISTDataLoader) -> NISTValidation:
+def validator(
+    eos: PengRobinsonEOS, db: CompoundDatabase, nist_loader: NISTDataLoader
+) -> NISTValidation:
     """Create NIST validator."""
     return NISTValidation(eos=eos, db=db, nist_loader=nist_loader)
 

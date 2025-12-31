@@ -16,9 +16,7 @@ def test_ethane_critical_temperature() -> None:
     Tolerance: ±0.01%
     """
     ethane = get_compound("ethane")
-    assert ethane.critical_properties.temperature.magnitude == pytest.approx(
-        305.32, rel=1e-4
-    )
+    assert ethane.critical_properties.temperature.magnitude == pytest.approx(305.32, rel=1e-4)
 
 
 @pytest.mark.validation
@@ -29,9 +27,7 @@ def test_ethane_critical_pressure() -> None:
     Tolerance: ±0.01%
     """
     ethane = get_compound("ethane")
-    assert ethane.critical_properties.pressure.magnitude == pytest.approx(
-        4872200, rel=1e-4
-    )
+    assert ethane.critical_properties.pressure.magnitude == pytest.approx(4872200, rel=1e-4)
 
 
 @pytest.mark.validation

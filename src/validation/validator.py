@@ -175,7 +175,9 @@ class NISTValidation:
             if expected_vapor_pressure == 0:
                 deviation = abs(calculated_psat - expected_vapor_pressure)
             else:
-                deviation = abs(calculated_psat - expected_vapor_pressure) / abs(expected_vapor_pressure)
+                deviation = abs(calculated_psat - expected_vapor_pressure) / abs(
+                    expected_vapor_pressure
+                )
 
             passed = deviation <= tolerance
             return passed, deviation, None
@@ -197,7 +199,9 @@ class NISTValidation:
         ValidationResult
             Validation result with calculated values and pass/fail status
         """
-        logger.debug(f"Validating {test_case.compound_name} at T={test_case.temperature}K, P={test_case.pressure}Pa")
+        logger.debug(
+            f"Validating {test_case.compound_name} at T={test_case.temperature}K, P={test_case.pressure}Pa"
+        )
 
         result = ValidationResult(test_case=test_case)
 
@@ -209,7 +213,9 @@ class NISTValidation:
 
             # Calculate Z factor if expected
             if test_case.expected_z_factor is not None:
-                z_factors = self.eos.calculate_z_factor(test_case.temperature, test_case.pressure, compound)
+                z_factors = self.eos.calculate_z_factor(
+                    test_case.temperature, test_case.pressure, compound
+                )
                 result.calculated_z_factor = z_factors[-1]
 
                 deviation = abs(result.calculated_z_factor - test_case.expected_z_factor) / abs(

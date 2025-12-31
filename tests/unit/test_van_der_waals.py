@@ -165,9 +165,7 @@ class TestCompressibilityFactor:
 
     def test_calculate_z_positive_output(self, vdw_eos):
         """Test calculate_Z returns positive Z-factor."""
-        Z = vdw_eos.calculate_Z(
-            pressure=5e6, temperature=300, v_molar=1e-4
-        )
+        Z = vdw_eos.calculate_Z(pressure=5e6, temperature=300, v_molar=1e-4)
         assert Z > 0
         assert isinstance(Z, float)
 

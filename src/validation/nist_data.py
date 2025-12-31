@@ -76,10 +76,7 @@ class NISTDataLoader:
         if not self.data_dir.exists():
             return []
 
-        compounds = [
-            f.stem for f in self.data_dir.glob("*.json")
-            if f.is_file()
-        ]
+        compounds = [f.stem for f in self.data_dir.glob("*.json") if f.is_file()]
         logger.debug(f"Found {len(compounds)} compounds with NIST data: {compounds}")
         return sorted(compounds)
 
@@ -133,9 +130,7 @@ class NISTDataLoader:
                 return None
 
             pressures = [
-                float(d["pressure"])
-                for d in data
-                if "pressure" in d and d["pressure"] is not None
+                float(d["pressure"]) for d in data if "pressure" in d and d["pressure"] is not None
             ]
             if not pressures:
                 return None

@@ -9,13 +9,9 @@ class Compound(BaseModel):
     name: str = Field(..., description="Compound name")
     cas_number: str = Field(..., description="CAS registry number")
     molecular_weight: float = Field(..., gt=0, description="Molecular weight in g/mol")
-    tc: float = Field(
-        ..., gt=0, description="Critical temperature in K"
-    )
+    tc: float = Field(..., gt=0, description="Critical temperature in K")
     pc: float = Field(..., gt=0, description="Critical pressure in Pa")
-    acentric_factor: float = Field(
-        ..., ge=-1, le=2, description="Acentric factor ω (-1 < ω < 2)"
-    )
+    acentric_factor: float = Field(..., ge=-1, le=2, description="Acentric factor ω (-1 < ω < 2)")
 
     @field_validator("acentric_factor")
     @classmethod

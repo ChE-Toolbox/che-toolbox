@@ -164,9 +164,7 @@ class TestThermodnamicState:
 
     def test_calculate_state_returns_valid_state(self, ideal_gas, methane):
         """Test calculate_state returns valid ThermodynamicState."""
-        state = ideal_gas.calculate_state(
-            compound=methane, temperature=300, pressure=1e5, n=1.0
-        )
+        state = ideal_gas.calculate_state(compound=methane, temperature=300, pressure=1e5, n=1.0)
         assert state.T == 300
         assert state.P == 1e5
         assert state.n == 1.0
@@ -192,9 +190,7 @@ class TestThermodnamicState:
 
     def test_calculate_state_without_compound(self, ideal_gas):
         """Test calculate_state works without compound (compound is unused)."""
-        state = ideal_gas.calculate_state(
-            compound=None, temperature=350, pressure=2e5, n=1.5
-        )
+        state = ideal_gas.calculate_state(compound=None, temperature=350, pressure=2e5, n=1.5)
         assert state.T == 350
         assert state.P == 2e5
         assert state.n == 1.5

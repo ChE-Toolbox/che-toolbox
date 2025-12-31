@@ -228,7 +228,10 @@ def main() -> None:
     }
 
     # Write to JSON file
-    output_path = Path(__file__).parent.parent / "packages/core/src/chemeng_core/data/compounds/compounds.json"
+    output_path = (
+        Path(__file__).parent.parent
+        / "packages/core/src/chemeng_core/data/compounds/compounds.json"
+    )
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     with output_path.open("w", encoding="utf-8") as f:

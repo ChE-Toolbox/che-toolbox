@@ -88,9 +88,7 @@ def add_global_options(subparser: argparse.ArgumentParser) -> None:
         default="text",
         help="Output format (default: text)",
     )
-    subparser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose logging"
-    )
+    subparser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging")
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -100,29 +98,19 @@ def create_parser() -> argparse.ArgumentParser:
         description="PT Flash vapor-liquid equilibrium calculations",
     )
 
-    parser.add_argument(
-        "--version", action="version", version="%(prog)s 1.0.0"
-    )
+    parser.add_argument("--version", action="version", version="%(prog)s 1.0.0")
 
     # Subcommands
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # calculate command
-    calc_parser = subparsers.add_parser(
-        "calculate", help="Calculate vapor-liquid equilibrium"
-    )
-    calc_parser.add_argument(
-        "compound1", help="First compound name"
-    )
-    calc_parser.add_argument(
-        "compound2", help="Second compound name"
-    )
+    calc_parser = subparsers.add_parser("calculate", help="Calculate vapor-liquid equilibrium")
+    calc_parser.add_argument("compound1", help="First compound name")
+    calc_parser.add_argument("compound2", help="Second compound name")
     calc_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature in K"
     )
-    calc_parser.add_argument(
-        "--pressure", "-P", type=float, required=True, help="Pressure in bar"
-    )
+    calc_parser.add_argument("--pressure", "-P", type=float, required=True, help="Pressure in bar")
     calc_parser.add_argument(
         "--z1", type=float, required=True, help="Mole fraction of first compound (0-1)"
     )
@@ -314,15 +302,15 @@ def handle_validate(args: argparse.Namespace) -> int:
             # Check results
             L_error = abs(result.L - cast(float, case["expected_L"]))
             V_error = abs(result.V - cast(float, case["expected_V"]))
-            material_balance_error = float(np.max(
-                np.abs((result.L * result.x + result.V * result.y) - np.array(case["z"]))
-            ))
+            material_balance_error = float(
+                np.max(np.abs((result.L * result.x + result.V * result.y) - np.array(case["z"])))
+            )
 
             passed = (
-                result.convergence == FlashConvergence.SUCCESS and
-                L_error < 0.05 and  # ±5% tolerance
-                V_error < 0.05 and
-                material_balance_error < 1e-6
+                result.convergence == FlashConvergence.SUCCESS
+                and L_error < 0.05  # ±5% tolerance
+                and V_error < 0.05
+                and material_balance_error < 1e-6
             )
 
             all_passed = all_passed and passed
@@ -353,8 +341,12 @@ def handle_validate(args: argparse.Namespace) -> int:
                 status = "PASS" if res["passed"] else "FAIL"
                 print(f"\nTest Case: {case_name} [{status}]")
                 print(f"  Convergence: {res['convergence']}")
-                print(f"  L: {res['L_calc']:.4f} (ref: {res['L_ref']:.4f}, error: {res['L_error']:.4f})")
-                print(f"  V: {res['V_calc']:.4f} (ref: {res['V_ref']:.4f}, error: {res['V_error']:.4f})")
+                print(
+                    f"  L: {res['L_calc']:.4f} (ref: {res['L_ref']:.4f}, error: {res['L_error']:.4f})"
+                )
+                print(
+                    f"  V: {res['V_calc']:.4f} (ref: {res['V_ref']:.4f}, error: {res['V_error']:.4f})"
+                )
                 print(f"  Material Balance Error: {res['material_balance_error']:.2e}")
 
             print(f"\nOverall: {'ALL PASSED' if all_passed else 'SOME FAILED'}")
@@ -381,7 +373,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     # Set logging level
-    if hasattr(args, 'verbose') and args.verbose:
+    if hasattr(args, "verbose") and args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
     # Dispatch to command handler

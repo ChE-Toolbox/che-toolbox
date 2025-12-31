@@ -95,9 +95,7 @@ def add_global_options(subparser: argparse.ArgumentParser) -> None:
         default="text",
         help="Output format (default: text)",
     )
-    subparser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose logging"
-    )
+    subparser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging")
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -107,17 +105,13 @@ def create_parser() -> argparse.ArgumentParser:
         description="Van der Waals EOS thermodynamic calculations",
     )
 
-    parser.add_argument(
-        "--version", action="version", version="%(prog)s 1.0.0"
-    )
+    parser.add_argument("--version", action="version", version="%(prog)s 1.0.0")
 
     # Subcommands
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # volume command
-    volume_parser = subparsers.add_parser(
-        "volume", help="Calculate molar volume"
-    )
+    volume_parser = subparsers.add_parser("volume", help="Calculate molar volume")
     volume_parser.add_argument("compound", help="Compound name")
     volume_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature in K"
@@ -128,9 +122,7 @@ def create_parser() -> argparse.ArgumentParser:
     add_global_options(volume_parser)
 
     # z-factor command
-    z_factor_parser = subparsers.add_parser(
-        "z-factor", help="Calculate compressibility factor"
-    )
+    z_factor_parser = subparsers.add_parser("z-factor", help="Calculate compressibility factor")
     z_factor_parser.add_argument("compound", help="Compound name")
     z_factor_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature in K"
@@ -141,9 +133,7 @@ def create_parser() -> argparse.ArgumentParser:
     add_global_options(z_factor_parser)
 
     # compare command
-    compare_parser = subparsers.add_parser(
-        "compare", help="Compare with other EOS models"
-    )
+    compare_parser = subparsers.add_parser("compare", help="Compare with other EOS models")
     compare_parser.add_argument("compound", help="Compound name")
     compare_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature in K"
@@ -263,9 +253,9 @@ def handle_compare(args: argparse.Namespace) -> int:
                 "temperature": CLIFormatter.format_quantity(args.temperature, "K"),
                 "pressure": CLIFormatter.format_quantity(args.pressure, "bar"),
                 "z_factors": {
-                    "ideal_gas": round(results['ideal_Z'], 6),
-                    "van_der_waals": round(results['vdw_Z'], 6),
-                    "peng_robinson": round(results['pr_Z'], 6),
+                    "ideal_gas": round(results["ideal_Z"], 6),
+                    "van_der_waals": round(results["vdw_Z"], 6),
+                    "peng_robinson": round(results["pr_Z"], 6),
                 },
             }
             print(json.dumps(output, indent=2))
@@ -274,9 +264,9 @@ def handle_compare(args: argparse.Namespace) -> int:
                 args.compound,
                 args.temperature,
                 args.pressure,
-                results['ideal_Z'],
-                results['vdw_Z'],
-                results['pr_Z'],
+                results["ideal_Z"],
+                results["vdw_Z"],
+                results["pr_Z"],
             )
             print(text)
 
@@ -305,9 +295,7 @@ def handle_list_compounds(args: argparse.Namespace) -> int:
                         "cas_number": c.cas_number,
                         "molecular_weight": round(c.molecular_weight, 3),
                         "critical_temperature": CLIFormatter.format_quantity(c.tc, "K"),
-                        "critical_pressure": CLIFormatter.format_quantity(
-                            c.pc / 100000.0, "bar"
-                        ),
+                        "critical_pressure": CLIFormatter.format_quantity(c.pc / 100000.0, "bar"),
                         "acentric_factor": round(c.acentric_factor, 3),
                     }
                     for c in compounds
@@ -350,7 +338,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     # Set logging level
-    if hasattr(args, 'verbose') and args.verbose:
+    if hasattr(args, "verbose") and args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
     # Dispatch to command handler

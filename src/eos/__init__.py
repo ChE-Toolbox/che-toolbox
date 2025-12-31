@@ -83,9 +83,9 @@ def compare_compressibility_factors(
         raise ValueError(f"Temperature must be positive, got {temperature}")
     if pressure <= 0:
         raise ValueError(f"Pressure must be positive, got {pressure}")
-    if not hasattr(compound, 'tc') or compound.tc <= 0:
+    if not hasattr(compound, "tc") or compound.tc <= 0:
         raise ValueError("Compound must have valid critical temperature (tc)")
-    if not hasattr(compound, 'pc') or compound.pc <= 0:
+    if not hasattr(compound, "pc") or compound.pc <= 0:
         raise ValueError("Compound must have valid critical pressure (pc)")
 
     # Initialize EOS solvers
@@ -106,7 +106,7 @@ def compare_compressibility_factors(
     pr_Z = pr_z_factors[-1]
 
     return {
-        'ideal_Z': ideal_Z,
-        'vdw_Z': vdw_Z,
-        'pr_Z': pr_Z,
+        "ideal_Z": ideal_Z,
+        "vdw_Z": vdw_Z,
+        "pr_Z": pr_Z,
     }

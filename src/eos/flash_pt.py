@@ -134,9 +134,7 @@ class FlashPT:
             feed_composition = np.array(feed_composition)
 
         if abs(np.sum(feed_composition) - 1.0) > 1e-6:
-            raise ValueError(
-                f"Feed composition must sum to 1.0, got {np.sum(feed_composition)}"
-            )
+            raise ValueError(f"Feed composition must sum to 1.0, got {np.sum(feed_composition)}")
 
         if temperature <= 0:
             raise ValueError(f"Temperature must be positive, got {temperature}")
@@ -144,9 +142,7 @@ class FlashPT:
             raise ValueError(f"Pressure must be positive, got {pressure}")
 
         n_comp = len(feed_composition)
-        logger.debug(
-            f"Starting PT flash: {n_comp} components, T={temperature}K, P={pressure}Pa"
-        )
+        logger.debug(f"Starting PT flash: {n_comp} components, T={temperature}K, P={pressure}Pa")
 
         # Check for single-phase conditions
         single_phase_result = self._check_single_phase(
@@ -185,9 +181,7 @@ class FlashPT:
 
                 # Validate material balance
                 L = 1.0 - V
-                material_balance_error = np.max(
-                    np.abs(feed_composition - (L * x + V * y))
-                )
+                material_balance_error = np.max(np.abs(feed_composition - (L * x + V * y)))
 
                 return FlashResult(
                     L=L,
@@ -206,9 +200,7 @@ class FlashPT:
             K_values = self._update_K_values(K_values, x, y, feed_composition)
 
         # Max iterations exceeded
-        logger.warning(
-            f"Flash did not converge within {self.max_iterations} iterations"
-        )
+        logger.warning(f"Flash did not converge within {self.max_iterations} iterations")
         return FlashResult(
             L=np.nan,
             V=np.nan,
@@ -300,26 +292,23 @@ class FlashPT:
         logger.debug(f"Initialized K-values: {K_values}")
         return K_values
 
-    def _solve_rachford_rice(
-        self, feed_composition: np.ndarray, K_values: np.ndarray
-    ) -> float:
+    def _solve_rachford_rice(self, feed_composition: np.ndarray, K_values: np.ndarray) -> float:
         """Solve Rachford-Rice equation for vapor fraction V.
 
         RR equation: sum_i(z_i * (K_i - 1) / (1 + V * (K_i - 1))) = 0
 
         Uses Newton-Raphson iteration to solve for V.
         """
+
         def rachford_rice_equation(V: float) -> float:
             """RR equation as function of V."""
             return float(np.sum(feed_composition * (K_values - 1) / (1 + V * (K_values - 1))))
 
         def rachford_rice_derivative(V: float) -> float:
             """Derivative of RR equation w.r.t. V."""
-            return float(-np.sum(
-                feed_composition
-                * (K_values - 1) ** 2
-                / (1 + V * (K_values - 1)) ** 2
-            ))
+            return float(
+                -np.sum(feed_composition * (K_values - 1) ** 2 / (1 + V * (K_values - 1)) ** 2)
+            )
 
         # Newton-Raphson starting from V=0.5
         V = 0.5
@@ -356,9 +345,7 @@ class FlashPT:
 
         return K_new
 
-    def _return_single_phase_result(
-        self, feed_composition: np.ndarray, V: float
-    ) -> FlashResult:
+    def _return_single_phase_result(self, feed_composition: np.ndarray, V: float) -> FlashResult:
         """Return single-phase result when RR produces V outside [0, 1]."""
         n_comp = len(feed_composition)
 

@@ -16,9 +16,7 @@ def test_co2_critical_temperature() -> None:
     Tolerance: ±0.01%
     """
     co2 = get_compound("CO2")
-    assert co2.critical_properties.temperature.magnitude == pytest.approx(
-        304.128, rel=1e-4
-    )
+    assert co2.critical_properties.temperature.magnitude == pytest.approx(304.128, rel=1e-4)
 
 
 @pytest.mark.validation

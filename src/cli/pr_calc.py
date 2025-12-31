@@ -139,9 +139,7 @@ def add_global_options(subparser: argparse.ArgumentParser) -> None:
         default="bar",
         help="Pressure unit for output (default: bar)",
     )
-    subparser.add_argument(
-        "--verbose", "-v", action="store_true", help="Enable verbose logging"
-    )
+    subparser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose logging")
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -151,17 +149,13 @@ def create_parser() -> argparse.ArgumentParser:
         description="Peng-Robinson EOS thermodynamic calculations",
     )
 
-    parser.add_argument(
-        "--version", action="version", version="%(prog)s 1.0.0"
-    )
+    parser.add_argument("--version", action="version", version="%(prog)s 1.0.0")
 
     # Subcommands
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
     # z-factor command
-    z_factor_parser = subparsers.add_parser(
-        "z-factor", help="Calculate compressibility factor"
-    )
+    z_factor_parser = subparsers.add_parser("z-factor", help="Calculate compressibility factor")
     z_factor_parser.add_argument("compound", help="Compound name or mixture JSON path")
     z_factor_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature value"
@@ -169,9 +163,7 @@ def create_parser() -> argparse.ArgumentParser:
     z_factor_parser.add_argument(
         "--pressure", "-P", type=float, required=True, help="Pressure value"
     )
-    z_factor_parser.add_argument(
-        "--temp-unit", default="K", help="Temperature unit (default: K)"
-    )
+    z_factor_parser.add_argument("--temp-unit", default="K", help="Temperature unit (default: K)")
     z_factor_parser.add_argument(
         "--pressure-unit", default="bar", help="Pressure unit (default: bar)"
     )
@@ -184,9 +176,7 @@ def create_parser() -> argparse.ArgumentParser:
     add_global_options(z_factor_parser)
 
     # fugacity command
-    fugacity_parser = subparsers.add_parser(
-        "fugacity", help="Calculate fugacity coefficient"
-    )
+    fugacity_parser = subparsers.add_parser("fugacity", help="Calculate fugacity coefficient")
     fugacity_parser.add_argument("compound", help="Compound name or mixture JSON path")
     fugacity_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature value"
@@ -194,9 +184,7 @@ def create_parser() -> argparse.ArgumentParser:
     fugacity_parser.add_argument(
         "--pressure", "-P", type=float, required=True, help="Pressure value"
     )
-    fugacity_parser.add_argument(
-        "--temp-unit", default="K", help="Temperature unit (default: K)"
-    )
+    fugacity_parser.add_argument("--temp-unit", default="K", help="Temperature unit (default: K)")
     fugacity_parser.add_argument(
         "--pressure-unit", default="bar", help="Pressure unit (default: bar)"
     )
@@ -209,16 +197,12 @@ def create_parser() -> argparse.ArgumentParser:
 
     add_global_options(fugacity_parser)
     # vapor-pressure command
-    vp_parser = subparsers.add_parser(
-        "vapor-pressure", help="Calculate vapor pressure"
-    )
+    vp_parser = subparsers.add_parser("vapor-pressure", help="Calculate vapor pressure")
     vp_parser.add_argument("compound", help="Pure compound name")
     vp_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature value"
     )
-    vp_parser.add_argument(
-        "--temp-unit", default="K", help="Temperature unit (default: K)"
-    )
+    vp_parser.add_argument("--temp-unit", default="K", help="Temperature unit (default: K)")
 
     add_global_options(vp_parser)
     # state command
@@ -227,21 +211,13 @@ def create_parser() -> argparse.ArgumentParser:
     state_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature value"
     )
-    state_parser.add_argument(
-        "--pressure", "-P", type=float, required=True, help="Pressure value"
-    )
-    state_parser.add_argument(
-        "--temp-unit", default="K", help="Temperature unit (default: K)"
-    )
-    state_parser.add_argument(
-        "--pressure-unit", default="bar", help="Pressure unit (default: bar)"
-    )
+    state_parser.add_argument("--pressure", "-P", type=float, required=True, help="Pressure value")
+    state_parser.add_argument("--temp-unit", default="K", help="Temperature unit (default: K)")
+    state_parser.add_argument("--pressure-unit", default="bar", help="Pressure unit (default: bar)")
 
     add_global_options(state_parser)
     # mixture command
-    mixture_parser = subparsers.add_parser(
-        "mixture", help="Calculate mixture properties"
-    )
+    mixture_parser = subparsers.add_parser("mixture", help="Calculate mixture properties")
     mixture_parser.add_argument("mixture_file", help="Path to mixture JSON file")
     mixture_parser.add_argument(
         "--temperature", "-T", type=float, required=True, help="Temperature value"
@@ -249,18 +225,14 @@ def create_parser() -> argparse.ArgumentParser:
     mixture_parser.add_argument(
         "--pressure", "-P", type=float, required=True, help="Pressure value"
     )
-    mixture_parser.add_argument(
-        "--temp-unit", default="K", help="Temperature unit (default: K)"
-    )
+    mixture_parser.add_argument("--temp-unit", default="K", help="Temperature unit (default: K)")
     mixture_parser.add_argument(
         "--pressure-unit", default="bar", help="Pressure unit (default: bar)"
     )
 
     add_global_options(mixture_parser)
     # validate command
-    validate_parser = subparsers.add_parser(
-        "validate", help="Run NIST validation tests"
-    )
+    validate_parser = subparsers.add_parser("validate", help="Run NIST validation tests")
     validate_parser.add_argument(
         "compound", nargs="?", default=None, help="Specific compound to validate"
     )
@@ -270,9 +242,7 @@ def create_parser() -> argparse.ArgumentParser:
         default="all",
         help="Property to validate (default: all)",
     )
-    validate_parser.add_argument(
-        "--report", help="Path to save detailed validation report"
-    )
+    validate_parser.add_argument("--report", help="Path to save detailed validation report")
 
     add_global_options(validate_parser)
     # list-compounds command
@@ -399,9 +369,7 @@ def handle_vapor_pressure(args: argparse.Namespace) -> int:
             output = {
                 "compound": args.compound,
                 "temperature": CLIFormatter.format_quantity(args.temperature, "K"),
-                "critical_temperature": CLIFormatter.format_quantity(
-                    compound.tc, "K"
-                ),
+                "critical_temperature": CLIFormatter.format_quantity(compound.tc, "K"),
                 "vapor_pressure": CLIFormatter.format_quantity(vapor_pressure_bar, "bar"),
             }
             print(json.dumps(output, indent=2))
@@ -543,7 +511,7 @@ def handle_mixture(args: argparse.Namespace) -> int:
             print(f"Mixture: {mixture_data.get('name', 'unknown')}")
             print("Components:")
             for comp in mixture_data["components"]:
-                print(f"  {comp['name']:<12} ({comp['mole_fraction']*100:.1f}%)")
+                print(f"  {comp['name']:<12} ({comp['mole_fraction'] * 100:.1f}%)")
             print(f"\nTemperature: {args.temperature:.2f} K")
             print(f"Pressure: {args.pressure:.2f} bar")
             phase_value = state.phase.value if state.phase else "unknown"
@@ -579,6 +547,7 @@ def handle_validate(args: argparse.Namespace) -> int:
 
         if args.output_format == "json":
             from typing import Any
+
             output: dict[str, Any] = {"validation_results": {}}
 
             for compound_name in compounds:
@@ -590,7 +559,11 @@ def handle_validate(args: argparse.Namespace) -> int:
                     compound_total = 0
 
                     for test_case in test_data:
-                        if "temperature" in test_case and "pressure" in test_case and "z_factor" in test_case:
+                        if (
+                            "temperature" in test_case
+                            and "pressure" in test_case
+                            and "z_factor" in test_case
+                        ):
                             passed, _deviation, _error = validator.validate_z_factor(
                                 float(test_case["temperature"]),
                                 float(test_case["pressure"]),
@@ -608,7 +581,9 @@ def handle_validate(args: argparse.Namespace) -> int:
                         "z_factor": {
                             "passed": compound_passed,
                             "total": compound_total,
-                            "pass_rate": round(compound_passed / compound_total if compound_total > 0 else 0, 3),
+                            "pass_rate": round(
+                                compound_passed / compound_total if compound_total > 0 else 0, 3
+                            ),
                         }
                     }
                 except Exception:
@@ -619,9 +594,7 @@ def handle_validate(args: argparse.Namespace) -> int:
             output["validation_results"]["overall"] = {
                 "passed": total_passed,
                 "total": total_tests,
-                "pass_rate": round(
-                    total_passed / total_tests if total_tests > 0 else 0, 3
-                ),
+                "pass_rate": round(total_passed / total_tests if total_tests > 0 else 0, 3),
             }
 
             print(json.dumps(output, indent=2))
@@ -638,7 +611,11 @@ def handle_validate(args: argparse.Namespace) -> int:
                     compound_total = 0
 
                     for test_case in test_data:
-                        if "temperature" in test_case and "pressure" in test_case and "z_factor" in test_case:
+                        if (
+                            "temperature" in test_case
+                            and "pressure" in test_case
+                            and "z_factor" in test_case
+                        ):
                             passed, _deviation, _error = validator.validate_z_factor(
                                 float(test_case["temperature"]),
                                 float(test_case["pressure"]),
@@ -654,14 +631,14 @@ def handle_validate(args: argparse.Namespace) -> int:
 
                     z_rate = (compound_passed / compound_total * 100) if compound_total > 0 else 0
                     print(f"\nCompound: {compound_name}")
-                    print(f"  Z factor: {compound_passed} / {compound_total} tests passed ({z_rate:.1f}%)")
+                    print(
+                        f"  Z factor: {compound_passed} / {compound_total} tests passed ({z_rate:.1f}%)"
+                    )
                 except Exception:
                     print(f"\nCompound: {compound_name}")
                     print("  Z factor: 0 / 0 tests passed (0.0%)")
 
-            overall_rate = (
-                (total_passed / total_tests * 100) if total_tests > 0 else 0
-            )
+            overall_rate = (total_passed / total_tests * 100) if total_tests > 0 else 0
             print(f"\nOverall: {total_passed} / {total_tests} tests passed ({overall_rate:.1f}%)")
 
         return 0 if total_passed == total_tests else 4
@@ -686,9 +663,7 @@ def handle_list_compounds(args: argparse.Namespace) -> int:
                         "cas_number": c.cas_number,
                         "molecular_weight": round(c.molecular_weight, 3),
                         "critical_temperature": CLIFormatter.format_quantity(c.tc, "K"),
-                        "critical_pressure": CLIFormatter.format_quantity(
-                            c.pc / 100000.0, "bar"
-                        ),
+                        "critical_pressure": CLIFormatter.format_quantity(c.pc / 100000.0, "bar"),
                         "acentric_factor": round(c.acentric_factor, 3),
                     }
                     for c in compounds

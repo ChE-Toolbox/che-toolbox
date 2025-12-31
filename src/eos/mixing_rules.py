@@ -48,9 +48,7 @@ def calculate_a_mix(
 
     for i, row in enumerate(kij_matrix):
         if len(row) != n_components:
-            raise ValueError(
-                f"kij_matrix row {i} has length {len(row)}, expected {n_components}"
-            )
+            raise ValueError(f"kij_matrix row {i} has length {len(row)}, expected {n_components}")
 
     # Validate mole fractions
     total = sum(mole_fractions)
@@ -134,9 +132,7 @@ def validate_kij_matrix(kij_matrix: list[list[float]], n_components: int) -> Non
 
     for i, row in enumerate(kij_matrix):
         if len(row) != n_components:
-            raise ValueError(
-                f"Matrix row {i} has length {len(row)}, expected {n_components}"
-            )
+            raise ValueError(f"Matrix row {i} has length {len(row)}, expected {n_components}")
 
         for j, kij in enumerate(row):
             # Check bounds
